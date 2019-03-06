@@ -1,7 +1,11 @@
 package nordgym.domain.models.binding;
 
 import nordgym.annotation.UniqueUser;
+import nordgym.domain.entities.SolariumSubscription;
+import nordgym.domain.entities.Subscription;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -10,6 +14,7 @@ public class UserRegisterBindingModel {
     private String firstName;
     private String lastName;
     private String subscription;
+    private SolariumSubscription solariumSubscription;
     private String profileImagePath;
     private String username;
     private String password;
@@ -41,6 +46,10 @@ public class UserRegisterBindingModel {
     @NotNull(message = "Subscription can not be empty")
     public String getSubscription() {
         return subscription;
+    }
+
+    public SolariumSubscription getSolariumSubscription() {
+        return solariumSubscription;
     }
 
     public String getProfileImagePath() {
@@ -79,9 +88,14 @@ public class UserRegisterBindingModel {
         this.subscription = subscription;
     }
 
+    public void setSolariumSubscription(SolariumSubscription solariumSubscription) {
+        this.solariumSubscription = solariumSubscription;
+    }
+
     public void setProfileImagePath(String profileImage) {
         this.profileImagePath = profileImage;
     }
+
     public void setUsername(String username) {
         this.username = username;
     }

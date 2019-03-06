@@ -1,11 +1,12 @@
 package nordgym.web.controllers;
 
 import nordgym.domain.models.binding.UserRegisterBindingModel;
+import nordgym.domain.models.service.UserServiceModel;
 import nordgym.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -21,12 +22,13 @@ import java.util.Objects;
 public class RegisterController extends BaseController {
     private final static String IMAGE_PATH = "C:\\Users\\Nike\\Desktop\\Softuni Projects\\nordgymproject\\src\\main\\resources\\static\\images\\";
     private final UserService userService;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final ModelMapper modelMapper;
+
 
     @Autowired
-    public RegisterController(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public RegisterController(UserService userService, ModelMapper modelMapper) {
         this.userService = userService;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping("/register")
@@ -45,7 +47,7 @@ public class RegisterController extends BaseController {
             return this.view("register");
         }
         if (bindingResult.hasErrors()) {
-            return this.view("register");
+            return this.redirect("/register");
         }
         if (!Objects.requireNonNull(image.getOriginalFilename()).isEmpty()) {
             File dest = new File(IMAGE_PATH + image.getOriginalFilename());
@@ -54,7 +56,7 @@ public class RegisterController extends BaseController {
         }else {
             userRegisterBindingModel.setProfileImagePath("avatar.jpg");
         }
-        this.userService.createUser(userRegisterBindingModel);
+        this.userService.createUser(this.modelMapper.map(userRegisterBindingModel, UserServiceModel.class),userRegisterBindingModel.getSubscription());
         return this.redirect("/home");
     }
 

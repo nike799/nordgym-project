@@ -52,7 +52,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
-                        <label for="username"><b>Патребителско име</b></label>
+                        <label for="username"><b>Потребителско име</b></label>
                         <input type="text" placeholder="Въведи потребителско име" id="username" name="username">
                         <small th:classappend="${#fields.hasErrors('username')} ? 'alert alert-danger'"
                                th:each="error : ${#fields.errors('username')}" th:text="${error}"></small>
@@ -65,7 +65,7 @@
                     </div>
                     <div class="form-group">
                         <label for="confirm-password"><b>Потвърди парола</b></label>
-                        <input type="password" placeholder="Повтори въведената парола" id="confirm-password"
+                        <input type="password" placeholder="Повтори паролата" id="confirm-password"
                                name="confirmPassword">
                         <small th:classappend="${#fields.hasErrors('confirmPassword')} ? 'alert alert-danger'"
                                th:each="error : ${#fields.errors('confirmPassword')}" th:text="${error}"></small>

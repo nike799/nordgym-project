@@ -67,7 +67,7 @@ public class User extends BaseEntity implements UserDetails {
     }
 
     @Override
-    @Column(name = "username")
+    @Column(name = "username",unique = true)
     public String getUsername() {
         return this.username;
     }

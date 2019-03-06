@@ -48,10 +48,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean createUser(UserRegisterBindingModel userRegisterBindingModel) {
-        User user = this.modelMapper.map(userRegisterBindingModel, User.class);
+    public boolean createUser(UserServiceModel userServiceModel,String subscriptionType) {
+        User user = this.modelMapper.map(userServiceModel, User.class);
         user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
-        Subscription subscription = createSubscription(userRegisterBindingModel.getSubscription());
+        Subscription subscription = createSubscription(subscriptionType);
         Role role = this.roleRepository.findByAuthority("USER");
         Set<Role> authorities = new HashSet<>() {{
             add(role);
