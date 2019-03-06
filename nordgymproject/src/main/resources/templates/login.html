@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <th:block th:replace="fragments/head"></th:block>
+    <link rel="stylesheet" href="/css/login-style.css">
+    <link rel="stylesheet" href="css/footer.css" th:href="@{css/footer.css}">
+</head>
+<body>
+<div class="container-fluid">
+<header>
+    <th:block th:replace="fragments/navbar-guest"></th:block>
+</header>
+<h2 align="center">Вход в системата</h2>
+
+<form method="post" th:action="@{/login}">
+    <div class="container">
+        <label for="uname"><b>Потребителско име</b></label>
+        <input type="text" placeholder="Въведи потребителско име" id="uname" name="username" required>
+
+        <label for="psw"><b>Парола</b></label>
+        <input type="password" placeholder="Въведи парола" id="psw" name="password" required>
+
+        <button type="submit">Вписване</button>
+
+        <label>
+            <input type="checkbox" checked="checked" name="remember"> Запомни ме
+        </label>
+
+    </div>
+</form>
+
+<th:block th:replace="fragments/footer::footer"></th:block>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

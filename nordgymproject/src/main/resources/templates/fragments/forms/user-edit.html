@@ -1,0 +1,96 @@
+<th:block th:fragment="user-edit">
+    <form class="form" method="post" th:action="@{/user-profile/__${userUpdateBindingModel.userId}__}" id="registrationForm">
+        <div class="form-group">
+            <div class="col-xs-6">
+                <label for="user_id"><h4>Потребител ID</h4></label>
+                <input type="text" class="form-control" name="userId" id="user_id"
+                       title="user's ID is unmodifiable"
+                       readonly="readonly"
+                       th:value="${userUpdateBindingModel.userId}">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-6">
+                <label for="subscription_number"><h4>Абонатен номер</h4></label>
+                <input type="text" class="form-control" name="subscriptionNumber"
+                       id="subscription_number"
+                       placeholder="Въведи абонатен номер" title="Change user's subscription number"
+                       th:value="${userUpdateBindingModel.subscriptionNumber}">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-6">
+                <label for="first_name"><h4>Име</h4></label>
+                <input type="text" class="form-control" name="firstName" id="first_name"
+                    placeholder="Въведи име"   title="Change user's first name"
+                       th:value="${userUpdateBindingModel.firstName}">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-6">
+                <label for="last_name"><h4>Фамилия</h4></label>
+                <input type="text" class="form-control" name="lastName" id="last_name"
+                      placeholder="Въведи фамилия" title="Change user's last name"
+                       th:value="${userUpdateBindingModel.lastName}">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-6">
+                <label for="mobile"><h4>Телефон</h4></label>
+                <input type="text" class="form-control" name="mobile" id="mobile"
+                       placeholder="Въведи мобилен номер" title="Change user's mobile number">
+            </div>
+        </div>
+        <div class="form-group">
+
+            <div class="col-xs-6">
+                <label for="email"><h4>Имейл</h4></label>
+                <input type="email" class="form-control" name="email" id="email"
+                       placeholder="Въведи валиден имейл" title="change user's email"
+                       th:value="${userUpdateBindingModel.email}">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-6">
+                <label for="username"><h4>Потребителско име</h4></label>
+                <input type="text" class="form-control" name="username" id="username"
+                       placeholder="Въведи потребителско име" title="change user's username"
+                       th:value="${userUpdateBindingModel.username}">
+            </div>
+        </div>
+        <div class="form-group">
+
+            <div class="col-xs-6">
+                <label for="location"><h4>Location</h4></label>
+                <input type="text" class="form-control" id="location"
+                       placeholder="Enter location" title="enter a location">
+            </div>
+        </div>
+        <div class="form-group">
+
+            <div class="col-xs-6">
+                <label for="password"><h4>Парола</h4></label>
+                <input type="password" class="form-control" name="password" id="password"
+                       placeholder="Въведи парола" title="Change user's password.">
+            </div>
+        </div>
+        <div class="form-group">
+
+            <div class="col-xs-6">
+                <label for="confirm_password"><h4>Потвърди паролата</h4></label>
+                <input type="password" class="form-control" name="confirmPassword" id="confirm_password"
+                       placeholder="Повтори въведената парола" title="Repeat the password">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-12">
+                <br>
+                <button class="btn btn-lg btn-success" type="submit"><i
+                        class="glyphicon glyphicon-ok-sign"></i> Запази
+                </button>
+                <button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Възстанови данните
+                </button>
+            </div>
+        </div>
+    </form>
+</th:block>

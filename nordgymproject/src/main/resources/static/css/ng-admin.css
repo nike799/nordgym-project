@@ -1,0 +1,10 @@
+body {
+    font-family: "Lato", sans-serif;
+    background-color: floralwhite;
+}
+#findUser {
+}
+#helloUser {
+    color: white;
+    margin-top: 8px;
+}

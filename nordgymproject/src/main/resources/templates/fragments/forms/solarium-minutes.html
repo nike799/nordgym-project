@@ -1,0 +1,34 @@
+<th:block th:fragment="solarium-minutes">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-lg-6">
+                <form method="post" th:action="@{/user-profile/__${userViewModel.id}__/add-minutes}">
+                    <br/>
+                    <label for="insert-minutes"><b>Въведи минути:</b></label>
+                    <input type="number" id="insert-minutes" name="minutes" required>
+                    <br/>
+                    <br/>
+                    <div>
+                        <input type="submit" class="btn btn-primary btn-sm btn-block" th:value="|Добави|">
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-6">
+                <form method="post" th:action="@{/user-profile/__${userViewModel.id}__/reduce-minutes}">
+                    <div class="form-group">
+                        <div class="row">
+                            <br/>
+                            <label for="reduce-minutes"><b>Намали минути:</b></label>
+                            <input type="number" id="reduce-minutes" name="minutes" required>
+                            <br/>
+                            <br/>
+                            <div>
+                                <input type="submit" class="btn btn-danger btn-sm btn-block" th:value="|Намали|">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</th:block>

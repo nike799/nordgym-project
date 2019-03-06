@@ -1,0 +1,36 @@
+body {
+    background-color: floralwhite;
+}
+
+#entriesInfo {
+    height: 400px;
+    overflow-y: scroll;
+    width: 100%;
+}
+
+input[type="submit"] {
+    width: 100%;
+    float: bottom;
+
+    font-size: 20px;
+    color: white;
+}
+
+input[type="number"] {
+    width: 100%;
+    height: 40px;
+    font-size: x-large;
+}
+
+#profileImage {
+    height: 200px;
+    width: 250px;
+}
+
+#helloUser {
+    color: white;
+    margin-top: 8px;
+}
+.text-muted{
+    background-color: #f5f5f5;
+}

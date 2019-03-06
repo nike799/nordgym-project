@@ -1,0 +1,85 @@
+<th:block th:fragment="user-register">
+    <form method="post" th:object="${userRegisterBindingModel}" enctype="multipart/form-data">
+        <div class="container">
+            <h1 align="center">Създай нов потребител</h1>
+            <hr>
+            <div>
+                <label for="profileImage">Избери снимка</label>
+                <input type='file' id="profileImage" name="profileImage" accept=".png, .jpg, .jpeg"/>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="subscriptionNumber"><b>Абонатен номер</b></label>
+                        <span class="red-star">★</span>
+                        <input type="text" placeholder="Въведи абонатен номерr" id="subscriptionNumber"
+                               name="subscriptionNumber" required>
+                        <small th:classappend="${#fields.hasErrors('subscriptionNumber')} ? 'alert alert-danger'"
+                               th:each="error : ${#fields.errors('subscriptionNumber')}" th:text="${error}"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="firstName"><b>Име </b></label>
+                        <span class="red-star">★</span>
+                        <input type="text" placeholder="Въведи име" id="firstName" name="firstName" required>
+                        <small th:classappend="${#fields.hasErrors('firstName')} ? 'alert alert-danger'"
+                               th:each="error : ${#fields.errors('firstName')}" th:text="${error}"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName"><b>Фамилия</b></label>
+                        <span class="red-star">★</span>
+                        <input type="text" placeholder="Въведи фамилия" id="lastName" name="lastName" required>
+                        <small th:classappend="${#fields.hasErrors('lastName')} ? 'alert alert-danger'"
+                               th:each="error : ${#fields.errors('lastName')}" th:text="${error}"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="subscription"><b>Абонамент:</b></label>
+                        <span class="red-star">★</span>
+                        <select class="form-control" id="subscription" name="subscription">
+                            <option selected disabled>Избери абонамент</option>
+                            <option value="SIX_ENTRIES">6 ПОСЕЩЕНИЯ</option>
+                            <option value="EIGHT_ENTRIES">8 ПОСЕЩЕНИЯ</option>
+                            <option value="TWELVE_ENTRIES">12 ПОСЕЩЕНИЯ</option>
+                            <option value="SIXTEEN_ENTRIES">16 ПОСЕЩЕНИЯ</option>
+                            <option value="TWENTY_FOUR_ENTRIES">24 ПОСЕЩЕНИЯ</option>
+                            <option value="THIRTY_ENTRIES">30 ПОСЕЩЕНИЯ</option>
+                            <option value="ONE_MONTH">1 МЕСЕЦ</option>
+                            <option value="THREE_MONTHS">3 МЕСЕЦА</option>
+                            <option value="SIX_MONTHS">6 МЕСЕЦА</option>
+                            <option value="ONE_YEAR">1 ГОДИНА</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="username"><b>Патребителско име</b></label>
+                        <input type="text" placeholder="Въведи потребителско име" id="username" name="username">
+                        <small th:classappend="${#fields.hasErrors('username')} ? 'alert alert-danger'"
+                               th:each="error : ${#fields.errors('username')}" th:text="${error}"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="psw"><b>Парола</b></label>
+                        <input type="password" placeholder="Въведи парола" id="psw" name="password">
+                        <small th:classappend="${#fields.hasErrors('password')} ? 'alert alert-danger'"
+                               th:each="error : ${#fields.errors('password')}" th:text="${error}"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password"><b>Потвърди парола</b></label>
+                        <input type="password" placeholder="Повтори въведената парола" id="confirm-password"
+                               name="confirmPassword">
+                        <small th:classappend="${#fields.hasErrors('confirmPassword')} ? 'alert alert-danger'"
+                               th:each="error : ${#fields.errors('confirmPassword')}" th:text="${error}"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Имейл</b></label>
+                        <input type="text" placeholder="Въведи валиден имейл" id="email" name="email">
+                        <small th:classappend="${#fields.hasErrors('email')} ? 'alert alert-danger'"
+                               th:each="error : ${#fields.errors('email')}" th:text="${error}"></small>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <button type="submit" class="registerbtn">Създай</button>
+        </div>
+    </form>
+</th:block>
