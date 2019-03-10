@@ -14,12 +14,12 @@
                 </form>
             </div>
             <div class="col-lg-6">
-                <form method="post" th:action="@{/user-profile/__${userViewModel.id}__/reduce-minutes}">
+                <form method="post" th:action="@{/user-profile/__${userViewModel.id}__/use-minutes}">
                     <div class="form-group">
                         <div class="row">
                             <br/>
-                            <label for="reduce-minutes"><b>Намали минути:</b></label>
-                            <input type="number" id="reduce-minutes" name="minutes" required>
+                            <label for="use-minutes"><b>Намали минути:</b></label>
+                            <input type="number" id="use-minutes" name="minutes" required>
                             <br/>
                             <br/>
                             <div>

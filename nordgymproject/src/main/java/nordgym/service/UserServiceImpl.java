@@ -1,18 +1,11 @@
 package nordgym.service;
 
-import nordgym.domain.entities.Role;
-import nordgym.domain.entities.SolariumSubscription;
-import nordgym.domain.entities.Subscription;
-import nordgym.domain.entities.User;
+import nordgym.domain.entities.*;
 import nordgym.domain.enums.SubscriptionType;
-import nordgym.domain.models.binding.UserRegisterBindingModel;
 import nordgym.domain.models.binding.UserUpdateBindingModel;
 import nordgym.domain.models.service.UserServiceModel;
 import nordgym.domain.models.view.UserViewModel;
-import nordgym.repository.RoleRepository;
-import nordgym.repository.SolariumSubscriptionRepository;
-import nordgym.repository.SubscriptionRepository;
-import nordgym.repository.UserRepository;
+import nordgym.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,6 +24,8 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final SolariumSubscriptionRepository solariumSubscriptionRepository;
     private final SubscriptionRepository subscriptionRepository;
+    private final ExpiredSubscriptionRepository expiredSubscriptionRepository;
+    private final UserEntryRepository userEntryRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ModelMapper modelMapper;
 
@@ -38,17 +33,19 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl(UserRepository userRepository,
                            RoleRepository roleRepository,
                            SolariumSubscriptionRepository solariumSubscriptionRepository, SubscriptionRepository subscriptionRepository,
-                           BCryptPasswordEncoder bCryptPasswordEncoder, ModelMapper modelMapper) {
+                           ExpiredSubscriptionRepository expiredSubscriptionRepository, UserEntryRepository userEntryRepository, BCryptPasswordEncoder bCryptPasswordEncoder, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.solariumSubscriptionRepository = solariumSubscriptionRepository;
         this.subscriptionRepository = subscriptionRepository;
+        this.expiredSubscriptionRepository = expiredSubscriptionRepository;
+        this.userEntryRepository = userEntryRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.modelMapper = modelMapper;
     }
 
     @Override
-    public boolean createUser(UserServiceModel userServiceModel,String subscriptionType) {
+    public boolean createUser(UserServiceModel userServiceModel, String subscriptionType) {
         User user = this.modelMapper.map(userServiceModel, User.class);
         user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
         Subscription subscription = createSubscription(subscriptionType);
@@ -101,15 +98,7 @@ public class UserServiceImpl implements UserService {
                 filter(user -> user.getAuthorities().
                         stream().noneMatch(role -> role.getAuthority().equals("ADMIN"))).
                 map(user -> this.createUserViewModel(this.modelMapper.map(user, UserServiceModel.class))).collect(Collectors.toList()) :
-                new LinkedList<>() {{
-                    UserViewModel userServiceModel = new UserViewModel();
-                    userServiceModel.setFullName("Administrator");
-                    userServiceModel.setSubscription("No info");
-                    userServiceModel.setSubscriptionFrom(LocalDateTime.now());
-                    userServiceModel.setSubscriptionTo(LocalDateTime.now());
-                    userServiceModel.setEntriesLeft(0);
-                    add(userServiceModel);
-                }};
+                new LinkedList<>();
     }
 
     @Override
@@ -139,11 +128,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void renewSubscription(String userId, String subscriptionType) {
-        User userEntity = this.userRepository.findById(Long.parseLong(userId)).get();
+        User user = this.userRepository.findById(Long.parseLong(userId)).get();
+        this.expiredSubscriptionRepository.save(this.modelMapper.map(user.getSubscription(), ExpiredSubscription.class));
+        long subscriptionId = user.getSubscription().getId();
+        user.setSubscription(null);
+        user = this.userRepository.save(user);
+        this.subscriptionRepository.deleteById(subscriptionId);
         Subscription subscription = this.createSubscription(subscriptionType);
         subscription = this.subscriptionRepository.saveAndFlush(subscription);
-        userEntity.setSubscription(subscription);
-        this.userRepository.save(userEntity);
+        user.setSubscription(subscription);
+        this.userRepository.save(user);
 
     }
 
@@ -164,9 +158,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void reduceSolariumMinutes(String userId, int minutes) {
+    public void useSolariumMinutes(String userId, int minutes) {
         User user = this.userRepository.findById(Long.parseLong(userId)).orElse(null);
-        if (user != null && user.getSolariumSubscription() != null) {
+        if (user != null && user.getSolariumSubscription() != null && user.getSolariumSubscription().getMinutes() >= minutes) {
             user.getSolariumSubscription().setMinutes(user.getSolariumSubscription().getMinutes() - minutes);
         }
         this.userRepository.save(user);
@@ -174,7 +168,26 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserViewModel> getSearchedUsers(String criteria) {
-        return this.getAllUserViewModels().stream().filter(userViewModel -> userViewModel.getSubscriptionNumber().equals(criteria) || userViewModel.getFullName().toLowerCase().contains(criteria.toLowerCase())).collect(Collectors.toList());
+        return this.getAllUserViewModels()
+                .stream()
+                .filter(userViewModel -> userViewModel.getSubscriptionNumber().equals(criteria) || userViewModel.getFullName().toLowerCase().contains(criteria.toLowerCase()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteUser(String userId) {
+        User user = this.userRepository.findById(Long.parseLong(userId)).orElse(null);
+        if (user != null) {
+//            user.getSubscription().getUsers().remove(user);
+            user.getEntries().forEach(this.userEntryRepository::delete);
+            user.getExpiredSubscriptions().forEach(this.expiredSubscriptionRepository::delete);
+            this.userRepository.delete(user);
+            this.subscriptionRepository.deleteById(user.getSubscription().getId());
+            if (user.getSolariumSubscription() != null) {
+                this.solariumSubscriptionRepository.deleteById(user.getSolariumSubscription().getId());
+            }
+            System.out.println();
+        }
     }
 
     @Override
@@ -194,6 +207,7 @@ public class UserServiceImpl implements UserService {
         if (userServiceModel.getEntries().size() > 0) {
             userViewModel.setEntries(userServiceModel.getEntries().
                     stream()
+                    .filter(e -> e.getDateAndTimeOfUserEntry().isAfter(userServiceModel.getSubscription().getStartDate()))
                     .sorted((e1, e2) -> e2.getDateAndTimeOfUserEntry().compareTo(e1.getDateAndTimeOfUserEntry())).
                             collect(Collectors.toCollection(LinkedHashSet::new)));
         }

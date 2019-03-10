@@ -1,6 +1,7 @@
 package nordgym.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapter {
-    private final static String[] PERMITTED_ROUTES = {"/", "/login","/edit-user/**","/edit-user", "/register", "/logout", "/css/**", "/js/**", "/bootstrap/**"};
+    private final static String[] PERMITTED_ROUTES = {"/", "/login", "/edit-user/**", "/edit-user", "/register", "/logout", "/css/**", "/js/**", "/bootstrap/**"};
     private final UserDetailsService userDetailsService;
 
     @Autowired

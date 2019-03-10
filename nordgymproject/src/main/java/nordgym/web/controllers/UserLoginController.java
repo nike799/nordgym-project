@@ -8,11 +8,11 @@ import java.security.Principal;
 
 
 @Controller
-public class LoginController extends BaseController {
+public class UserLoginController extends BaseController {
     private final UserService userService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public LoginController(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserLoginController(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userService = userService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }

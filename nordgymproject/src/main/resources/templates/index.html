@@ -4,14 +4,14 @@
 <head>
     <title>Home page</title>
     <th:block th:replace="fragments/head"></th:block>
-    <link rel="stylesheet" href="css/footer.css" th:href="@{css/footer.css}">
+    <link rel="stylesheet" type="text/css"href="/css/footer.css" th:href="@{/css/footer.css}">
 </head>
 <body>
 <div class="container-fluid">
-<header>
-    <th:block th:replace="fragments/navbar-guest"></th:block>
-</header>
-<th:block th:replace="fragments/footer::footer"></th:block>
+    <header>
+        <th:block th:replace="fragments/navbar-guest"></th:block>
+    </header>
+    <th:block th:replace="fragments/footer::footer"></th:block>
 </div>
 <script src="/js/jquery.min.js"></script>
 <script src="/bootstrap/js/bootstrap.min.js"></script>

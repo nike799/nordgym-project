@@ -37,7 +37,7 @@ public class UserProfileController extends BaseController {
     }
 
     @PostMapping("/{userId}")
-    public ModelAndView editUser(@ModelAttribute UserUpdateBindingModel userUpdateBindingModel, @PathVariable String userId,BindingResult bindingResult) {
+    public ModelAndView editUser(@ModelAttribute UserUpdateBindingModel userUpdateBindingModel, @PathVariable String userId, BindingResult bindingResult) {
         if (!userUpdateBindingModel.getPassword().equals(userUpdateBindingModel.getConfirmPassword())) {
             bindingResult.rejectValue("confirmPassword", userUpdateBindingModel.getConfirmPassword(), "Confirmed password is not equal to password!");
         }
@@ -72,9 +72,15 @@ public class UserProfileController extends BaseController {
         return this.redirect("/user-profile/" + userId);
     }
 
-    @PostMapping("{userId}/reduce-minutes")
+    @PostMapping("{userId}/use-minutes")
     public ModelAndView reduceSolariumMinutes(@PathVariable String userId, @RequestParam String minutes) {
-        this.userService.reduceSolariumMinutes(userId, Integer.parseInt(minutes));
+        this.userService.useSolariumMinutes(userId, Integer.parseInt(minutes));
         return this.redirect("/user-profile/" + userId);
+    }
+
+    @PostMapping("{userId}/user-delete")
+    public ModelAndView deleteUser(@PathVariable String userId) {
+        this.userService.deleteUser(userId);
+        return this.redirect("/home");
     }
 }

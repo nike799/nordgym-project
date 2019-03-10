@@ -4,24 +4,24 @@
 <head>
     <title>Register</title>
     <th:block th:replace="fragments/head"></th:block>
-    <link rel="stylesheet" href="/css/register-style.css" th:href="@{/css/register-style.css}">
+    <link rel="stylesheet" type="text/css" href="/css/register-style.css" th:href="@{/css/register-style.css}">
 </head>
 <body>
 <div class="container-fluid">
-<header>
-    <th:block th:replace="fragments/navbar-admin"></th:block>
-</header>
-<div class="row">
-    <div class="col-lg-2">
+    <header>
+        <th:block th:replace="fragments/navbar-admin"></th:block>
+    </header>
+    <div class="row">
+        <div class="col-lg-2">
 
-    </div>
-    <div class="col-lg-8">
-<th:block th:replace="fragments/forms/user-register"></th:block>
-    </div>
-    <div class="col-lg-2">
+        </div>
+        <div class="col-lg-8">
+            <th:block th:replace="fragments/forms/user-register"></th:block>
+        </div>
+        <div class="col-lg-2">
 
+        </div>
     </div>
-</div>
 </div>
 <script src="/js/jquery.min.js"></script>
 <script src="/bootstrap/js/bootstrap.min.js"></script>

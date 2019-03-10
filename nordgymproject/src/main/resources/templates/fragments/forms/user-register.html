@@ -1,7 +1,7 @@
 <th:block th:fragment="user-register">
     <form method="post" th:object="${userRegisterBindingModel}" enctype="multipart/form-data">
         <div class="container">
-            <h1 align="center">Създай нов потребител</h1>
+            <h1 align="center">Регистрирай нов потребител</h1>
             <hr>
             <div>
                 <label for="profileImage">Избери снимка</label>
@@ -14,21 +14,24 @@
                         <label for="subscriptionNumber"><b>Абонатен номер</b></label>
                         <span class="red-star">★</span>
                         <input type="text" placeholder="Въведи абонатен номерr" id="subscriptionNumber"
-                               name="subscriptionNumber" required>
+                               name="subscriptionNumber" required
+                               th:value="${userRegisterBindingModel.subscriptionNumber}">
                         <small th:classappend="${#fields.hasErrors('subscriptionNumber')} ? 'alert alert-danger'"
                                th:each="error : ${#fields.errors('subscriptionNumber')}" th:text="${error}"></small>
                     </div>
                     <div class="form-group">
                         <label for="firstName"><b>Име </b></label>
                         <span class="red-star">★</span>
-                        <input type="text" placeholder="Въведи име" id="firstName" name="firstName" required>
+                        <input type="text" placeholder="Въведи име" id="firstName" name="firstName"
+                               th:value="${userRegisterBindingModel.firstName}" required>
                         <small th:classappend="${#fields.hasErrors('firstName')} ? 'alert alert-danger'"
                                th:each="error : ${#fields.errors('firstName')}" th:text="${error}"></small>
                     </div>
                     <div class="form-group">
                         <label for="lastName"><b>Фамилия</b></label>
                         <span class="red-star">★</span>
-                        <input type="text" placeholder="Въведи фамилия" id="lastName" name="lastName" required>
+                        <input type="text" placeholder="Въведи фамилия" id="lastName" name="lastName"
+                               th:value="${userRegisterBindingModel.lastName}" required>
                         <small th:classappend="${#fields.hasErrors('lastName')} ? 'alert alert-danger'"
                                th:each="error : ${#fields.errors('lastName')}" th:text="${error}"></small>
                     </div>
@@ -53,33 +56,37 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label for="username"><b>Потребителско име</b></label>
-                        <input type="text" placeholder="Въведи потребителско име" id="username" name="username">
+                        <input type="text" placeholder="Въведи потребителско име" id="username" name="username"
+                               th:value="${userRegisterBindingModel.username}">
                         <small th:classappend="${#fields.hasErrors('username')} ? 'alert alert-danger'"
                                th:each="error : ${#fields.errors('username')}" th:text="${error}"></small>
                     </div>
                     <div class="form-group">
                         <label for="psw"><b>Парола</b></label>
-                        <input type="password" placeholder="Въведи парола" id="psw" name="password">
+                        <input type="password" placeholder="Въведи парола" id="psw" name="password"
+                               th:value="${userRegisterBindingModel.password}">
                         <small th:classappend="${#fields.hasErrors('password')} ? 'alert alert-danger'"
                                th:each="error : ${#fields.errors('password')}" th:text="${error}"></small>
                     </div>
                     <div class="form-group">
                         <label for="confirm-password"><b>Потвърди парола</b></label>
                         <input type="password" placeholder="Повтори паролата" id="confirm-password"
-                               name="confirmPassword">
+                               name="confirmPassword"
+                               th:value="${userRegisterBindingModel.confirmPassword}">
                         <small th:classappend="${#fields.hasErrors('confirmPassword')} ? 'alert alert-danger'"
                                th:each="error : ${#fields.errors('confirmPassword')}" th:text="${error}"></small>
                     </div>
                     <div class="form-group">
                         <label for="email">Имейл</b></label>
-                        <input type="text" placeholder="Въведи валиден имейл" id="email" name="email">
+                        <input type="text" placeholder="Въведи валиден имейл" id="email" name="email"
+                               th:value="${userRegisterBindingModel.email}">
                         <small th:classappend="${#fields.hasErrors('email')} ? 'alert alert-danger'"
                                th:each="error : ${#fields.errors('email')}" th:text="${error}"></small>
                     </div>
                 </div>
             </div>
             <hr>
-            <button type="submit" class="registerbtn">Създай</button>
+            <button type="submit" class="registerbtn">Регистрирай</button>
         </div>
     </form>
 </th:block>

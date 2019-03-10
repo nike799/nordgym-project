@@ -31,13 +31,13 @@ public class UserRegisterBindingModel {
         return subscriptionNumber;
     }
 
-    @Pattern(regexp = "[A-Z][A-Za-z]+", message = "First name must begin with capital letter and contain only letters")
+    @Pattern(regexp = "^[А-Я|A-Z][а-я|a-z]+$", message = "First name must begin with capital letter and contain only letters")
     @NotNull(message = "first name can not be empty")
     public String getFirstName() {
         return firstName;
     }
 
-    @Pattern(regexp = "[A-Z][A-Za-z]+", message = "Last name must begin with capital letter and contain only letters")
+    @Pattern(regexp = "^[А-Я|A-Z][а-я|a-z]+$", message = "Last name must begin with capital letter and contain only letters")
     @NotNull(message = "Last name can not be empty")
     public String getLastName() {
         return lastName;

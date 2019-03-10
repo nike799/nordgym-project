@@ -24,6 +24,7 @@ public class User extends BaseEntity implements UserDetails {
     private Boolean isEnabled;
     private Set<Role> authorities;
     private Set<UserEntry> entries;
+    private Set<ExpiredSubscription> expiredSubscriptions;
 
     public User() {
         this.authorities = new HashSet<>();
@@ -35,12 +36,12 @@ public class User extends BaseEntity implements UserDetails {
         return subscriptionNumber;
     }
 
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first_name", nullable = false,columnDefinition = "text")
     public String getFirstName() {
         return firstName;
     }
 
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "last_name", nullable = false,columnDefinition = "text")
     public String getLastName() {
         return lastName;
     }
@@ -116,6 +117,11 @@ public class User extends BaseEntity implements UserDetails {
         return entries;
     }
 
+    @ManyToMany(targetEntity = ExpiredSubscription.class, mappedBy = "users")
+    public Set<ExpiredSubscription> getExpiredSubscriptions() {
+        return expiredSubscriptions;
+    }
+
     public void setSubscriptionNumber(String subscriptionNumber) {
         this.subscriptionNumber = subscriptionNumber;
     }
@@ -174,5 +180,9 @@ public class User extends BaseEntity implements UserDetails {
 
     public void setEntries(Set<UserEntry> entries) {
         this.entries = entries;
+    }
+
+    public void setExpiredSubscriptions(Set<ExpiredSubscription> expiredSubscriptions) {
+        this.expiredSubscriptions = expiredSubscriptions;
     }
 }

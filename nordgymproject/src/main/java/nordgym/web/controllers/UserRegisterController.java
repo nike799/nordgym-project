@@ -19,14 +19,14 @@ import java.io.IOException;
 import java.util.Objects;
 
 @Controller
-public class RegisterController extends BaseController {
-    private final static String IMAGE_PATH = "C:\\Users\\Nike\\Desktop\\Softuni Projects\\nordgymproject\\src\\main\\resources\\static\\images\\";
+public class UserRegisterController extends BaseController {
+    private final static String IMAGE_PATH = "D:\\Java Frameworks - Spring\\Project-Nordgym\\nordgymproject\\src\\main\\resources\\static\\images\\";
     private final UserService userService;
     private final ModelMapper modelMapper;
 
 
     @Autowired
-    public RegisterController(UserService userService, ModelMapper modelMapper) {
+    public UserRegisterController(UserService userService, ModelMapper modelMapper) {
         this.userService = userService;
         this.modelMapper = modelMapper;
     }
@@ -47,7 +47,7 @@ public class RegisterController extends BaseController {
             return this.view("register");
         }
         if (bindingResult.hasErrors()) {
-            return this.redirect("/register");
+            return this.view("register");
         }
         if (!Objects.requireNonNull(image.getOriginalFilename()).isEmpty()) {
             File dest = new File(IMAGE_PATH + image.getOriginalFilename());

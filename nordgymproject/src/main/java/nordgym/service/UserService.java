@@ -28,8 +28,10 @@ public interface UserService extends UserDetailsService {
 
     void addSolariumMinutes(String userId, int minutes);
 
-    void reduceSolariumMinutes(String userId, int minutes);
+    void useSolariumMinutes(String userId, int minutes);
 
     List<UserViewModel> getSearchedUsers(String criteria);
+
+    void deleteUser(String userId);
 
 }
