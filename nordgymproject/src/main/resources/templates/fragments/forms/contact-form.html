@@ -1,0 +1,32 @@
+<th:block th:fragment="contact-form">
+    <div class="form-area">
+        <form role="form">
+            <br style="clear:both">
+            <h3 style="margin-bottom: 25px; text-align: center;">Форма за контакт:</h3>
+            <div class="form-group">
+                <label for="name"><b>Име и Фамилия:</b></label>
+                <span class="red-star">★</span>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Въведете име и фамилия" required>
+            </div>
+            <div class="form-group">
+                <label for="email"><b>Имейл:</b></label>
+                <span class="red-star">★</span>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Въведете имейл" required>
+            </div>
+            <div class="form-group">
+                <label for="subject"><b>Тема:</b></label>
+                <span class="red-star">★</span>
+                <input type="text" class="form-control" id="subject" name="subject" placeholder="Въведете тема" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Съобщение:</label>
+                <span class="red-star">★</span>
+             <textarea class="form-control" id="message" placeholder="Напишете Вашето съобщение" maxlength="250" rows="7">
+            </textarea>
+                <span class="help-block"><p id="characterLeft" class="help-block ">Остават Ви 250 символа.</p></span>
+            </div>
+
+            <button type="button" id="submit" name="submit" class="btn btn-primary pull-left">Изпрати</button>
+        </form>
+    </div>
+</th:block>

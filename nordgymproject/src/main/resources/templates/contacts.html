@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Контакти</title>
+    <th:block th:replace="fragments/head"></th:block>
+    <link rel="stylesheet" type="text/css" href="/css/footer.css" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" type="text/css" href="/css/contacts.css" th:href="@{/css/contacts.css}">
+</head>
+<body>
+<div class="container-fluid">
+    <header>
+        <th:block th:replace="fragments/navbar-guest"></th:block>
+    </header>
+    <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-6">
+            <th:block th:replace="fragments/forms/contact-form::contact-form"></th:block>
+        </div>
+        <div id="address-work-time" class="col-lg-5">
+            <div class="row">
+                <div class="col-lg-6">
+                    <article>
+                        <h4><strong>Адрес:</strong></h4>
+                        <dl>
+                            <dt class="prev-indent-bot color-3"><strong>гр. София,<br> ж.к. Надежда-4, ул. Дилянка
+                                20<br>Комплекс
+                                "БРИЗ СЕВЕР"</strong></dt>
+                            <dd><span><strong>Имейл:</strong></span> <a
+                                    href="mailto:fitness@nordgym.net"><strong id="email-address">fitness@nordgym.net</strong></a></dd>
+                        </dl>
+                    </article>
+                </div>
+                <div class="col-lg-6">
+                    <article>
+                        <h4><strong>Работно време:</strong></h4>
+                        <br/>
+                        <span><strong>Понеделник - Петък: 7:30 - 23:00</strong></span><br>
+                        <span><strong>Събота - Неделя: 9:30 - 21:00</strong></span>
+                        </dl>
+                    </article>
+                </div>
+            </div>
+            <br/>
+            <div>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2930.4043299040163!2d23.299369315304464
+                !3d42.73749701917472!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa903c796fcc21%3A0xece5bfe6be070b65
+                !2sNORDGYM!5e0!3m2!1sbg!2sbg!4v1506007728420" allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer::footer"></th:block>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/contacts.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

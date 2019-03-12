@@ -1,0 +1,21 @@
+body {
+    background-image: linear-gradient(-225deg, #77FFD2 0%, #6297DB 48%, #1EECFF 100%);
+}
+
+#address-work-time {
+    margin-top: 6%;
+}
+
+#email-address{
+    color: whitesmoke;
+}
+
+#characterLeft {
+    color: #122b40;
+}
+
+iframe {
+    border: 3px;
+    width: 100%;
+    height: 225px;
+}

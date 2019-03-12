@@ -4,9 +4,8 @@
 <head>
     <title>Информация и управление на потребител</title>
     <meta http-equiv="content-type" content="image/jpg">
-    <title>User Home</title>
     <th:block th:replace="fragments/head"></th:block>
-    <link rel="stylesheet" type="text/css" href="/css/user-profile.css">
+    <link rel="stylesheet" type="text/css" href="/css/user-profile.css" th:href="@{/css/user-profile.css}">
 </head>
 <body>
 <div class="container-fluid">
@@ -42,7 +41,7 @@
                     <li class="list-group-item text-left" th:text="|Име: ${userViewModel.fullName}|"></li>
                 </ul>
                 <ul class="list-group">
-                    <li class="list-group-item text-muted">ТЕКУЩ АБОНАМЕНТ<i class="fa fa-dashboard fa-1x"></i></li>
+                    <li class="list-group-item text-muted">ТЕКУЩ АБОНАМЕНТ</li>
                     <li class="list-group-item text-left" th:text="|Вид: ${userViewModel.subscription}|">
                     <li class="list-group-item text-left"
                         th:text="|Валидна от: ${#temporals.format(userViewModel.subscriptionFrom, 'dd MMM yyyy')}|">
@@ -59,7 +58,7 @@
                     </div>
                 </div>
                 <div class="panel panel-default">
-                    <div class="panel-heading">ИМЕЙЛ <i class="fa fa-link fa-1x"></i></div>
+                    <div class="panel-heading">ИМЕЙЛ</div>
                     <div class="panel-body"><h5 th:text="${userViewModel.email}"></h5></div>
                 </div>
             </div><!--/col-3-->
