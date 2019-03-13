@@ -1,7 +1,8 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: lightsteelblue;
+    font-family: "Lato", sans-serif;
+    background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
 }
+
 .red-star {
     color: red;
 }
@@ -65,6 +66,7 @@ a {
     background-color: #f1f1f1;
     text-align: center;
 }
+
 #helloUser {
     color: white;
     margin-top: 8px;

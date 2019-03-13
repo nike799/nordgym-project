@@ -1,6 +1,6 @@
 body {
     font-family: "Lato", sans-serif;
-    background-color: floralwhite;
+    background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
 }
 #findUser {
 }
