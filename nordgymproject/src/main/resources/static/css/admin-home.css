@@ -1,9 +1,15 @@
+.navbar-admin {
+    background-color: #001a1a;;
+}
+
 body {
     font-family: "Lato", sans-serif;
-    background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+    background-image: linear-gradient(-225deg, #B7F8DB 0%, #50A7C2 100%);
 }
+
 #findUser {
 }
+
 #helloUser {
     color: white;
     margin-top: 8px;

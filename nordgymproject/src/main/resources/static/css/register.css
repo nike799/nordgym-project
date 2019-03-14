@@ -1,6 +1,10 @@
+.navbar-admin {
+    background-color: #001a1a;;
+}
+
 body {
     font-family: "Lato", sans-serif;
-    background-image: linear-gradient(45deg, #93a5cf 0%, #e4efe9 100%);
+    background-image: linear-gradient(-225deg, #B7F8DB 0%, #50A7C2 100%);
 }
 
 .red-star {
@@ -42,7 +46,7 @@ hr {
 
 /* Set a style for the submit button */
 .registerbtn {
-    background-color: #4CAF50;
+    background-color: #2e6da4;
     color: white;
     padding: 16px 20px;
     margin: 8px 0;
@@ -70,4 +74,8 @@ a {
 #helloUser {
     color: white;
     margin-top: 8px;
+}
+
+#register-form {
+    margin-bottom: 10%;
 }
