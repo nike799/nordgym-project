@@ -1,32 +1,41 @@
 <th:block th:fragment="contact-form">
+    <div role="alert" th:if="${message}" th:text="${message}" th:class="${classCss}"></div>
     <div class="form-area">
-        <form role="form">
+        <form th:action="@{/contacts}" th:method="post" th:object="${contactFormBindingModel}">
             <br style="clear:both">
             <h3 style="margin-bottom: 25px; text-align: center;">Форма за контакт:</h3>
             <div class="form-group">
                 <label for="name"><b>Име и фамилия:</b></label>
                 <span class="red-star">★</span>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Въведете име и фамилия" required>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Въведете име и фамилия"
+                       required>
+                <p th:classappend="${#fields.hasErrors('name')} ? 'text-danger'"
+                   th:each="error : ${#fields.errors('name')}" th:text="${error}"></p>
             </div>
             <div class="form-group">
                 <label for="email"><b>Имейл:</b></label>
                 <span class="red-star">★</span>
                 <input type="email" class="form-control" id="email" name="email" placeholder="Въведете имейл" required>
+                <p th:classappend="${#fields.hasErrors('email')} ? 'text-danger'"
+                   th:each="error : ${#fields.errors('email')}" th:text="${error}"></p>
             </div>
             <div class="form-group">
                 <label for="subject"><b>Тема:</b></label>
                 <span class="red-star">★</span>
-                <input type="text" class="form-control" id="subject" name="subject" placeholder="Въведете тема" required>
+                <input type="text" class="form-control" id="subject" name="subject" placeholder="Въведете тема"
+                       required>
+                <p th:classappend="${#fields.hasErrors('subject')} ? 'text-danger'"
+                   th:each="error : ${#fields.errors('subject')}" th:text="${error}"></p>
             </div>
             <div class="form-group">
                 <label for="message">Съобщение:</label>
                 <span class="red-star">★</span>
-             <textarea class="form-control" id="message" placeholder="Напишете Вашето съобщение" maxlength="250" rows="7">
-            </textarea>
+                <textarea class="form-control" id="message" name="message" placeholder="Напишете Вашето съобщение"
+                          maxlength="250" rows="7"></textarea>
+                <p th:classappend="${#fields.hasErrors('message')} ? 'text-danger'" th:each="error : ${#fields.errors('message')}" th:text="${error}"></p>
                 <span class="help-block"><p id="characterLeft" class="help-block ">Остават Ви 250 символа.</p></span>
             </div>
-
-            <button type="button" id="submit" name="submit" class="btn btn-primary pull-left">Изпрати</button>
+            <button type="submit" class="btn btn-primary pull-left">Изпрати</button>
         </form>
     </div>
 </th:block>
