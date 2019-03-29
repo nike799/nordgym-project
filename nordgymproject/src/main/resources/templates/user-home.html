@@ -1,22 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Начална страница</title>
     <th:block th:replace="fragments/head"></th:block>
     <link rel="stylesheet" type="text/css" href="/css/footer.css" th:href="@{/css/footer.css}">
-    <link rel="stylesheet" type="text/css" href="/css/index.css" th:href="@{/css/index.css}">
 </head>
 <body>
 <div class="container-fluid">
     <header class="main-header">
-        <th:block sec:authorize="isAnonymous()" th:replace="fragments/navbar-guest"></th:block>
-        <th:block sec:authorize="hasAuthority('USER') && !hasAuthority('ADMIN')"  th:replace="fragments/navbar-user"></th:block>
-        <th:block sec:authorize="hasAuthority('ADMIN')" th:replace="fragments/navbar-admin"></th:block>
+        <th:block th:replace="fragments/navbar-user"></th:block>
     </header>
     <div class="main-container">
-
+        <h1 th:text="Hello + ', ' + ${username} + '!'"></h1><br/>
     </div>
     <th:block th:replace="fragments/footer::footer"></th:block>
 </div>

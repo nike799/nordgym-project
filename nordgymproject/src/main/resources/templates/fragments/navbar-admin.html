@@ -1,4 +1,4 @@
-<th:block th:fragment="navbar-admin">
+<th:block th:fragment="navbar-admin" xmlns:form="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
     <nav class="navbar navbar-inverse navbar-admin">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -13,7 +13,8 @@
                         <li><a href="#">Page 1-3</a></li>
                     </ul>
                 </li>
-                <!--<li><a href="#">Page 2</a></li>-->
+                <li><a href="/gallery">Галерия</a></li>
+                <li><a href="/contacts">Контакти</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li id="helloUser"><h5 th:text="|Здравей, администратор ${username}*{'!'}"></h5></li>

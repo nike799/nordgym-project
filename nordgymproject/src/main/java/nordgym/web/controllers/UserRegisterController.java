@@ -5,14 +5,12 @@ import nordgym.domain.models.service.UserServiceModel;
 import nordgym.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
@@ -32,7 +30,6 @@ public class UserRegisterController extends BaseController {
     }
 
     @GetMapping("/register")
-    @PreAuthorize(value = "hasAuthority('ADMIN')")
     public ModelAndView register(@ModelAttribute UserRegisterBindingModel userRegisterBindingModel,ModelAndView modelAndView, Authentication authentication) {
         modelAndView.addObject("username", authentication.getName());
         return this.view("/register",modelAndView);

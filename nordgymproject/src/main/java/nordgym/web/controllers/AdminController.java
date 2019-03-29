@@ -14,6 +14,7 @@ import java.util.List;
 
 
 @Controller
+@PreAuthorize(value = "hasAuthority('ADMIN')")
 @RequestMapping("/admin")
 public class AdminController extends BaseController {
     private final UserService userService;
@@ -24,7 +25,6 @@ public class AdminController extends BaseController {
     }
 
     @GetMapping("/home")
-    @PreAuthorize(value = "hasAuthority('ADMIN')")
     public ModelAndView adminHome(ModelAndView modelAndView, Authentication authentication, HttpServletRequest request) {
         modelAndView.addObject("username", authentication.getName());
         modelAndView.addObject("authorities", authentication.getAuthorities());
@@ -40,7 +40,6 @@ public class AdminController extends BaseController {
     }
 
     @PostMapping(value = "/home", params = "criteria")
-    @PreAuthorize(value = "hasAuthority('ADMIN')")
     @ResponseBody
     public ModelAndView searchUserById(@RequestParam("criteria") String criteria, HttpServletRequest request) {
         List<UserViewModel> userViewModels = this.userService.getSearchedUsers(criteria);

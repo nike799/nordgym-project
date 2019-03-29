@@ -10,7 +10,9 @@
 <body>
 <div class="container-fluid">
     <header>
-        <th:block th:replace="fragments/navbar-guest"></th:block>
+        <th:block sec:authorize="isAnonymous()" th:replace="fragments/navbar-guest"></th:block>
+        <th:block sec:authorize="hasAuthority('USER') && !hasAuthority('ADMIN')"  th:replace="fragments/navbar-user"></th:block>
+        <th:block sec:authorize="hasAuthority('ADMIN')" th:replace="fragments/navbar-admin"></th:block>
     </header>
     <div class="row">
         <div class="col-lg-1"></div>

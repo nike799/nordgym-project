@@ -79,6 +79,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        this.seedRoles();
+        this.seedRootAdmin();
         User user = this.userRepository.findByUsername(username).orElse(null);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
@@ -178,7 +180,6 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(String userId) {
         User user = this.userRepository.findById(Long.parseLong(userId)).orElse(null);
         if (user != null) {
-//            user.getSubscription().getUsers().remove(user);
             user.getEntries().forEach(this.userEntryRepository::delete);
             user.getExpiredSubscriptions().forEach(this.expiredSubscriptionRepository::delete);
             this.userRepository.delete(user);
@@ -291,43 +292,6 @@ public class UserServiceImpl implements UserService {
         return subscription;
     }
 
-    private int setCountOfEntries(String subscriptionType) {
-        int count = 0;
-        switch (subscriptionType) {
-            case "SIX_ENTRIES":
-                count = 6;
-                break;
-            case "EIGHT_ENTRIES":
-                count = 8;
-                break;
-            case "TWELVE_ENTRIES":
-                count = 12;
-                break;
-            case "SIXTEEN_ENTRIES":
-                count = 16;
-                break;
-            case "TWENTY_FOUR_ENTRIES":
-                count = 24;
-                break;
-            case "THIRTY_ENTRIES":
-                count = 30;
-                break;
-            case "ONE_MONTH":
-                count = 30;
-                break;
-            case "THREE_MONTHS":
-                count = 90;
-                break;
-            case "SIX_MONTHS":
-                count = 180;
-                break;
-            case "ONE_YEAR":
-                count = 365;
-                break;
-        }
-        return count;
-    }
-
     private String setSubscriptionName(String subscriptionType) {
         String name = "";
         switch (subscriptionType) {
@@ -363,5 +327,31 @@ public class UserServiceImpl implements UserService {
                 break;
         }
         return name;
+    }
+    private void seedRoles(){
+        if(roleRepository.count() == 0){
+            Role rootAdmin = new Role();
+            rootAdmin.setAuthority("ROOT_ADMIN");
+            Role admin = new Role();
+            admin.setAuthority("ADMIN");
+            Role user = new Role();
+            user.setAuthority("USER");
+            this.roleRepository.save(rootAdmin);
+            this.roleRepository.save(admin);
+            this.roleRepository.save(user);
+        }
+    }
+    private void seedRootAdmin(){
+        if (userRepository.count()== 0){
+            User creator = new User();
+            creator.setFirstName("Николай");
+            creator.setFirstName("Грозданов");
+            creator.setSubscriptionNumber("00000001");
+            creator.setAuthorities(new HashSet<>(this.roleRepository.findAll()));
+            creator.setUsername("nike");
+            creator.setPassword("$2a$10$SGyJV9GBu7eiap1aJQXel.po3HIu9rTSalbbZud6zZ3rEaMlci2wy");
+            creator.setEmail("nagrozdanov@gmail.com");
+            this.userRepository.save(creator);
+        }
     }
 }
