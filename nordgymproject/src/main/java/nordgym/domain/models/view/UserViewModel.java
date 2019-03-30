@@ -8,6 +8,7 @@ import java.util.Set;
 public class UserViewModel {
     private Long id;
     private String fullName;
+    private String username;
     private String subscriptionNumber;
     private String profileImagePath;
     private String subscription;
@@ -36,6 +37,14 @@ public class UserViewModel {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getProfileImagePath() {

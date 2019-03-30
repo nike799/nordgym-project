@@ -69,6 +69,7 @@ public class UserServiceImpl implements UserService {
             } else {
                 user.setPassword(this.bCryptPasswordEncoder.encode(userUpdateBindingModel.getPassword()));
             }
+            this.setUserRoles(user, userUpdateBindingModel.getAdmin());
         }
         return this.userRepository.save(user) != null;
     }
@@ -116,7 +117,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserUpdateBindingModel getUserUpdateBindingModelByUserId(String userId) {
         User user = this.userRepository.findById(Long.parseLong(userId)).orElse(null);
-        return user != null ? this.modelMapper.map(user, UserUpdateBindingModel.class) : null;
+        UserUpdateBindingModel userUpdateBindingModel = null;
+        if (user != null) {
+            userUpdateBindingModel = this.modelMapper.map(user, UserUpdateBindingModel.class);
+            userUpdateBindingModel.setAdmin(user.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ADMIN")));
+        }
+        return userUpdateBindingModel;
     }
 
     @Override
@@ -128,7 +134,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void renewSubscription(String userId, String subscriptionType) {
         User user = this.userRepository.findById(Long.parseLong(userId)).get();
-        if(user.getSubscription() != null) {
+        if (user.getSubscription() != null) {
             this.expiredSubscriptionRepository.save(this.modelMapper.map(user.getSubscription(), ExpiredSubscription.class));
             long subscriptionId = user.getSubscription().getId();
             user.setSubscription(null);
@@ -177,7 +183,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserViewModel> getAllAdmins() {
-        return  this.userRepository.getAllAdminsOrderedByName().
+        return this.userRepository.getAllAdminsOrderedByName().
                 stream().
                 filter(user -> user.getAuthorities().
                         stream().noneMatch(role -> role.getAuthority().equals("ROOT_ADMIN"))).
@@ -204,10 +210,11 @@ public class UserServiceImpl implements UserService {
         UserViewModel userViewModel = new UserViewModel();
         userViewModel.setId(userServiceModel.getId());
         userViewModel.setFullName(userServiceModel.getFirstName().concat(" ").concat(userServiceModel.getLastName()));
+        userViewModel.setUsername(userServiceModel.getUsername());
         userViewModel.setProfileImagePath(userServiceModel.getProfileImagePath());
         userViewModel.setSubscriptionNumber(userServiceModel.getSubscriptionNumber());
 
-        if(userServiceModel.getSubscription() != null) {
+        if (userServiceModel.getSubscription() != null) {
             userViewModel.setSubscription(this.setSubscriptionName(userServiceModel.getSubscription().getSubscriptionType().name()));
             userViewModel.setSubscriptionFrom(userServiceModel.getSubscription().getStartDate());
             userViewModel.setSubscriptionTo(userServiceModel.getSubscription().getEndDate());

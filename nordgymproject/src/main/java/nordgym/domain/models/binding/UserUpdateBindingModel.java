@@ -14,6 +14,7 @@ public class UserUpdateBindingModel {
     private String password;
     private String confirmPassword;
     private String email;
+    private Boolean isAdmin;
 
     public UserUpdateBindingModel() {
     }
@@ -86,5 +87,13 @@ public class UserUpdateBindingModel {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Boolean getAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        isAdmin = admin;
     }
 }

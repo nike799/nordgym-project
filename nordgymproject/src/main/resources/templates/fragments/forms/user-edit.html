@@ -1,5 +1,12 @@
-<th:block th:fragment="user-edit">
+<th:block th:fragment="user-edit" xmlns:th="http://www.w3.org/1999/xhtml">
     <form class="form" method="post" th:action="@{/user-profile/__${userUpdateBindingModel.userId}__}" id="registrationForm">
+        <div class="form-group" th:if="${#authentication.getName() != userUpdateBindingModel.username}">
+            <div  class="col-md-12 admin">
+                <label for="admin">Направи админ</label>
+                <input type="checkbox" name="isAdmin" id="admin"
+                       th:field="${userUpdateBindingModel.admin}">
+            </div>
+        </div>
         <div class="form-group">
             <div class="col-xs-6">
                 <label for="user_id"><h4>Потребител ID</h4></label>
@@ -22,7 +29,7 @@
             <div class="col-xs-6">
                 <label for="first_name"><h4>Име</h4></label>
                 <input type="text" class="form-control" name="firstName" id="first_name"
-                    placeholder="Въведи име"   title="Change user's first name"
+                       placeholder="Въведи име" title="Change user's first name"
                        th:value="${userUpdateBindingModel.firstName}">
             </div>
         </div>
@@ -30,15 +37,8 @@
             <div class="col-xs-6">
                 <label for="last_name"><h4>Фамилия</h4></label>
                 <input type="text" class="form-control" name="lastName" id="last_name"
-                      placeholder="Въведи фамилия" title="Change user's last name"
+                       placeholder="Въведи фамилия" title="Change user's last name"
                        th:value="${userUpdateBindingModel.lastName}">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-xs-6">
-                <label for="mobile"><h4>Телефон</h4></label>
-                <input type="text" class="form-control" name="mobile" id="mobile"
-                       placeholder="Въведи мобилен номер" title="Change user's mobile number">
             </div>
         </div>
         <div class="form-group">
@@ -59,15 +59,6 @@
             </div>
         </div>
         <div class="form-group">
-
-            <div class="col-xs-6">
-                <label for="location"><h4>Location</h4></label>
-                <input type="text" class="form-control" id="location"
-                       placeholder="Enter location" title="enter a location">
-            </div>
-        </div>
-        <div class="form-group">
-
             <div class="col-xs-6">
                 <label for="password"><h4>Парола</h4></label>
                 <input type="password" class="form-control" name="password" id="password"
@@ -75,7 +66,6 @@
             </div>
         </div>
         <div class="form-group">
-
             <div class="col-xs-6">
                 <label for="confirm_password"><h4>Потвърди паролата</h4></label>
                 <input type="password" class="form-control" name="confirmPassword" id="confirm_password"

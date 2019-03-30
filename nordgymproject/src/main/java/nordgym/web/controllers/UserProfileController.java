@@ -1,9 +1,11 @@
 package nordgym.web.controllers;
 
 import nordgym.domain.models.binding.UserUpdateBindingModel;
+import nordgym.domain.models.service.UserServiceModel;
 import nordgym.domain.models.view.UserViewModel;
 import nordgym.service.UserEntryService;
 import nordgym.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -18,11 +20,13 @@ import org.springframework.web.servlet.ModelAndView;
 public class UserProfileController extends BaseController {
     private final UserService userService;
     private final UserEntryService userEntryService;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public UserProfileController(UserService userService, UserEntryService userEntryService) {
+    public UserProfileController(UserService userService, UserEntryService userEntryService, ModelMapper modelMapper) {
         this.userService = userService;
         this.userEntryService = userEntryService;
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping("/{userId}")

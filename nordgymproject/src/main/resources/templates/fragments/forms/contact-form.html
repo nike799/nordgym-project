@@ -1,4 +1,4 @@
-<th:block th:fragment="contact-form">
+<th:block th:fragment="contact-form" xmlns:th="http://www.w3.org/1999/xhtml">
     <div role="alert" th:if="${message}" th:text="${message}" th:class="${classCss}"></div>
     <div class="form-area">
         <form th:action="@{/contacts}" th:method="post" th:object="${contactFormBindingModel}">
