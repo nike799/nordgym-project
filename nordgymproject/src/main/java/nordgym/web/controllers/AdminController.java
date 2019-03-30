@@ -28,6 +28,7 @@ public class AdminController extends BaseController {
     public ModelAndView adminHome(ModelAndView modelAndView, Authentication authentication, HttpServletRequest request) {
         modelAndView.addObject("username", authentication.getName());
         modelAndView.addObject("authorities", authentication.getAuthorities());
+        modelAndView.addObject("admins",this.userService.getAllAdmins());
 
         if (request.getSession().getAttribute("userViewModels") != null) {
             modelAndView.addObject("userViewModels", request.getSession().getAttribute("userViewModels"));

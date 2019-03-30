@@ -14,3 +14,7 @@ body {
     color: white;
     margin-top: 8px;
 }
+.container-admins {
+    padding-top: 50px;
+    width: 60%;
+}

@@ -31,6 +31,7 @@ public interface UserService extends UserDetailsService {
     void useSolariumMinutes(String userId, int minutes);
 
     List<UserViewModel> getSearchedUsers(String criteria);
+    List<UserViewModel> getAllAdmins();
 
     void deleteUser(String userId);
 

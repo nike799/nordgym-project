@@ -128,13 +128,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public void renewSubscription(String userId, String subscriptionType) {
         User user = this.userRepository.findById(Long.parseLong(userId)).get();
-        this.expiredSubscriptionRepository.save(this.modelMapper.map(user.getSubscription(), ExpiredSubscription.class));
-        long subscriptionId = user.getSubscription().getId();
-        user.setSubscription(null);
-        user = this.userRepository.save(user);
-        this.subscriptionRepository.deleteById(subscriptionId);
+        if(user.getSubscription() != null) {
+            this.expiredSubscriptionRepository.save(this.modelMapper.map(user.getSubscription(), ExpiredSubscription.class));
+            long subscriptionId = user.getSubscription().getId();
+            user.setSubscription(null);
+            user = this.userRepository.save(user);
+            this.subscriptionRepository.deleteById(subscriptionId);
+        }
         Subscription subscription = this.createSubscription(subscriptionType);
-        subscription = this.subscriptionRepository.saveAndFlush(subscription);
+        subscription = this.subscriptionRepository.save(subscription);
         user.setSubscription(subscription);
         this.userRepository.save(user);
 
@@ -174,6 +176,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserViewModel> getAllAdmins() {
+        return  this.userRepository.getAllAdminsOrderedByName().
+                stream().
+                filter(user -> user.getAuthorities().
+                        stream().noneMatch(role -> role.getAuthority().equals("ROOT_ADMIN"))).
+                map(user -> this.createUserViewModel(this.modelMapper.map(user, UserServiceModel.class))).collect(Collectors.toList());
+    }
+
+    @Override
     public void deleteUser(String userId) {
         User user = this.userRepository.findById(Long.parseLong(userId)).orElse(null);
         if (user != null) {
@@ -195,14 +206,17 @@ public class UserServiceImpl implements UserService {
         userViewModel.setFullName(userServiceModel.getFirstName().concat(" ").concat(userServiceModel.getLastName()));
         userViewModel.setProfileImagePath(userServiceModel.getProfileImagePath());
         userViewModel.setSubscriptionNumber(userServiceModel.getSubscriptionNumber());
-        userViewModel.setSubscription(this.setSubscriptionName(userServiceModel.getSubscription().getSubscriptionType().name()));
-        userViewModel.setSubscriptionFrom(userServiceModel.getSubscription().getStartDate());
-        userViewModel.setSubscriptionTo(userServiceModel.getSubscription().getEndDate());
-        userViewModel.setEntriesLeft(userServiceModel.getSubscription().getCountEntries());
-        userViewModel.setActive(userServiceModel.getSubscription().getExpired());
+
+        if(userServiceModel.getSubscription() != null) {
+            userViewModel.setSubscription(this.setSubscriptionName(userServiceModel.getSubscription().getSubscriptionType().name()));
+            userViewModel.setSubscriptionFrom(userServiceModel.getSubscription().getStartDate());
+            userViewModel.setSubscriptionTo(userServiceModel.getSubscription().getEndDate());
+            userViewModel.setEntriesLeft(userServiceModel.getSubscription().getCountEntries());
+            userViewModel.setActive(userServiceModel.getSubscription().getExpired());
+        }
         userViewModel.setSolariumSubscription(userServiceModel.getSolariumSubscription() != null ? userServiceModel.getSolariumSubscription() : new SolariumSubscription());
         userViewModel.setEmail(userServiceModel.getEmail() != null ? userServiceModel.getEmail() : "No Info");
-        if (userServiceModel.getEntries().size() > 0) {
+        if (userServiceModel.getEntries() != null && userServiceModel.getEntries().size() > 0) {
             userViewModel.setEntries(userServiceModel.getEntries().
                     stream()
                     .filter(e -> e.getDateAndTimeOfUserEntry().isAfter(userServiceModel.getSubscription().getStartDate()))
@@ -358,7 +372,7 @@ public class UserServiceImpl implements UserService {
         Set<Role> authorities = new HashSet<>();
         Role roleUser = this.roleRepository.findByAuthority("USER");
         authorities.add(roleUser);
-        if (isAdmin) {
+        if (isAdmin != null && isAdmin) {
             Role roleAdmin = this.roleRepository.findByAuthority("ADMIN");
             authorities.add(roleAdmin);
         }

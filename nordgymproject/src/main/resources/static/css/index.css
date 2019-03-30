@@ -17,3 +17,7 @@ body {
     background-position: center center;
     background-size: contain;
 }
+#helloUser {
+    color: white;
+    margin-top: 8px;
+}

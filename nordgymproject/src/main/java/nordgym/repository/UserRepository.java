@@ -13,6 +13,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT * FROM users u ORDER by u.first_name ASC,u.last_name ASC", nativeQuery = true)
     List<User> getAllUsersOrderedByName();
 
+    @Query(value = "SELECT * FROM users u \n" +
+            "       JOIN users_authorities ua ON u.id = ua.user_id \n" +
+            "WHERE ua.role_id = 2 \n" +
+            "ORDER BY u.first_name ASC, u.last_name ASC", nativeQuery = true)
+    List<User> getAllAdminsOrderedByName();
+
     Optional<User> findBySubscriptionNumberIsLike(String subscriptionNumber);
 
 }

@@ -30,3 +30,7 @@ body {
 .close {
     color: white;
 }
+#helloUser {
+    color: white;
+    margin-top: 8px;
+}

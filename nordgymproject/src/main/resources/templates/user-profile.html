@@ -23,7 +23,7 @@
             </div>
             <div class="col-lg-5"><h1 th:text="${userViewModel.fullName}"></h1>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3" th:if="${userViewModel.subscription != null}">
                 <form method="post" th:action="@{/user-profile/__${userViewModel.id}__/check-in}">
                     <input type="submit" class="btn btn-primary btn-lg btn-block" th:value="|Регистрирай посещение|">
                 </form>
@@ -40,7 +40,7 @@
                         th:text="|Абонатен номер: ${userViewModel.subscriptionNumber}|"></li>
                     <li class="list-group-item text-left" th:text="|Име: ${userViewModel.fullName}|"></li>
                 </ul>
-                <ul class="list-group">
+                <ul class="list-group" th:if="${userViewModel.subscription != null}">
                     <li class="list-group-item text-muted">ТЕКУЩ АБОНАМЕНТ</li>
                     <li class="list-group-item text-left" th:text="|Вид: ${userViewModel.subscription}|">
                     <li class="list-group-item text-left"
@@ -64,14 +64,14 @@
             </div><!--/col-3-->
             <div class="col-sm-9">
                 <ul class="nav nav-tabs" id="myTab">
-                    <li class="active"><a href="#entriesInfo" data-toggle="tab">Регистрирани посещения</a></li>
+                    <li class="active"><a href="#entriesInfo" data-toggle="tab" th:if="${userViewModel.subscription != null}">Регистрирани посещения</a></li>
                     <li><a href="#solarium-minutes" data-toggle="tab">Солариум</a></li>
                     <li><a href="#renew-subscription" data-toggle="tab">Поднови абонамент</a></li>
                     <li><a href="#edit-user" data-toggle="tab">Редактирай профил</a></li>
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane active" id="entriesInfo">
+                    <div class="tab-pane active" id="entriesInfo" th:if="${userViewModel.subscription != null}">
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
