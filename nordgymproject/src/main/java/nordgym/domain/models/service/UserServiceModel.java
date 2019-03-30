@@ -18,6 +18,7 @@ public class UserServiceModel {
     private String username;
     private String password;
     private String email;
+    private Boolean isAdmin;
     private Set<Role> authorities;
     private Set<UserEntry> entries;
 
@@ -102,6 +103,14 @@ public class UserServiceModel {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Boolean getAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        isAdmin = admin;
     }
 
     public Set<Role> getAuthorities() {

@@ -48,15 +48,12 @@ public class UserServiceImpl implements UserService {
     public boolean createUser(UserServiceModel userServiceModel, String subscriptionType) {
         User user = this.modelMapper.map(userServiceModel, User.class);
         user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
-        Subscription subscription = createSubscription(subscriptionType);
-        Role role = this.roleRepository.findByAuthority("USER");
-        Set<Role> authorities = new HashSet<>() {{
-            add(role);
-        }};
-        user.setAuthorities(authorities);
-        user.setSubscription(subscription);
-        this.roleRepository.saveAll(authorities);
-        this.subscriptionRepository.save(subscription);
+        this.setUserRoles(user, userServiceModel.getAdmin());
+        if (subscriptionType != null) {
+            Subscription subscription = createSubscription(subscriptionType);
+            user.setSubscription(subscription);
+            this.subscriptionRepository.save(subscription);
+        }
         return this.userRepository.save(user) != null;
     }
 
@@ -328,8 +325,9 @@ public class UserServiceImpl implements UserService {
         }
         return name;
     }
-    private void seedRoles(){
-        if(roleRepository.count() == 0){
+
+    private void seedRoles() {
+        if (roleRepository.count() == 0) {
             Role rootAdmin = new Role();
             rootAdmin.setAuthority("ROOT_ADMIN");
             Role admin = new Role();
@@ -341,11 +339,12 @@ public class UserServiceImpl implements UserService {
             this.roleRepository.save(user);
         }
     }
-    private void seedRootAdmin(){
-        if (userRepository.count()== 0){
+
+    private void seedRootAdmin() {
+        if (userRepository.count() == 0) {
             User creator = new User();
             creator.setFirstName("Николай");
-            creator.setFirstName("Грозданов");
+            creator.setLastName("Грозданов");
             creator.setSubscriptionNumber("00000001");
             creator.setAuthorities(new HashSet<>(this.roleRepository.findAll()));
             creator.setUsername("nike");
@@ -353,5 +352,16 @@ public class UserServiceImpl implements UserService {
             creator.setEmail("nagrozdanov@gmail.com");
             this.userRepository.save(creator);
         }
+    }
+
+    private void setUserRoles(User user, Boolean isAdmin) {
+        Set<Role> authorities = new HashSet<>();
+        Role roleUser = this.roleRepository.findByAuthority("USER");
+        authorities.add(roleUser);
+        if (isAdmin) {
+            Role roleAdmin = this.roleRepository.findByAuthority("ADMIN");
+            authorities.add(roleAdmin);
+        }
+        user.setAuthorities(authorities);
     }
 }

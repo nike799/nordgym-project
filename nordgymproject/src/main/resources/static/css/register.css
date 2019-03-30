@@ -79,3 +79,10 @@ a {
 #register-form {
     margin-bottom: 10%;
 }
+input[type=checkbox] {
+    zoom: 1.5;
+    margin-left: 5px;
+}
+.container-checkbox {
+    font-size: large;
+}

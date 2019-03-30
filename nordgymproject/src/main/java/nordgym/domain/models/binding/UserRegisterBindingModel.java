@@ -2,15 +2,13 @@ package nordgym.domain.models.binding;
 
 import nordgym.annotation.UniqueUser;
 import nordgym.domain.entities.SolariumSubscription;
-import nordgym.domain.entities.Subscription;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 public class UserRegisterBindingModel {
     private String subscriptionNumber;
+    private Boolean isAdmin;
     private String firstName;
     private String lastName;
     private String subscription;
@@ -31,6 +29,10 @@ public class UserRegisterBindingModel {
         return subscriptionNumber;
     }
 
+    public Boolean getAdmin() {
+        return isAdmin;
+    }
+
     @Pattern(regexp = "^[А-Я|A-Z][а-я|a-z]+$", message = "First name must begin with capital letter and contain only letters")
     @NotNull(message = "first name can not be empty")
     public String getFirstName() {
@@ -43,9 +45,12 @@ public class UserRegisterBindingModel {
         return lastName;
     }
 
-    @NotNull(message = "Subscription can not be empty")
     public String getSubscription() {
         return subscription;
+    }
+
+    public void setAdmin(Boolean admin) {
+        isAdmin = admin;
     }
 
     public SolariumSubscription getSolariumSubscription() {
