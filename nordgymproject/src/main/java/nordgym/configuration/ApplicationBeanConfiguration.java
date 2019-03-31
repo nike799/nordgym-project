@@ -1,14 +1,21 @@
 package nordgym.configuration;
 
+import nordgym.interceptors.UserAccessInterceptor;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 
 @Configuration
 public class ApplicationBeanConfiguration implements WebMvcConfigurer {
+    private final UserAccessInterceptor userAccessInterceptor;
+
+    public ApplicationBeanConfiguration(UserAccessInterceptor userAccessInterceptor) {
+        this.userAccessInterceptor = userAccessInterceptor;
+    }
 
     @Bean
     public ModelMapper modelMapper() {
@@ -25,4 +32,8 @@ public class ApplicationBeanConfiguration implements WebMvcConfigurer {
         return new Java8TimeDialect();
     }
 
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(userAccessInterceptor).addPathPatterns("/","/gallery","/contacts");
+    }
 }

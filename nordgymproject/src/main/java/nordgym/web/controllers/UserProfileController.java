@@ -1,7 +1,6 @@
 package nordgym.web.controllers;
 
 import nordgym.domain.models.binding.UserUpdateBindingModel;
-import nordgym.domain.models.service.UserServiceModel;
 import nordgym.domain.models.view.UserViewModel;
 import nordgym.service.UserEntryService;
 import nordgym.service.UserService;

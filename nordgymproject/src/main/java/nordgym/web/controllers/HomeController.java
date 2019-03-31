@@ -18,11 +18,8 @@ public class HomeController extends BaseController {
     }
 
     @GetMapping("/")
-    public ModelAndView index(ModelAndView modelAndView, Authentication authentication) {
-        if(authentication.isAuthenticated()){
-            modelAndView.addObject("username",authentication.getName());
-        }
-        return this.view("index",modelAndView);
+    public ModelAndView index() {
+        return this.view("index");
     }
 
     @GetMapping("/home")

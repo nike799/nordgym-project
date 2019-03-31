@@ -3,7 +3,6 @@ package nordgym.web.controllers;
 import nordgym.configuration.MailComponent;
 import nordgym.domain.models.binding.ContactFormBindingModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,12 +22,8 @@ public class ContactsController extends BaseController {
     }
 
     @GetMapping("/contacts")
-    public ModelAndView contacts(@ModelAttribute ContactFormBindingModel contactFormBindingModel,
-                                 ModelAndView modelAndView, Authentication authentication) {
-        if(authentication.isAuthenticated()){
-            modelAndView.addObject("username",authentication.getName());
-        }
-        return this.view("contacts",modelAndView);
+    public ModelAndView contacts(@ModelAttribute ContactFormBindingModel contactFormBindingModel){
+        return this.view("contacts");
     }
 
     @PostMapping("/contacts")
