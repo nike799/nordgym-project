@@ -69,7 +69,11 @@ public class UserServiceImpl implements UserService {
             } else {
                 user.setPassword(this.bCryptPasswordEncoder.encode(userUpdateBindingModel.getPassword()));
             }
-            this.setUserRoles(user, userUpdateBindingModel.getAdmin());
+            if(user.getAuthorities().stream().noneMatch(role -> role.getAuthority().equals("ROOT_ADMIN"))) {
+                if(userUpdateBindingModel.getAdmin() != null) {
+                    this.setUserRoles(user, userUpdateBindingModel.getAdmin());
+                }
+            }
         }
         return this.userRepository.save(user) != null;
     }
@@ -183,11 +187,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserViewModel> getAllAdmins() {
-        return this.userRepository.getAllAdminsOrderedByName().
-                stream().
-                filter(user -> user.getAuthorities().
-                        stream().noneMatch(role -> role.getAuthority().equals("ROOT_ADMIN"))).
-                map(user -> this.createUserViewModel(this.modelMapper.map(user, UserServiceModel.class))).collect(Collectors.toList());
+        return this.userRepository.getAllAdminsOrderedByName()
+                .stream()
+                .filter(user -> user.getAuthorities().stream().noneMatch(role -> role.getAuthority().equals("ROOT_ADMIN")))
+                .map(user -> this.createUserViewModel(this.modelMapper.map(user, UserServiceModel.class)))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -371,6 +375,7 @@ public class UserServiceImpl implements UserService {
             creator.setUsername("nike");
             creator.setPassword("$2a$10$SGyJV9GBu7eiap1aJQXel.po3HIu9rTSalbbZud6zZ3rEaMlci2wy");
             creator.setEmail("nagrozdanov@gmail.com");
+            creator.setProfileImagePath("avatar.jpg");
             this.userRepository.save(creator);
         }
     }
@@ -379,7 +384,7 @@ public class UserServiceImpl implements UserService {
         Set<Role> authorities = new HashSet<>();
         Role roleUser = this.roleRepository.findByAuthority("USER");
         authorities.add(roleUser);
-        if (isAdmin != null && isAdmin) {
+        if (isAdmin) {
             Role roleAdmin = this.roleRepository.findByAuthority("ADMIN");
             authorities.add(roleAdmin);
         }
