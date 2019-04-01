@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Начална страница</title>
+    <th:block th:replace="fragments/head"></th:block>
+    <link rel="stylesheet" type="text/css" href="/css/footer.css" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" type="text/css" href="/css/services.css" th:href="@{/css/services.css}">
+</head>
+<body>
+<div class="container-fluid">
+    <header class="main-header">
+        <th:block sec:authorize="isAnonymous()" th:replace="fragments/navbar-guest"></th:block>
+        <th:block sec:authorize="hasAuthority('USER') && !hasAuthority('ADMIN')"
+                  th:replace="fragments/navbar-user"></th:block>
+        <th:block sec:authorize="hasAuthority('ADMIN')" th:replace="fragments/navbar-admin"></th:block>
+    </header>
+    <div class="main-container">
+        <div class="panel-group">
+            <div class="panel panel-default transparent">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse1"><h4>Цени и абонаменти</h4></a>
+                    </h3>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead class="table-head">
+                            <tr>
+                                <th></th>
+                                <th>Месечна карта с ограничени посещения</th>
+                                <th></th>
+                                <th></th>
+                                <th>Месечна карта с неограничени посещения</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td></td>
+                                <td>/ Вид карта /</td>
+                                <td>/ Цена /</td>
+                                <td></td>
+                                <td>/ Вид карта /</td>
+                                <td>/ Цена /</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>6</td>
+                                <td>22 лв.</td>
+                                <td></td>
+                                <td>1 Месец / Мъже /</td>
+                                <td>40 лв.</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>8</td>
+                                <td>26 лв.</td>
+                                <td></td>
+                                <td>1 Месец / Жени /</td>
+                                <td>35 лв.</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>12</td>
+                                <td>30 лв.</td>
+                                <td></td>
+                                <td>3 Месеца</td>
+                                <td>110 лв.</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>16</td>
+                                <td>38 лв.</td>
+                                <td></td>
+                                <td>6 Месеца</td>
+                                <td>210 лв.</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>24   / важи за 2 месеца /</td>
+                                <td>50 лв.</td>
+                                <td></td>
+                                <td>1 Година</td>
+                                <td>320 лв.</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>30   / важи за 2 месеца /</td>
+                                <td>60 лв.</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td style="color: darkslategray">Empty row</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Еднократно посещение</td>
+                                <td>4 лв.</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Персонален треньор</td>
+                                <td>8 лв.</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Тренировъчна програма</td>
+                                <td>25 лв.</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Солариум</td>
+                                <td>0,60 лв./мин.</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id=panel_footer class="panel-footer">Panel Footer</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer::footer"></th:block>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/services.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

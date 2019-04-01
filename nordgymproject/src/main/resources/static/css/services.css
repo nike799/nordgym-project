@@ -1,0 +1,26 @@
+.navbar {
+    background-color: #001a1a;
+}
+body {
+    font-family: "Lato", sans-serif;
+    background-image: url("/images/service.jpg");
+}
+
+.panel-default{
+    text-align: center;
+    background-color: darkslategray;
+    color: white;
+}
+
+thead,th{
+    text-align: center;
+    font-size: x-large;
+}
+tbody,td{
+    text-align: left;
+    font-size: large;
+}
+#helloUser {
+    color: white;
+    margin-top: 8px;
+}
