@@ -384,7 +384,7 @@ public class UserServiceImpl implements UserService {
         Set<Role> authorities = new HashSet<>();
         Role roleUser = this.roleRepository.findByAuthority("USER");
         authorities.add(roleUser);
-        if (isAdmin) {
+        if (isAdmin != null && isAdmin) {
             Role roleAdmin = this.roleRepository.findByAuthority("ADMIN");
             authorities.add(roleAdmin);
         }

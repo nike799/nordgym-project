@@ -1,6 +1,5 @@
 <th:block th:fragment="user-login" xmlns:th="http://www.w3.org/1999/xhtml">
     <form method="post" th:action="@{/login}">
-        <div class="container">
             <label for="uname"><b>Потребителско име</b></label>
             <input type="text" placeholder="Въведи потребителско име" id="uname" name="username" required>
             <label for="psw"><b>Парола</b></label>
@@ -9,6 +8,5 @@
             <label>
                 <input type="checkbox" checked="checked" name="remember"> Запомни ме
             </label>
-        </div>
     </form>
 </th:block>

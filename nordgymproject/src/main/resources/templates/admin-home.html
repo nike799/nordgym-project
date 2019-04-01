@@ -15,7 +15,7 @@
     </header>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-4" id="findUser">
+            <div class="col-md-4 find-user">
                 <th:block th:replace="fragments/forms/user-find::user-find"></th:block>
                 <div class="container-admins">
                 <table class="table table-hover">
@@ -25,7 +25,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr  th:each="admin : ${admins}">
+                    <tr class="success" th:each="admin : ${admins}">
                         <td><a th:href="@{/user-profile/__${admin.id}__}"
                                th:text="${admin.fullName}"></a></td>
                     </tr>

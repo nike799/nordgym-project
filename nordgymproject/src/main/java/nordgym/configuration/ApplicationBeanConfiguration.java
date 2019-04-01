@@ -34,6 +34,6 @@ public class ApplicationBeanConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(userAccessInterceptor).addPathPatterns("/","/gallery","/contacts");
+        registry.addInterceptor(userAccessInterceptor).addPathPatterns("/","/gallery","/contacts","/services");
     }
 }

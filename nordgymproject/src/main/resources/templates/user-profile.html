@@ -51,13 +51,13 @@
                     <li class="list-group-item text-left"
                         th:text="|Оставащи посещения: ${userViewModel.entriesLeft}|">
                 </ul>
-                <div class="panel panel-default">
+                <div class="panel panel-default" th:if="${#authentication.getName() != userViewModel.username}">
                     <div class="panel-heading">СОЛАРИУМ</div>
                     <div class="panel-body">
-                        <h5 th:text="'Оставащи минути:' + ${userViewModel.solariumSubscription.minutes}"></h5>
+                        <h5 th:text="'Оставащи минути: ' + ${userViewModel.solariumSubscription.minutes}"></h5>
                     </div>
                 </div>
-                <div class="panel panel-default" th:if="${userViewModel.subscription != null}">
+                <div class="panel panel-default">
                     <div class="panel-heading">ИМЕЙЛ</div>
                     <div class="panel-body"><h5 th:text="${userViewModel.email}"></h5></div>
                 </div>
@@ -83,11 +83,11 @@
                                 </tr>
                                 </thead>
                                 <tbody id="entries">
-                                <tr th:each="entry,iter: ${userViewModel.entries}">
+                                <tr class="success" th:each="entry,iter: ${userViewModel.entries}">
                                     <td th:text="${iter.index + 1}"></td>
                                     <td th:text="${#temporals.format(entry.dateAndTimeOfUserEntry, 'dd MMM yyyy')}"></td>
                                     <td th:text="${#temporals.format(entry.dateAndTimeOfUserEntry, 'HH:mm')}"></td>
-                                    <td>
+                                    <td class="text-center">
                                         <form th:action="@{/user-profile/__${entry.id}__/__${userViewModel.id}__/remove-entry}"
                                               method="post">
                                             <button class="btn-danger">Премахни</button>
