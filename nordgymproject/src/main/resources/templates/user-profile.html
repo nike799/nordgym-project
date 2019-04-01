@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Информация и управление на потребител</title>
     <meta http-equiv="content-type" content="image/jpg">
@@ -10,7 +11,8 @@
 <body>
 <div class="container-fluid">
     <header>
-        <th:block th:replace="fragments/navbar-admin"></th:block>
+        <th:block sec:authorize="hasAuthority('USER') && !hasAuthority('ADMIN')"  th:replace="fragments/navbar-user"></th:block>
+        <th:block sec:authorize="hasAuthority('ADMIN')" th:replace="fragments/navbar-admin"></th:block>
     </header>
     <hr>
     <div class="container bootstrap snippet">
@@ -23,7 +25,7 @@
             </div>
             <div class="col-lg-5"><h1 th:text="${userViewModel.fullName}"></h1>
             </div>
-            <div class="col-lg-3" th:if="${userViewModel.subscription != null}">
+            <div class="col-lg-3" sec:authorize="hasAuthority('ADMIN')" th:if="${userViewModel.subscription != null}">
                 <form method="post" th:action="@{/user-profile/__${userViewModel.id}__/check-in}">
                     <input type="submit" class="btn btn-primary btn-lg btn-block" th:value="|Регистрирай посещение|">
                 </form>
@@ -66,8 +68,8 @@
                 <ul class="nav nav-tabs" id="myTab">
                     <li class="active"><a href="#entriesInfo" data-toggle="tab"
                                           th:if="${userViewModel.subscription != null}">Регистрирани посещения</a></li>
-                    <li><a href="#solarium-minutes" data-toggle="tab">Солариум</a></li>
-                    <li><a href="#renew-subscription" data-toggle="tab">Поднови абонамент</a></li>
+                    <li sec:authorize="hasAuthority('ADMIN')"><a href="#solarium-minutes" data-toggle="tab">Солариум</a></li>
+                    <li sec:authorize="hasAuthority('ADMIN')"><a href="#renew-subscription" data-toggle="tab">Поднови абонамент</a></li>
                     <li><a href="#edit-user" data-toggle="tab">Редактирай профил</a></li>
                 </ul>
 
@@ -87,7 +89,7 @@
                                     <td th:text="${iter.index + 1}"></td>
                                     <td th:text="${#temporals.format(entry.dateAndTimeOfUserEntry, 'dd MMM yyyy')}"></td>
                                     <td th:text="${#temporals.format(entry.dateAndTimeOfUserEntry, 'HH:mm')}"></td>
-                                    <td class="text-center">
+                                    <td sec:authorize="hasAuthority('ADMIN')" class="text-center">
                                         <form th:action="@{/user-profile/__${entry.id}__/__${userViewModel.id}__/remove-entry}"
                                               method="post">
                                             <button class="btn-danger">Премахни</button>
@@ -105,10 +107,10 @@
                         </div><!--/table-resp-->
                         <hr>
                     </div><!--/tab-pane-->
-                    <div class="tab-pane fade" id="solarium-minutes" th:classappend="*{userViewModel} ? 'active'">
+                    <div sec:authorize="hasAuthority('ADMIN')" class="tab-pane fade" id="solarium-minutes" th:classappend="*{userViewModel} ? 'active'">
                         <th:block th:replace="fragments/forms/solarium-minutes::solarium-minutes"></th:block>
                     </div><!--/tab-pane-->
-                    <div class="tab-pane fade" id="renew-subscription">
+                    <div sec:authorize="hasAuthority('ADMIN')" class="tab-pane fade" id="renew-subscription">
                         <th:block th:replace="fragments/forms/renew-subscription::renew-subscription"></th:block>
                     </div>
                     <div class="tab-pane fade" id="edit-user" th:classappend="*{userUpdateBindingModel} ? 'active'">

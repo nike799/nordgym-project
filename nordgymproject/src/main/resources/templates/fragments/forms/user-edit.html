@@ -1,4 +1,6 @@
-<th:block th:fragment="user-edit" xmlns:th="http://www.w3.org/1999/xhtml">
+<th:block th:fragment="user-edit"
+          xmlns:th="http://www.w3.org/1999/xhtml"
+          xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <form class="form" method="post" th:action="@{/user-profile/__${userUpdateBindingModel.userId}__}" id="registrationForm">
         <div class="form-group" th:if="${#authentication.getName() != userUpdateBindingModel.username}">
             <div  class="col-md-12 admin">
@@ -7,7 +9,7 @@
                        th:field="${userUpdateBindingModel.admin}">
             </div>
         </div>
-        <div class="form-group">
+        <div sec:authorize="hasAuthority('ADMIN')" class="form-group">
             <div class="col-xs-6">
                 <label for="user_id"><h4>Потребител ID</h4></label>
                 <input type="text" class="form-control" name="userId" id="user_id"
@@ -16,16 +18,16 @@
                        th:value="${userUpdateBindingModel.userId}">
             </div>
         </div>
-        <div class="form-group">
+        <div sec:authorize="hasAuthority('ADMIN')" class="form-group">
             <div class="col-xs-6">
                 <label for="subscription_number"><h4>Абонатен номер</h4></label>
                 <input type="text" class="form-control" name="subscriptionNumber"
                        id="subscription_number"
                        placeholder="Въведи абонатен номер" title="Change user's subscription number"
-                       th:value="${userUpdateBindingModel.subscriptionNumber}">
+                       th:value="${userUpdateBindingModel.subscriptionNumber}" readonly>
             </div>
         </div>
-        <div class="form-group">
+        <div sec:authorize="hasAuthority('ADMIN')" class="form-group">
             <div class="col-xs-6">
                 <label for="first_name"><h4>Име</h4></label>
                 <input type="text" class="form-control" name="firstName" id="first_name"
@@ -33,7 +35,7 @@
                        th:value="${userUpdateBindingModel.firstName}">
             </div>
         </div>
-        <div class="form-group">
+        <div sec:authorize="hasAuthority('ADMIN')" class="form-group">
             <div class="col-xs-6">
                 <label for="last_name"><h4>Фамилия</h4></label>
                 <input type="text" class="form-control" name="lastName" id="last_name"

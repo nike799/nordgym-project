@@ -30,6 +30,6 @@ public class HomeController extends BaseController {
         UserViewModel userViewModel = this.userService.createUserViewModel(this.userService.getUserByUsername(authentication.getName()));
         modelAndView.addObject("username", authentication.getName());
         modelAndView.addObject("userViewModel", userViewModel);
-        return this.view("user-home", modelAndView);
+        return this.redirect("/user-profile/" + userViewModel.getId());
     }
 }

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@PreAuthorize(value = "hasAuthority('ADMIN')")
 @RequestMapping({"/user-profile", "/user-profile/{userId}"})
 public class UserProfileController extends BaseController {
     private final UserService userService;
@@ -27,7 +26,7 @@ public class UserProfileController extends BaseController {
         this.userEntryService = userEntryService;
         this.modelMapper = modelMapper;
     }
-
+    @PreAuthorize(value = "hasAnyAuthority('ADMIN','USER')")
     @GetMapping("/{userId}")
     public ModelAndView getUserProfile(@PathVariable String userId, ModelAndView modelAndView, Authentication authentication) {
 
@@ -39,7 +38,7 @@ public class UserProfileController extends BaseController {
         modelAndView.addObject("userUpdateBindingModel", userUpdateBindingModel);
         return this.view("/user-profile", modelAndView);
     }
-
+    @PreAuthorize(value = "hasAnyAuthority('ADMIN','USER')")
     @PostMapping("/{userId}")
     public ModelAndView editUser(@ModelAttribute UserUpdateBindingModel userUpdateBindingModel, @PathVariable String userId, BindingResult bindingResult) {
         if (!userUpdateBindingModel.getPassword().equals(userUpdateBindingModel.getConfirmPassword())) {
@@ -51,37 +50,37 @@ public class UserProfileController extends BaseController {
         this.userService.updateUser(userUpdateBindingModel);
         return this.redirect("/user-profile/" + userId);
     }
-
+    @PreAuthorize(value = "hasAuthority('ADMIN')")
     @PostMapping("{userId}/check-in")
     public ModelAndView checkInUser(@PathVariable String userId) {
         this.userEntryService.checkInUser(Long.parseLong(userId));
         return this.redirect("/user-profile/" + userId);
     }
-
+    @PreAuthorize(value = "hasAuthority('ADMIN')")
     @PostMapping("{entryId}/{userId}/remove-entry")
     public ModelAndView removeEntry(@PathVariable String entryId, @PathVariable String userId) {
         this.userEntryService.removeLastEntry(Long.parseLong(entryId), Long.parseLong(userId));
         return this.redirect("/user-profile/" + userId);
     }
-
+    @PreAuthorize(value = "hasAuthority('ADMIN')")
     @PostMapping("{userId}/renew-subscription")
     public ModelAndView renewSubscription(@PathVariable String userId, @RequestParam String subscriptionType) {
         this.userService.renewSubscription(userId, subscriptionType);
         return this.redirect("/user-profile/" + userId);
     }
-
+    @PreAuthorize(value = "hasAuthority('ADMIN')")
     @PostMapping("{userId}/add-minutes")
     public ModelAndView addSolariumMinutes(@PathVariable String userId, @RequestParam String minutes) {
         this.userService.addSolariumMinutes(userId, Integer.parseInt(minutes));
         return this.redirect("/user-profile/" + userId);
     }
-
+    @PreAuthorize(value = "hasAuthority('ADMIN')")
     @PostMapping("{userId}/use-minutes")
     public ModelAndView reduceSolariumMinutes(@PathVariable String userId, @RequestParam String minutes) {
         this.userService.useSolariumMinutes(userId, Integer.parseInt(minutes));
         return this.redirect("/user-profile/" + userId);
     }
-
+    @PreAuthorize(value = "hasAuthority('ADMIN')")
     @PostMapping("{userId}/user-delete")
     public ModelAndView deleteUser(@PathVariable String userId) {
         this.userService.deleteUser(userId);
