@@ -23,7 +23,7 @@
                          th:src="@{/images/__${userViewModel.profileImagePath}__}">
                 </div>
             </div>
-            <div class="col-lg-5"><h1 th:text="${userViewModel.fullName}"></h1>
+            <div class="col-lg-5 full-name"><h1 th:text="${userViewModel.fullName}"></h1>
             </div>
             <div class="col-lg-3" sec:authorize="hasAuthority('ADMIN')" th:if="${userViewModel.subscription != null}">
                 <form method="post" th:action="@{/user-profile/__${userViewModel.id}__/check-in}">

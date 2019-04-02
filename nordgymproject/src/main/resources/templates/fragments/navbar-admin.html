@@ -16,6 +16,25 @@
                 <li><a href="/gallery">Галерия</a></li>
                 <li><a href="/services">Услуги</a></li>
                 <li><a href="/contacts">Контакти</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Тренировъчни програми
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Начинаещи</a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Submenu 1</a></li>
+                                <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Submenu 2</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Напреднали</a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Submenu 1</a></li>
+                                <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Submenu 2</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li id="helloUser"><h5 th:text="|Здравей, администратор ${username}*{'!'}"></h5></li>

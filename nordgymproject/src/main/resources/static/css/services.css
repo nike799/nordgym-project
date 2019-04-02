@@ -1,26 +1,53 @@
 .navbar {
     background-color: #001a1a;
 }
+
 body {
     font-family: "Lato", sans-serif;
-    background-image: url("/images/service.jpg");
+    background-image: url("/images/services.jpg");
 }
 
-.panel-default{
+.panel-default {
     text-align: center;
     background-color: darkslategray;
     color: white;
 }
 
-thead,th{
+thead, th {
     text-align: center;
     font-size: x-large;
 }
-tbody,td{
+
+tbody, td {
     text-align: left;
     font-size: large;
 }
+
+.panel-default > .panel-heading,.panel-footer {
+    background-color:  #c5ecd8;
+}
+
 #helloUser {
     color: white;
     margin-top: 8px;
+}
+
+.navbar-nav li:hover > ul.dropdown-menu {
+    display: block;
+}
+
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu > .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+}
+
+/* rotate caret on hover */
+.dropdown-menu > li > a:hover:after {
+    text-decoration: underline;
+    transform: rotate(-90deg);
 }

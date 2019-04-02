@@ -3,7 +3,7 @@
     <div class="form-area">
         <form th:action="@{/contacts}" th:method="post" th:object="${contactFormBindingModel}">
             <br style="clear:both">
-            <h3 style="margin-bottom: 25px; text-align: center;">Форма за контакт:</h3>
+            <h3 >Форма за контакт:</h3>
             <div class="form-group">
                 <label for="name"><b>Име и фамилия:</b></label>
                 <span class="red-star">★</span>
@@ -35,7 +35,7 @@
                 <p th:classappend="${#fields.hasErrors('message')} ? 'text-danger'" th:each="error : ${#fields.errors('message')}" th:text="${error}"></p>
                 <span class="help-block"><p id="characterLeft" class="help-block ">Остават Ви 250 символа.</p></span>
             </div>
-            <button type="submit" class="btn btn-primary pull-left">Изпрати</button>
+            <button type="submit" class="btn pull-left">Изпрати</button>
         </form>
     </div>
 </th:block>
