@@ -24,9 +24,11 @@ tbody, td {
 }
 
 .panel-default > .panel-heading,.panel-footer {
-    background-color:  #c5ecd8;
+    background-color:  #609f9f;
 }
-
+.panel-default > .panel-heading a{
+    color:  #000000;
+}
 #helloUser {
     color: white;
     margin-top: 8px;
