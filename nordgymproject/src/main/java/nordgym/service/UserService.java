@@ -3,6 +3,7 @@ package nordgym.service;
 import nordgym.domain.models.binding.UserUpdateBindingModel;
 import nordgym.domain.models.service.UserServiceModel;
 import nordgym.domain.models.view.UserViewModel;
+import nordgym.error.UserNotFoundException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
@@ -18,11 +19,9 @@ public interface UserService extends UserDetailsService {
 
     UserServiceModel getUserById(String userId);
 
-    UserServiceModel getUserByUsername(String username);
+    UserServiceModel getUserByUsername(String username) throws UserNotFoundException;
 
     UserUpdateBindingModel getUserUpdateBindingModelByUserId(String userId);
-
-    UserServiceModel getUserBySubscriptionNumber(String subscriptionNumber);
 
     void renewSubscription(String userId, String subscriptionType);
 
@@ -33,6 +32,6 @@ public interface UserService extends UserDetailsService {
     List<UserViewModel> getSearchedUsers(String criteria);
     List<UserViewModel> getAllAdmins();
 
-    void deleteUser(String userId);
+    void deleteUser(String userId) throws UserNotFoundException;
 
 }

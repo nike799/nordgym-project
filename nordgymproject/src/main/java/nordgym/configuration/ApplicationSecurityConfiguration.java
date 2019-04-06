@@ -17,8 +17,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final static String[] PERMITTED_ROUTES_ANONYMOUS = {"/","/login","/gallery","/contacts"};
-    private final static String[] PERMITTED_ROUTES_USER = {"/home","/logout"};
-    private final static String[] PERMITTED_ROUTES_ADMIN = {"/admin/home","/edit-user/*", "/register"};
+    private final static String[] PERMITTED_ROUTES_USER = {"/home","/logout","/user-profile/*"};
+    private final static String[] PERMITTED_ROUTES_ADMIN = {"/admin/home","/edit-user/*","/user-profile/**", "/register"};
     private final static String[] PERMITTED_ROUTES_CSS_JS = {"/css/**", "/js/**","/bootstrap/**"};
     private final UserDetailsService userDetailsService;
 

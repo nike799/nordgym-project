@@ -17,8 +17,10 @@
     </header>
     <div class="main-container">
         <div class="text-center">
-            <h1 th:text="|Не сте оторизиран да виждате тази страница *{'!!!'}|" th:classappend="alert-danger"></h1>
-            <img th:src="@{/images/access_denied.jpg}" style="width:700px">
+            <h1 th:text="${status == 404} ? 'Не може да намерим такава страница!' : ${status}"  th:classappend="alert-danger"></h1>
+            <br>
+            <h1 th:text="${message != 'No message available'} ? ${message} : ''" th:classappend="alert-danger"></h1>
+        <img src="/images/oops.jpg" style="width:500px">
         </div>
     </div>
     <th:block th:replace="fragments/footer::footer"></th:block>

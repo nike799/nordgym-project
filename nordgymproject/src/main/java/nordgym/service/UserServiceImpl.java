@@ -1,10 +1,12 @@
 package nordgym.service;
 
+import nordgym.GlobalConstants;
 import nordgym.domain.entities.*;
 import nordgym.domain.enums.SubscriptionType;
 import nordgym.domain.models.binding.UserUpdateBindingModel;
 import nordgym.domain.models.service.UserServiceModel;
 import nordgym.domain.models.view.UserViewModel;
+import nordgym.error.UserNotFoundException;
 import nordgym.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,8 +71,8 @@ public class UserServiceImpl implements UserService {
             } else {
                 user.setPassword(this.bCryptPasswordEncoder.encode(userUpdateBindingModel.getPassword()));
             }
-            if(user.getAuthorities().stream().noneMatch(role -> role.getAuthority().equals("ROOT_ADMIN"))) {
-                if(userUpdateBindingModel.getAdmin() != null) {
+            if (user.getAuthorities().stream().noneMatch(role -> role.getAuthority().equals("ROOT_ADMIN"))) {
+                if (userUpdateBindingModel.getAdmin() != null) {
                     this.setUserRoles(user, userUpdateBindingModel.getAdmin());
                 }
             }
@@ -107,15 +109,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserServiceModel getUserById(String userId) {
-        User user = this.userRepository.findById(Long.parseLong(userId)).orElse(null);
-        return user != null ? this.modelMapper.map(user, UserServiceModel.class) : null;
+        User user = getUser(userId);
+        return  this.modelMapper.map(user, UserServiceModel.class);
 
     }
 
     @Override
-    public UserServiceModel getUserByUsername(String username) {
+    public UserServiceModel getUserByUsername(String username) throws UserNotFoundException {
         User user = this.userRepository.findByUsername(username).orElse(null);
-        return user != null ? this.modelMapper.map(user, UserServiceModel.class) : null;
+        if (user == null){
+            throw new UserNotFoundException(String.format(GlobalConstants.USER_WITH_SUCH_USERNAME_DOESNT_EXISTS,username));
+        }
+        return this.modelMapper.map(user, UserServiceModel.class);
     }
 
     @Override
@@ -127,12 +132,6 @@ public class UserServiceImpl implements UserService {
             userUpdateBindingModel.setAdmin(user.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ADMIN")));
         }
         return userUpdateBindingModel;
-    }
-
-    @Override
-    public UserServiceModel getUserBySubscriptionNumber(String subscriptionNumber) {
-        User user = this.userRepository.findBySubscriptionNumberIsLike(subscriptionNumber).orElse(null);
-        return user != null ? this.modelMapper.map(user, UserServiceModel.class) : null;
     }
 
     @Override
@@ -195,17 +194,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(String userId) {
-        User user = this.userRepository.findById(Long.parseLong(userId)).orElse(null);
-        if (user != null) {
-            user.getEntries().forEach(this.userEntryRepository::delete);
-            user.getExpiredSubscriptions().forEach(this.expiredSubscriptionRepository::delete);
-            this.userRepository.delete(user);
-            this.subscriptionRepository.deleteById(user.getSubscription().getId());
-            if (user.getSolariumSubscription() != null) {
-                this.solariumSubscriptionRepository.deleteById(user.getSolariumSubscription().getId());
-            }
-            System.out.println();
+    public void deleteUser(String userId) throws UserNotFoundException {
+       User user =  getUser(userId);
+        user.getEntries().forEach(this.userEntryRepository::delete);
+        user.getExpiredSubscriptions().forEach(this.expiredSubscriptionRepository::delete);
+        this.userRepository.delete(user);
+        this.subscriptionRepository.deleteById(user.getSubscription().getId());
+        if (user.getSolariumSubscription() != null) {
+            this.solariumSubscriptionRepository.deleteById(user.getSolariumSubscription().getId());
         }
     }
 
@@ -389,5 +385,10 @@ public class UserServiceImpl implements UserService {
             authorities.add(roleAdmin);
         }
         user.setAuthorities(authorities);
+    }
+    private User getUser(String userId) {
+        User user = this.userRepository.findById(Long.parseLong(userId)).orElse(null);
+        if (user == null){throw new UserNotFoundException(String.format(GlobalConstants.USER_WITH_SUCH_ID_DOESNT_EXISTS,userId));}
+        return user;
     }
 }
