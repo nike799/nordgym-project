@@ -4,7 +4,6 @@
 body {
     font-family: "Lato", sans-serif;
     background-image: url("/images/service.jpg");
-    /*background-color: #70a9a9;*/
 }
 form label{
     color: #000000;
@@ -31,7 +30,7 @@ form h3{
 }
 
 #characterLeft {
-    color: #122b40;
+    color: #d9f2e6;
 }
 
 iframe {

@@ -2,7 +2,7 @@ package nordgym.web.controllers;
 
 import nordgym.domain.models.binding.UserUpdateBindingModel;
 import nordgym.domain.models.view.UserViewModel;
-import nordgym.error.UserNotFoundException;
+import nordgym.error.ResourceNotFoundException;
 import nordgym.service.UserEntryService;
 import nordgym.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +80,7 @@ public class UserProfileController extends BaseController {
     }
     @PreAuthorize(value = "hasAuthority('ADMIN')")
     @PostMapping("{userId}/user-delete")
-    public ModelAndView deleteUser(@PathVariable String userId) throws UserNotFoundException{
+    public ModelAndView deleteUser(@PathVariable String userId) throws ResourceNotFoundException {
         this.userService.deleteUser(userId);
         return this.redirect("/home");
     }

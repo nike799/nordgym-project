@@ -6,7 +6,7 @@ import nordgym.domain.enums.SubscriptionType;
 import nordgym.domain.models.binding.UserUpdateBindingModel;
 import nordgym.domain.models.service.UserServiceModel;
 import nordgym.domain.models.view.UserViewModel;
-import nordgym.error.UserNotFoundException;
+import nordgym.error.ResourceNotFoundException;
 import nordgym.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,10 +115,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserServiceModel getUserByUsername(String username) throws UserNotFoundException {
+    public UserServiceModel getUserByUsername(String username) throws ResourceNotFoundException {
         User user = this.userRepository.findByUsername(username).orElse(null);
         if (user == null){
-            throw new UserNotFoundException(String.format(GlobalConstants.USER_WITH_SUCH_USERNAME_DOESNT_EXISTS,username));
+            throw new ResourceNotFoundException(String.format(GlobalConstants.USER_WITH_SUCH_USERNAME_DOESNT_EXISTS,username));
         }
         return this.modelMapper.map(user, UserServiceModel.class);
     }
@@ -194,7 +194,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(String userId) throws UserNotFoundException {
+    public void deleteUser(String userId) throws ResourceNotFoundException {
        User user =  getUser(userId);
         user.getEntries().forEach(this.userEntryRepository::delete);
         user.getExpiredSubscriptions().forEach(this.expiredSubscriptionRepository::delete);
@@ -388,7 +388,7 @@ public class UserServiceImpl implements UserService {
     }
     private User getUser(String userId) {
         User user = this.userRepository.findById(Long.parseLong(userId)).orElse(null);
-        if (user == null){throw new UserNotFoundException(String.format(GlobalConstants.USER_WITH_SUCH_ID_DOESNT_EXISTS,userId));}
+        if (user == null){throw new ResourceNotFoundException(String.format(GlobalConstants.USER_WITH_SUCH_ID_DOESNT_EXISTS,userId));}
         return user;
     }
 }

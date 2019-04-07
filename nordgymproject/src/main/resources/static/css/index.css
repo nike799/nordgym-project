@@ -1,7 +1,4 @@
-* {
-    margin: 0;
-    padding: 0;
-}
+
 .navbar {
     background-color: #001a1a;
 }
@@ -12,9 +9,7 @@
 a:hover{
    background-color: white;
 }
-.dropdown {
-    margin-top: 8px;
-}
+
 body {
     background-image: url("/images/logo.jpg");
 }

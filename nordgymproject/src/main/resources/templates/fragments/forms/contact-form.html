@@ -31,9 +31,9 @@
                 <label for="message">Съобщение:</label>
                 <span class="red-star">★</span>
                 <textarea class="form-control" id="message" name="message" placeholder="Напишете Вашето съобщение"
-                          maxlength="250" rows="7"></textarea>
+                          maxlength="500" rows="7"></textarea>
                 <p th:classappend="${#fields.hasErrors('message')} ? 'text-danger'" th:each="error : ${#fields.errors('message')}" th:text="${error}"></p>
-                <span class="help-block"><p id="characterLeft" class="help-block ">Остават Ви 250 символа.</p></span>
+                <span class="help-block"><p id="characterLeft" class="help-block ">Остават Ви 500 символа.</p></span>
             </div>
             <button type="submit" class="btn pull-left">Изпрати</button>
         </form>

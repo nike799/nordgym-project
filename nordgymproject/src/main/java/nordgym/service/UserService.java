@@ -3,7 +3,7 @@ package nordgym.service;
 import nordgym.domain.models.binding.UserUpdateBindingModel;
 import nordgym.domain.models.service.UserServiceModel;
 import nordgym.domain.models.view.UserViewModel;
-import nordgym.error.UserNotFoundException;
+import nordgym.error.ResourceNotFoundException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public interface UserService extends UserDetailsService {
 
     UserServiceModel getUserById(String userId);
 
-    UserServiceModel getUserByUsername(String username) throws UserNotFoundException;
+    UserServiceModel getUserByUsername(String username) throws ResourceNotFoundException;
 
     UserUpdateBindingModel getUserUpdateBindingModelByUserId(String userId);
 
@@ -32,6 +32,6 @@ public interface UserService extends UserDetailsService {
     List<UserViewModel> getSearchedUsers(String criteria);
     List<UserViewModel> getAllAdmins();
 
-    void deleteUser(String userId) throws UserNotFoundException;
+    void deleteUser(String userId) throws ResourceNotFoundException;
 
 }
