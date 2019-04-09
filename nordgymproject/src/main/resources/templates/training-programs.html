@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Начална страница</title>
+    <th:block th:replace="fragments/head"></th:block>
+    <link rel="stylesheet" type="text/css" href="/css/footer.css" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" type="text/css" href="/css/training-programs.css" th:href="@{/css/training-programs.css}">
+</head>
+<body>
+<div class="container-fluid">
+    <header class="main-header">
+        <th:block sec:authorize="isAnonymous()" th:replace="fragments/navbar-guest"></th:block>
+        <th:block sec:authorize="hasAuthority('USER') && !hasAuthority('ADMIN')"
+                  th:replace="fragments/navbar-user"></th:block>
+        <th:block sec:authorize="hasAuthority('ADMIN')" th:replace="fragments/navbar-admin"></th:block>
+    </header>
+    <div class="row content" th:object="${trainingProgramModel}">
+        <div class="col-sm-9 mainContainer">
+            <div class="header center">
+                <h1 th:text="*{header}"></h1>
+            </div>
+            <div class="feature-image">
+                <img class="center" th:src="*{programImagePath}">
+            </div>
+            <div class="workoutSummary center">
+                <h2>Резюме на тренировката</h2>
+            </div>
+            <div class="center">
+                <div class="workout-info">
+                    <div class="bottomGrooved">
+                        <h4 class="leftContent">Основна цел</h4>
+                        <h4 class="rightContent" th:text="*{mainGoal}"></h4>
+                    </div>
+                    <div class="bottomGrooved">
+                        <h4 class="leftContent">Ниво на трудност:</h4>
+                        <h4 class="rightContent" th:text="*{trainingLevel}"></h4>
+                    </div>
+                    <div class="bottomGrooved">
+                        <h4 class="leftContent">Тип на тренировката</h4>
+                        <h4 class="rightContent" th:text="*{workoutType}"></h4>
+                    </div>
+                    <div class="bottomGrooved">
+                        <h4 class="leftContent">Продължителност на програмата</h4>
+                        <h4 class="rightContent" th:text="*{programDuration}"></h4>
+                    </div>
+                    <div class="bottomGrooved">
+                        <h4 class="leftContent">Брой тренировки седмично</h4>
+                        <h4 class="rightContent" th:text="*{daysPerWeek}"></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 sidebar">
+            <p>Sidebar</p>
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer::footer"></th:block>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -17,15 +17,20 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="form-group">
+                        <label for="header"><b>Заглавие</b></label>
+                        <input type="text" placeholder="Въведи заглавие на програмата" id="header"
+                               name="header">
+                    </div>
+                    <div class="form-group">
                         <label for="mainGoal"><b>Основна цел</b></label>
                         <input type="text" placeholder="Въведи цел на програмата" id="mainGoal"
                                name="mainGoal">
                     </div>
 
                     <div class="form-group">
-                        <label for="trainingType"><b>Тип на тренировката</b></label>
-                        <input type="text" placeholder="Въведи тип на тренировката" id="trainingType"
-                               name="trainingType">
+                        <label for="workoutType"><b>Тип на тренировката</b></label>
+                        <input type="text" placeholder="Въведи тип на тренировката" id="workoutType"
+                               name="workoutType">
                     </div>
 
                     <div class="form-group">
@@ -42,9 +47,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="timePerWorkout"><b>Времетраене на тренировката</b></label>
-                        <input type="number" placeholder="Въведи времетраене на тренировката" id="timePerWorkout"
-                               name="timePerWorkout">
+                        <label for="trainingLevel"><b>Ниво на трудност</b></label>
+                        <select class="form-control" id="trainingLevel" name="trainingLevel">
+                            <option selected disabled>Избери ниво на трудност на програмата</option>
+                            <option value="BEGINNER">Начинаещи</option>
+                            <option value="INTERMEDIATE">Средно напреднали</option>
+                            <option value="ADVANCED">Напреднали</option>
+                        </select>
                     </div>
 
                     <div class="form-group">

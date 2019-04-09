@@ -23,7 +23,7 @@ import java.util.Objects;
 @Controller
 @RequestMapping("/register")
 public class RegisterController extends BaseController {
-    private final static String PROFILE_IMAGE_PATH = "D:\\Java Frameworks - Spring\\Project-Nordgym\\nordgymproject\\src\\main\\resources\\static\\images\\";
+    private final static String IMAGES_PATH = "D:\\Java Frameworks - Spring\\Project-Nordgym\\nordgymproject\\src\\main\\resources\\static\\images\\";
     private final UserService userService;
     private final TrainingProgramService trainingProgramService;
 
@@ -55,7 +55,7 @@ public class RegisterController extends BaseController {
             return this.view("register-user");
         }
         if (!Objects.requireNonNull(image.getOriginalFilename()).isEmpty()) {
-            File dest = new File(PROFILE_IMAGE_PATH + image.getOriginalFilename());
+            File dest = new File(IMAGES_PATH + image.getOriginalFilename());
             image.transferTo(dest);
             userRegisterBindingModel.setProfileImagePath(image.getOriginalFilename());
         } else {
@@ -74,9 +74,9 @@ public class RegisterController extends BaseController {
     @PostMapping("/training-program-new")
     public ModelAndView trainingProgramRegisterConfirm(@ModelAttribute TrainingProgramBindingModel trainingProgramBindingModel,@RequestParam("programImage") MultipartFile image) throws IOException {
         TrainingProgramServiceModel trainingProgramServiceModel = this.modelMapper.map(trainingProgramBindingModel,TrainingProgramServiceModel.class);
-        Long id = this.trainingProgramService.registerTrainingProgram(trainingProgramServiceModel,image.getOriginalFilename());
-        File dest = new File("C:\\Users\\Nike\\Desktop\\"+image.getOriginalFilename());
+        Long id = this.trainingProgramService.registerTrainingProgram(trainingProgramServiceModel,"/images/" + image.getOriginalFilename());
+        File dest = new File(IMAGES_PATH + image.getOriginalFilename());
         image.transferTo(dest);
-        return this.redirect("/trainings/advanced/"+id);
+        return this.redirect("/training-programs/"+id);
     }
 }

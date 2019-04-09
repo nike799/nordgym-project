@@ -1,18 +1,28 @@
 package nordgym.domain.models.binding;
 
 import nordgym.domain.enums.GenderTarget;
+import nordgym.domain.enums.TrainingLevel;
 
 public class TrainingProgramBindingModel {
+    private String header;
     private String programImagePath;
     private String mainGoal;
-    private String trainingType;
+    private String workoutType;
     private Integer programDuration;
     private Integer daysPerWeek;
-    private Integer timePerWorkout;
+    private TrainingLevel trainingLevel;
     private GenderTarget genderTarget;
     private String workoutDescription;
 
     public TrainingProgramBindingModel() {
+    }
+
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
     }
 
     public String getProgramImagePath() {
@@ -31,12 +41,12 @@ public class TrainingProgramBindingModel {
         this.mainGoal = mainGoal;
     }
 
-    public String getTrainingType() {
-        return trainingType;
+    public String getWorkoutType() {
+        return workoutType;
     }
 
-    public void setTrainingType(String trainingType) {
-        this.trainingType = trainingType;
+    public void setWorkoutType(String workoutType) {
+        this.workoutType = workoutType;
     }
 
     public Integer getProgramDuration() {
@@ -55,12 +65,12 @@ public class TrainingProgramBindingModel {
         this.daysPerWeek = daysPerWeek;
     }
 
-    public Integer getTimePerWorkout() {
-        return timePerWorkout;
+    public TrainingLevel getTrainingLevel() {
+        return trainingLevel;
     }
 
-    public void setTimePerWorkout(Integer timePerWorkout) {
-        this.timePerWorkout = timePerWorkout;
+    public void setTrainingLevel(TrainingLevel trainingLevel) {
+        this.trainingLevel = trainingLevel;
     }
 
     public GenderTarget getGenderTarget() {

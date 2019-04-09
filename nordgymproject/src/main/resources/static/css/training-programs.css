@@ -1,0 +1,40 @@
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}
+
+.center img {
+    width: 60%;
+    height: 300px;
+}
+
+.sidebar {
+    border-style: dashed;
+    height: 100%;
+}
+
+.workoutSummary {
+    border-left-style: solid;
+    border-left-color: #122b40;
+    font-weight: bolder;
+}
+
+.workout-info {
+    border-style: groove;
+}
+
+.bottomGrooved {
+    border-bottom-style: groove;
+}
+
+.leftContent {
+    display: inline-block;
+    float: left;
+    color: #337ab7;
+}
+
+.rightContent {
+    display: inline-block;
+}
