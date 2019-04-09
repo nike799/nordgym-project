@@ -5,7 +5,6 @@
 <head>
     <title>Начална страница</title>
     <th:block th:replace="fragments/head"></th:block>
-    <link rel="stylesheet" type="text/css" href="/css/footer.css" th:href="@{/css/footer.css}">
     <link rel="stylesheet" type="text/css" href="/css/training-programs.css" th:href="@{/css/training-programs.css}">
 </head>
 <body>
@@ -30,26 +29,82 @@
             <div class="center">
                 <div class="workout-info">
                     <div class="bottomGrooved">
-                        <h4 class="leftContent">Основна цел</h4>
-                        <h4 class="rightContent" th:text="*{mainGoal}"></h4>
+                        <div class="row">
+                            <div class="col-sm-6 text-left">
+                                <h4 class="leftContent">Основна цел</h4>
+                            </div>
+                            <div class="col-sm-6 text-left">
+                                <h4 class="rightContent" th:text="*{mainGoal}"></h4>
+                            </div>
+                        </div>
                     </div>
                     <div class="bottomGrooved">
-                        <h4 class="leftContent">Ниво на трудност:</h4>
-                        <h4 class="rightContent" th:text="*{trainingLevel}"></h4>
+                        <div class="row">
+                            <div class="col-sm-6 text-left">
+                                <h4 class="leftContent">Ниво на трудност:</h4>
+                            </div>
+                            <div class="col-sm-6 text-left">
+                                <th:block th:switch="*{trainingLevel}">
+                                    <h4 class="rightContent" th:case="${T(nordgym.domain.enums.TrainingLevel).BEGINNER}" th:text="Начинаещи"></h4>
+                                    <h4 class="rightContent" th:case="${T(nordgym.domain.enums.TrainingLevel).INTERMEDIATE}" th:text="Средно напреднали"></h4>
+                                    <h4 class="rightContent" th:case="${T(nordgym.domain.enums.TrainingLevel).ADVANCED}" th:text="Напреднали"></h4>
+                                </th:block>
+                            </div>
+                        </div>
                     </div>
                     <div class="bottomGrooved">
-                        <h4 class="leftContent">Тип на тренировката</h4>
-                        <h4 class="rightContent" th:text="*{workoutType}"></h4>
+                        <div class="row">
+                            <div class="col-sm-6 text-left">
+                                <h4 class="leftContent">Тип на тренировката</h4>
+                            </div>
+                            <div class="col-sm-6 text-left">
+                                <h4 class="rightContent" th:text="*{workoutType}"></h4>
+                            </div>
+                        </div>
                     </div>
                     <div class="bottomGrooved">
-                        <h4 class="leftContent">Продължителност на програмата</h4>
-                        <h4 class="rightContent" th:text="*{programDuration}"></h4>
+                        <div class="row">
+                            <div class="col-sm-6 text-left">
+                                <h4 class="leftContent">Продължителност на програмата</h4>
+                            </div>
+                            <div class="col-sm-6 text-left">
+                                <h4 class="rightContent" th:text="*{programDuration}"></h4>
+                            </div>
+                        </div>
                     </div>
                     <div class="bottomGrooved">
-                        <h4 class="leftContent">Брой тренировки седмично</h4>
-                        <h4 class="rightContent" th:text="*{daysPerWeek}"></h4>
+                        <div class="row">
+                            <div class="col-sm-6 text-left">
+                                <h4 class="leftContent">Брой тренировки седмично</h4>
+                            </div>
+                            <div class="col-sm-6 text-left">
+                                <h4 class="rightContent" th:text="*{daysPerWeek}"></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="row">
+                            <div class="col-sm-6 text-left">
+                                <h4 class="leftContent">Целеви пол</h4>
+                            </div>
+                            <div class="col-sm-6 text-left">
+                                <th:block th:switch="*{genderTarget}">
+                                <h4 class="rightContent" th:case="${T(nordgym.domain.enums.GenderTarget).MALE}" th:text="Мъже"></h4>
+                                <h4 class="rightContent" th:case="${T(nordgym.domain.enums.GenderTarget).FEMALE}" th:text="Жени"></h4>
+                                <h4 class="rightContent" th:case="${T(nordgym.domain.enums.GenderTarget).BOTH}" th:text="Мъже + ' & ' + Жени"></h4>
+                                </th:block>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="workoutDescription center">
+                <h2>Описание на тренировката</h2>
+            </div>
+            <div class="center">
+                <article>
+                    <p th:text="*{workoutDescription}"></p>
+                </article>
             </div>
         </div>
         <div class="col-sm-3 sidebar">

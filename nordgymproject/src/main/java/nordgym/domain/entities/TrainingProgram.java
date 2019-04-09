@@ -36,7 +36,7 @@ public class TrainingProgram extends BaseEntity {
         return mainGoal;
     }
 
-    @Column(name = "training_type")
+    @Column(name = "workout_type")
     public String getWorkoutType() {
         return workoutType;
     }
