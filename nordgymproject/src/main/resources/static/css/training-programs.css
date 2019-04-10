@@ -13,8 +13,8 @@ body {
 }
 
 .sidebar {
-    border-style: dashed;
-    height: 100%;
+    background-color: #4dffd2;
+    min-height: 800px;
 }
 
 .workoutSummary {
@@ -40,6 +40,9 @@ body {
 
 .leftContent {
     color: midnightblue;
+}
+#programImage {
+    width: 50%;
 }
 footer {
     background-color: #001a1a;

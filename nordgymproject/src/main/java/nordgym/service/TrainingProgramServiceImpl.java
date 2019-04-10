@@ -4,12 +4,15 @@ package nordgym.service;
 import nordgym.GlobalConstants;
 import nordgym.domain.entities.TrainingProgram;
 import nordgym.domain.models.service.TrainingProgramServiceModel;
+import nordgym.domain.models.view.TrainingProgramSidebarModel;
 import nordgym.error.EmptyDataBaseException;
 import nordgym.error.ResourceNotFoundException;
 import nordgym.repository.TrainingProgramRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class TrainingProgramServiceImpl implements TrainingProgramService {
@@ -46,5 +49,13 @@ public class TrainingProgramServiceImpl implements TrainingProgramService {
         }
         if(trainingProgram == null){throw new EmptyDataBaseException(GlobalConstants.SORRY_NO_UPLOADED_RESOURCES_AT_THIS_MOMENT);}
         return this.modelMapper.map(trainingProgram,TrainingProgramServiceModel.class);
+    }
+
+    @Override
+    public List<TrainingProgramServiceModel> getAllTrainingPrograms() {
+        List<TrainingProgramServiceModel> trainingProgramServiceModels =
+                List.of(this.modelMapper.map(this.trainingProgramRepository.findAll().toArray(), TrainingProgramServiceModel[].class));
+        if (trainingProgramServiceModels.size() == 0){throw new EmptyDataBaseException(GlobalConstants.SORRY_NO_UPLOADED_RESOURCES_AT_THIS_MOMENT);}
+        return trainingProgramServiceModels;
     }
 }
