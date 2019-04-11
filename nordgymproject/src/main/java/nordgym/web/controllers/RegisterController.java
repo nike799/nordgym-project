@@ -1,5 +1,6 @@
 package nordgym.web.controllers;
 
+import nordgym.GlobalConstants;
 import nordgym.domain.models.binding.TrainingProgramBindingModel;
 import nordgym.domain.models.binding.UserRegisterBindingModel;
 import nordgym.domain.models.service.TrainingProgramServiceModel;
@@ -23,12 +24,9 @@ import java.util.Objects;
 @Controller
 @RequestMapping("/register")
 public class RegisterController extends BaseController {
-    private final static String IMAGES_PATH = "D:\\Java Frameworks - Spring\\Project-Nordgym\\nordgymproject\\src\\main\\resources\\static\\images\\";
     private final UserService userService;
     private final TrainingProgramService trainingProgramService;
-
     private final ModelMapper modelMapper;
-
 
     @Autowired
     public RegisterController(UserService userService, TrainingProgramService trainingProgramService, ModelMapper modelMapper) {
@@ -55,7 +53,7 @@ public class RegisterController extends BaseController {
             return this.view("register-user");
         }
         if (!Objects.requireNonNull(image.getOriginalFilename()).isEmpty()) {
-            File dest = new File(IMAGES_PATH + image.getOriginalFilename());
+            File dest = new File(GlobalConstants.IMAGES_PATH + image.getOriginalFilename());
             image.transferTo(dest);
             userRegisterBindingModel.setProfileImagePath(image.getOriginalFilename());
         } else {
@@ -68,14 +66,14 @@ public class RegisterController extends BaseController {
     @GetMapping("/training-program-new")
     public ModelAndView trainingProgramRegister(@ModelAttribute UserRegisterBindingModel userRegisterBindingModel, ModelAndView modelAndView, Authentication authentication) {
         modelAndView.addObject("username", authentication.getName());
-        return this.view("register-training-program", modelAndView);
+        return this.view("training-program-register", modelAndView);
     }
 
     @PostMapping("/training-program-new")
     public ModelAndView trainingProgramRegisterConfirm(@ModelAttribute TrainingProgramBindingModel trainingProgramBindingModel,@RequestParam("programImage") MultipartFile image) throws IOException {
         TrainingProgramServiceModel trainingProgramServiceModel = this.modelMapper.map(trainingProgramBindingModel,TrainingProgramServiceModel.class);
         Long id = this.trainingProgramService.registerTrainingProgram(trainingProgramServiceModel,"/images/" + image.getOriginalFilename());
-        File dest = new File(IMAGES_PATH + image.getOriginalFilename());
+        File dest = new File(GlobalConstants.IMAGES_PATH + image.getOriginalFilename());
         image.transferTo(dest);
         return this.redirect("/training-programs/"+id);
     }

@@ -36,7 +36,7 @@ body {
     transform: rotate(-90deg);
 }
 footer {
-    position: fixed;
+    margin-top: 40%;
     background-color: #001a1a;
     height: 70px;
     color: white;

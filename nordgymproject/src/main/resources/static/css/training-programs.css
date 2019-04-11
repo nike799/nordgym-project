@@ -1,6 +1,7 @@
 body {
-    background-color: #99ffe6;
+    background-color: #e0ebc2;
 }
+
 .center {
     display: block;
     margin-left: auto;
@@ -8,12 +9,12 @@ body {
     width: 60%;
 }
 
- img {
+img {
     height: 500px;
 }
 
 .sidebar {
-    background-color: #4dffd2;
+    background-color: #c9dbba;
     min-height: 800px;
 }
 
@@ -23,6 +24,7 @@ body {
     border-left-color: darkblue;
     font-weight: bolder;
 }
+
 .workoutDescription {
     padding-left: 5px;
     border-left-style: solid;
@@ -41,9 +43,11 @@ body {
 .leftContent {
     color: midnightblue;
 }
+
 #programImage {
     width: 50%;
 }
+
 footer {
     background-color: #001a1a;
     height: 70px;
@@ -65,8 +69,45 @@ footer {
 #footer-right {
     float: right;
 }
-#footer-right h4{
+
+#footer-right h4 {
     color: white;
     text-align: center;
+}
+
+.modal-dialog {
+    width: 1200px;
+}
+
+.modal-body {
+    background-color: #00b3b3;
+}
+#closeModalX{
+   font-size: 50px;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password], input[type=number] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus, input[type=number]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+
+#editProgramBtn {
+    margin-top: 30px;
 }
 

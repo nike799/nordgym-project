@@ -1,21 +1,26 @@
 package nordgym.service;
 
 
+import com.sun.mail.imap.IMAPBodyPart;
 import nordgym.GlobalConstants;
 import nordgym.domain.entities.TrainingProgram;
 import nordgym.domain.models.service.TrainingProgramServiceModel;
-import nordgym.domain.models.view.TrainingProgramSidebarModel;
 import nordgym.error.EmptyDataBaseException;
 import nordgym.error.ResourceNotFoundException;
 import nordgym.repository.TrainingProgramRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.List;
 
 @Service
 public class TrainingProgramServiceImpl implements TrainingProgramService {
+    private static final String IMAGES = "/images/";
     private TrainingProgramRepository trainingProgramRepository;
     private ModelMapper modelMapper;
 
@@ -47,15 +52,46 @@ public class TrainingProgramServiceImpl implements TrainingProgramService {
         if (this.trainingProgramRepository.findAll().size() > 0) {
             trainingProgram = this.trainingProgramRepository.findAll().get(this.trainingProgramRepository.findAll().size() - 1);
         }
-        if(trainingProgram == null){throw new EmptyDataBaseException(GlobalConstants.SORRY_NO_UPLOADED_RESOURCES_AT_THIS_MOMENT);}
-        return this.modelMapper.map(trainingProgram,TrainingProgramServiceModel.class);
+        if (trainingProgram == null) {
+            throw new EmptyDataBaseException(GlobalConstants.SORRY_NO_UPLOADED_RESOURCES_AT_THIS_MOMENT);
+        }
+        return this.modelMapper.map(trainingProgram, TrainingProgramServiceModel.class);
     }
 
     @Override
     public List<TrainingProgramServiceModel> getAllTrainingPrograms() {
         List<TrainingProgramServiceModel> trainingProgramServiceModels =
                 List.of(this.modelMapper.map(this.trainingProgramRepository.findAll().toArray(), TrainingProgramServiceModel[].class));
-        if (trainingProgramServiceModels.size() == 0){throw new EmptyDataBaseException(GlobalConstants.SORRY_NO_UPLOADED_RESOURCES_AT_THIS_MOMENT);}
+        if (trainingProgramServiceModels.size() == 0) {
+            throw new EmptyDataBaseException(GlobalConstants.SORRY_NO_UPLOADED_RESOURCES_AT_THIS_MOMENT);
+        }
         return trainingProgramServiceModels;
+    }
+
+    @Override
+    public Long editTrainingProgram(TrainingProgramServiceModel trainingProgramServiceModel, Long id, MultipartFile image) throws IOException, NoSuchFieldException, IllegalAccessException {
+        TrainingProgram trainingProgram = this.trainingProgramRepository.findById(id).orElse(null);
+        if (trainingProgram == null) {
+            throw new ResourceNotFoundException(String.format(GlobalConstants.SUCH_TRAINING_PROGRAM_DOESNT_EXISTS, id));
+        }
+        if (image.getOriginalFilename()!= null && !image.getOriginalFilename().isEmpty()) {
+            File dest = new File(GlobalConstants.IMAGES_PATH + image.getOriginalFilename());
+            image.transferTo(dest);
+            trainingProgramServiceModel.setProgramImagePath(IMAGES.concat(image.getOriginalFilename()));
+        }
+        this.updateTrainingProgram(trainingProgramServiceModel,trainingProgram);
+        return this.trainingProgramRepository.save(trainingProgram).getId();
+    }
+
+    private void updateTrainingProgram(TrainingProgramServiceModel model, TrainingProgram origin) throws IllegalAccessException, NoSuchFieldException {
+        for (Field f : model.getClass().getDeclaredFields()) {
+            f.setAccessible(true);
+            if (f.get(model) != null && !f.getName().equals("id")) {
+                String fieldName = f.getName();
+                Field f1 = origin.getClass().getDeclaredField(fieldName);
+                f1.setAccessible(true);
+                f1.set(origin, f.get(model));
+            }
+        }
     }
 }

@@ -24,6 +24,7 @@ public class UserProfileController extends BaseController {
         this.userService = userService;
         this.userEntryService = userEntryService;
     }
+
     @PreAuthorize(value = "hasAnyAuthority('ADMIN','USER')")
     @GetMapping("/{userId}")
     public ModelAndView getUserProfile(@PathVariable String userId, ModelAndView modelAndView, Authentication authentication) {
@@ -36,6 +37,7 @@ public class UserProfileController extends BaseController {
         modelAndView.addObject("userUpdateBindingModel", userUpdateBindingModel);
         return this.view("/user-profile", modelAndView);
     }
+
     @PreAuthorize(value = "hasAnyAuthority('ADMIN','USER')")
     @PostMapping("/{userId}")
     public ModelAndView editUser(@ModelAttribute UserUpdateBindingModel userUpdateBindingModel, @PathVariable String userId, BindingResult bindingResult) {
@@ -48,36 +50,42 @@ public class UserProfileController extends BaseController {
         this.userService.updateUser(userUpdateBindingModel);
         return this.redirect("/user-profile/" + userId);
     }
+
     @PreAuthorize(value = "hasAuthority('ADMIN')")
     @PostMapping("{userId}/check-in")
     public ModelAndView checkInUser(@PathVariable String userId) {
         this.userEntryService.checkInUser(Long.parseLong(userId));
         return this.redirect("/user-profile/" + userId);
     }
+
     @PreAuthorize(value = "hasAuthority('ADMIN')")
     @PostMapping("{entryId}/{userId}/remove-entry")
     public ModelAndView removeEntry(@PathVariable String entryId, @PathVariable String userId) {
         this.userEntryService.removeLastEntry(Long.parseLong(entryId), Long.parseLong(userId));
         return this.redirect("/user-profile/" + userId);
     }
+
     @PreAuthorize(value = "hasAuthority('ADMIN')")
     @PostMapping("{userId}/renew-subscription")
     public ModelAndView renewSubscription(@PathVariable String userId, @RequestParam String subscriptionType) {
         this.userService.renewSubscription(userId, subscriptionType);
         return this.redirect("/user-profile/" + userId);
     }
+
     @PreAuthorize(value = "hasAuthority('ADMIN')")
     @PostMapping("{userId}/add-minutes")
     public ModelAndView addSolariumMinutes(@PathVariable String userId, @RequestParam String minutes) {
         this.userService.addSolariumMinutes(userId, Integer.parseInt(minutes));
         return this.redirect("/user-profile/" + userId);
     }
+
     @PreAuthorize(value = "hasAuthority('ADMIN')")
     @PostMapping("{userId}/use-minutes")
     public ModelAndView reduceSolariumMinutes(@PathVariable String userId, @RequestParam String minutes) {
         this.userService.useSolariumMinutes(userId, Integer.parseInt(minutes));
         return this.redirect("/user-profile/" + userId);
     }
+
     @PreAuthorize(value = "hasAuthority('ADMIN')")
     @PostMapping("{userId}/user-delete")
     public ModelAndView deleteUser(@PathVariable String userId) throws ResourceNotFoundException {

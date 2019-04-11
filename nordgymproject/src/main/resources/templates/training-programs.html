@@ -45,9 +45,13 @@
                             </div>
                             <div class="col-sm-6 text-left">
                                 <th:block th:switch="*{trainingLevel}">
-                                    <h4 class="rightContent" th:case="${T(nordgym.domain.enums.TrainingLevel).BEGINNER}" th:text="Начинаещи"></h4>
-                                    <h4 class="rightContent" th:case="${T(nordgym.domain.enums.TrainingLevel).INTERMEDIATE}" th:text="Средно напреднали"></h4>
-                                    <h4 class="rightContent" th:case="${T(nordgym.domain.enums.TrainingLevel).ADVANCED}" th:text="Напреднали"></h4>
+                                    <h4 class="rightContent" th:case="${T(nordgym.domain.enums.TrainingLevel).BEGINNER}"
+                                        th:text="Начинаещи"></h4>
+                                    <h4 class="rightContent"
+                                        th:case="${T(nordgym.domain.enums.TrainingLevel).INTERMEDIATE}"
+                                        th:text="Средно напреднали"></h4>
+                                    <h4 class="rightContent" th:case="${T(nordgym.domain.enums.TrainingLevel).ADVANCED}"
+                                        th:text="Напреднали"></h4>
                                 </th:block>
                             </div>
                         </div>
@@ -89,9 +93,12 @@
                             </div>
                             <div class="col-sm-6 text-left">
                                 <th:block th:switch="*{genderTarget}">
-                                <h4 class="rightContent" th:case="${T(nordgym.domain.enums.GenderTarget).MALE}" th:utext="Мъже"></h4>
-                                <h4 class="rightContent" th:case="${T(nordgym.domain.enums.GenderTarget).FEMALE}" th:utext="Жени"></h4>
-                                <h4 class="rightContent" th:case="${T(nordgym.domain.enums.GenderTarget).BOTH}" th:utext="Мъже + ' & ' + Жени"></h4>
+                                    <h4 class="rightContent" th:case="${T(nordgym.domain.enums.GenderTarget).MALE}"
+                                        th:utext="Мъже"></h4>
+                                    <h4 class="rightContent" th:case="${T(nordgym.domain.enums.GenderTarget).FEMALE}"
+                                        th:utext="Жени"></h4>
+                                    <h4 class="rightContent" th:case="${T(nordgym.domain.enums.GenderTarget).BOTH}"
+                                        th:utext="Мъже + ' & ' + Жени"></h4>
                                 </th:block>
                             </div>
                         </div>
@@ -105,6 +112,12 @@
                 <article>
                     <p th:utext="*{workoutDescription}"></p>
                 </article>
+            </div>
+            <div id="editProgramBtn" class="center" sec:authorize="hasAuthority('ADMIN')">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#trainingProgramEditModal">
+                    Редактирай програмата
+                </button>
+                <th:block th:replace="fragments/forms/training-programs-edit-modal::training-programs-edit-modal"></th:block>
             </div>
         </div>
         <div class="col-sm-3 sidebar">
