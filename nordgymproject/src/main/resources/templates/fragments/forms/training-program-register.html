@@ -6,7 +6,8 @@
             <div class="row">
                 <div class="col-lg-4">
                     <label for="programImage">Избери снимка</label>
-                    <input type='file' id="programImage" name="programImage" accept=".png, .jpg, .jpeg"/>
+                    <span class="red-star">★</span>
+                    <input type='file' id="programImage" name="programImage" accept=".png, .jpg, .jpeg" required/>
                 </div>
                 <div class="col-lg-4">
                 </div>
@@ -18,37 +19,38 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label for="header"><b>Заглавие</b></label>
-                        <input type="text" placeholder="Въведи заглавие на програмата" id="header"
-                               name="header">
+                        <span class="red-star">★</span>
+                        <input type="text" placeholder="Въведи заглавие на програмата" id="header" name="header" required>
                     </div>
                     <div class="form-group">
                         <label for="mainGoal"><b>Основна цел</b></label>
-                        <input type="text" placeholder="Въведи цел на програмата" id="mainGoal"
-                               name="mainGoal">
+                        <span class="red-star">★</span>
+                        <input type="text" placeholder="Въведи цел на програмата" id="mainGoal" name="mainGoal" required>
                     </div>
 
                     <div class="form-group">
                         <label for="workoutType"><b>Тип на тренировката</b></label>
-                        <input type="text" placeholder="Въведи тип на тренировката" id="workoutType"
-                               name="workoutType">
+                        <span class="red-star">★</span>
+                        <input type="text" placeholder="Въведи тип на тренировката" id="workoutType" name="workoutType" required>
                     </div>
 
                     <div class="form-group">
                         <label for="programDuration"><b>Продължителност на програмата</b></label>
-                        <input type="number" placeholder="Въведи продължителност на програмата" id="programDuration"
-                               name="programDuration">
+                        <span class="red-star">★</span>
+                        <input type="number" placeholder="Въведи продължителност на програмата" id="programDuration" name="programDuration" required>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label for="daysPerWeek"><b>Брой дни седмично</b></label>
-                        <input type="number" placeholder="Въведи брой дни седмично" id="daysPerWeek"
-                               name="daysPerWeek">
+                        <span class="red-star">★</span>
+                        <input type="number" placeholder="Въведи брой дни седмично" id="daysPerWeek" name="daysPerWeek" required>
                     </div>
 
                     <div class="form-group">
                         <label for="trainingLevel"><b>Ниво на трудност</b></label>
-                        <select class="form-control" id="trainingLevel" name="trainingLevel">
+                        <span class="red-star">★</span>
+                        <select class="form-control" id="trainingLevel" name="trainingLevel" required>
                             <option selected disabled>Избери ниво на трудност на програмата</option>
                             <option value="BEGINNER">Начинаещи</option>
                             <option value="INTERMEDIATE">Средно напреднали</option>
@@ -58,7 +60,8 @@
 
                     <div class="form-group">
                         <label for="genderTarget"><b>Целеви пол</b></label>
-                        <select class="form-control" id="genderTarget" name="genderTarget">
+                        <span class="red-star">★</span>
+                        <select class="form-control" id="genderTarget" name="genderTarget" required>
                             <option selected disabled>Избери целеви пол</option>
                             <option value="MALE">МЪЖЕ</option>
                             <option value="FEMALE">ЖЕНИ</option>
@@ -70,8 +73,9 @@
                 <div class="col-sm-12">
                     <div class="form-group">
                         <label for="workoutDescription">Описание на програмата</label>
+                        <span class="red-star">★</span>
                         <textarea class="form-control" id="workoutDescription" name="workoutDescription"
-                                  placeholder="Напишете описание на програмата" rows="10"></textarea>
+                                  placeholder="Напишете описание на програмата" rows="10" required></textarea>
                     </div>
                 </div>
             </div>

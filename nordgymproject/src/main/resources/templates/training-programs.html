@@ -45,11 +45,12 @@
                             </div>
                             <div class="col-sm-6 text-left">
                                 <th:block th:switch="*{trainingLevel}">
-                                    <h4 class="rightContent" th:case="${T(nordgym.domain.enums.TrainingLevel).BEGINNER}"
+                                    <h4 class="rightContent"
+                                        th:case="${T(nordgym.domain.enums.TrainingLevel).BEGINNER}"
                                         th:text="Начинаещи"></h4>
                                     <h4 class="rightContent"
                                         th:case="${T(nordgym.domain.enums.TrainingLevel).INTERMEDIATE}"
-                                        th:text="Средно напреднали"></h4>
+                                        th:text="Средно+' '+напреднали"></h4>
                                     <h4 class="rightContent" th:case="${T(nordgym.domain.enums.TrainingLevel).ADVANCED}"
                                         th:text="Напреднали"></h4>
                                 </th:block>

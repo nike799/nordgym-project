@@ -69,7 +69,10 @@ public class RegisterController extends BaseController {
     }
 
     @PostMapping("/training-program-new")
-    public ModelAndView trainingProgramRegisterConfirm(@ModelAttribute TrainingProgramBindingModel trainingProgramBindingModel,@RequestParam("programImage") MultipartFile image) throws IOException {
+    public ModelAndView trainingProgramRegisterConfirm(@ModelAttribute TrainingProgramBindingModel trainingProgramBindingModel,BindingResult bindingResult,@RequestParam("programImage") MultipartFile image) throws IOException {
+        if (bindingResult.hasErrors()) {
+            return this.view("training-program-register");
+        }
         TrainingProgramServiceModel trainingProgramServiceModel = this.modelMapper.map(trainingProgramBindingModel,TrainingProgramServiceModel.class);
         Long id = this.trainingProgramService.registerTrainingProgram(trainingProgramServiceModel,"/images/" + image.getOriginalFilename());
         File dest = new File(GlobalConstants.IMAGES_PATH + image.getOriginalFilename());

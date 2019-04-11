@@ -82,8 +82,13 @@ footer {
 .modal-body {
     background-color: #00b3b3;
 }
-#closeModalX{
-   font-size: 50px;
+
+#closeModalX {
+    font-size: 50px;
+}
+
+.btn-danger {
+    float: left;
 }
 
 /* Full-width input fields */

@@ -15,7 +15,8 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <label for="programImage">Избери снимка</label>
-                                    <input type='file' id="programImage" name="programImage" accept=".png, .jpg, .jpeg"/>
+                                    <span class="red-star">★</span>
+                                    <input type='file' id="programImage" name="programImage" accept=".png, .jpg, .jpeg" />
                                 </div>
                                 <div class="col-lg-6">
                                 </div>
@@ -25,29 +26,35 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="header"><b>Заглавие</b></label>
-                                        <input type="text" id="header" name="header" th:field="*{header}">
+                                        <span class="red-star">★</span>
+                                        <input type="text" id="header" name="header" th:field="*{header}" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="mainGoal"><b>Основна цел</b></label>
-                                        <input type="text" id="mainGoal" name="mainGoal" th:field="*{mainGoal}">
+                                        <span class="red-star">★</span>
+                                        <input type="text" id="mainGoal" name="mainGoal" th:field="*{mainGoal}" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="workoutType"><b>Тип на тренировката</b></label>
-                                        <input type="text" id="workoutType" name="workoutType" th:field="*{workoutType}">
+                                        <span class="red-star">★</span>
+                                        <input type="text" id="workoutType" name="workoutType" th:field="*{workoutType}" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="programDuration"><b>Продължителност на програмата</b></label>
-                                        <input type="number" id="programDuration" name="programDuration" th:field="*{programDuration}">
+                                        <span class="red-star">★</span>
+                                        <input type="number" id="programDuration" name="programDuration" th:field="*{programDuration}" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="daysPerWeek"><b>Брой дни седмично</b></label>
-                                        <input type="number" id="daysPerWeek" name="daysPerWeek" th:field="*{daysPerWeek}">
+                                        <span class="red-star">★</span>
+                                        <input type="number" id="daysPerWeek" name="daysPerWeek" th:field="*{daysPerWeek}" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="trainingLevel"><b>Ниво на трудност</b></label>
-                                        <select class="form-control" id="trainingLevel" name="trainingLevel">
+                                        <span class="red-star">★</span>
+                                        <select class="form-control" id="trainingLevel" name="trainingLevel" required>
                                             <option selected disabled>Избери ниво на трудност на програмата</option>
                                             <option value="BEGINNER">Начинаещи</option>
                                             <option value="INTERMEDIATE">Средно напреднали</option>
@@ -56,7 +63,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="genderTarget"><b>Целеви пол</b></label>
-                                        <select class="form-control" id="genderTarget" name="genderTarget">
+                                        <span class="red-star">★</span>
+                                        <select class="form-control" id="genderTarget" name="genderTarget" required>
                                             <option selected disabled>Избери целеви пол</option>
                                             <option value="MALE">МЪЖЕ</option>
                                             <option value="FEMALE">ЖЕНИ</option>
@@ -67,15 +75,18 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="workoutDescription">Описание на програмата</label>
+                                        <span class="red-star">★</span>
                                         <textarea class="form-control" id="workoutDescription" name="workoutDescription"
-                                                  rows="10" th:field="*{workoutDescription}"></textarea>
+                                                  rows="10" th:field="*{workoutDescription}" required></textarea>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger">Изтрий</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Затвори</button>
+                        <button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Възстанови данните</button>
                         <button type="submit" class="btn btn-primary">Запази промените</button>
                     </div>
                 </div>
