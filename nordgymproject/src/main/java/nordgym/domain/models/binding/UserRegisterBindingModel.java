@@ -1,8 +1,11 @@
 package nordgym.domain.models.binding;
 
-import nordgym.annotation.UniqueUser;
+import nordgym.GlobalConstants;
+import nordgym.annotation.UniqueSubscriptionNumber;
+import nordgym.annotation.UniqueUsername;
 import nordgym.domain.entities.SolariumSubscription;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -22,9 +25,10 @@ public class UserRegisterBindingModel {
     public UserRegisterBindingModel() {
     }
 
-    @Pattern(regexp = "\\d+", message = "Subscription must contain only numbers")
-    @NotNull(message = "Subscription number can not be empty")
-    @UniqueUser(message = "There is already registered user with this subscription number")
+    @Pattern(regexp = "\\d+", message = GlobalConstants.SUBSCRIPTION_NUMBER_MUST_CONTAINS_ONLY_NUMBERS)
+    @NotNull(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
+    @NotEmpty(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
+    @UniqueSubscriptionNumber(message = GlobalConstants.THERE_IS_ALREADY_REGISTERED_USER_WITH_THIS_SUBSCRIPTION_NUMBER)
     public String getSubscriptionNumber() {
         return subscriptionNumber;
     }
@@ -33,14 +37,16 @@ public class UserRegisterBindingModel {
         return isAdmin;
     }
 
-    @Pattern(regexp = "^[А-Я|A-Z][а-я|a-z]+$", message = "First name must begin with capital letter and contain only letters")
-    @NotNull(message = "first name can not be empty")
+    @Pattern(regexp = "^[А-Я|A-Z][а-я|a-z]+$", message = GlobalConstants.FIRST_NAME_MUST_BEGIN_WITH_CAPITAL_LETTER_AND_CONTAINS_ONLY_LETTERS)
+    @NotNull(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
+    @NotEmpty(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
     public String getFirstName() {
         return firstName;
     }
 
-    @Pattern(regexp = "^[А-Я|A-Z][а-я|a-z]+$", message = "Last name must begin with capital letter and contain only letters")
-    @NotNull(message = "Last name can not be empty")
+    @Pattern(regexp = "^[А-Я|A-Z][а-я|a-z]+$", message = GlobalConstants.LAST_NAME_MUST_BEGIN_WITH_CAPITAL_LETTER_AND_CONTAINS_ONLY_LETTERS)
+    @NotNull(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
+    @NotEmpty(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
     public String getLastName() {
         return lastName;
     }
@@ -61,6 +67,7 @@ public class UserRegisterBindingModel {
         return profileImagePath;
     }
 
+    @UniqueUsername(message = GlobalConstants.THIS_USERNAME_IS_TAKEN)
     public String getUsername() {
         return username;
     }

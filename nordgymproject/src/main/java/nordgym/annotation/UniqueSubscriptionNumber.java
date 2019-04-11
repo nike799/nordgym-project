@@ -1,6 +1,6 @@
 package nordgym.annotation;
 
-import nordgym.configuration.UniqueValidator;
+import nordgym.configuration.UniqueValidatorSubscriptionNumber;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -11,8 +11,8 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = UniqueValidator.class)
-public @interface UniqueUser {
+@Constraint(validatedBy = UniqueValidatorSubscriptionNumber.class)
+public @interface UniqueSubscriptionNumber {
     String message() default "Must be unique";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};

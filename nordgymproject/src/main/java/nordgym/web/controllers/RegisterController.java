@@ -42,11 +42,10 @@ public class RegisterController extends BaseController {
     }
 
     @PostMapping("/user-new")
-    public @ResponseBody
-    ModelAndView userRegisterConfirm(@Valid @ModelAttribute UserRegisterBindingModel userRegisterBindingModel,
+    public ModelAndView userRegisterConfirm(@Valid @ModelAttribute UserRegisterBindingModel userRegisterBindingModel,
                                      BindingResult bindingResult, @RequestParam("profileImage") MultipartFile image) throws IOException {
         if (!userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
-            bindingResult.rejectValue("confirmPassword", userRegisterBindingModel.getConfirmPassword(), "Confirmed password is not equal to password!");
+            bindingResult.rejectValue("confirmPassword", userRegisterBindingModel.getConfirmPassword(), GlobalConstants.PASSWORDS_NOT_EQUALS);
             return this.view("register-user");
         }
         if (bindingResult.hasErrors()) {

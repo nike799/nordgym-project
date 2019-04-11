@@ -21,50 +21,50 @@ public class TrainingProgram extends BaseEntity {
     public TrainingProgram() {
     }
 
-    @Column(name = "header")
+    @Column(name = "header",nullable = false)
     public String getHeader() {
         return header;
     }
 
-    @Column(name = "program_image_path")
+    @Column(name = "program_image_path",nullable = false)
     public String getProgramImagePath() {
         return programImagePath;
     }
 
-    @Column(name = "main_goal")
+    @Column(name = "main_goal",nullable = false)
     public String getMainGoal() {
         return mainGoal;
     }
 
-    @Column(name = "workout_type")
+    @Column(name = "workout_type",nullable = false)
     public String getWorkoutType() {
         return workoutType;
     }
 
-    @Column(name = "program_duration")
+    @Column(name = "program_duration",nullable = false)
     public Integer getProgramDuration() {
         return programDuration;
     }
 
-    @Column(name = "days_per_week")
+    @Column(name = "days_per_week",nullable = false)
     public Integer getDaysPerWeek() {
         return daysPerWeek;
     }
 
     @Enumerated(value = EnumType.STRING)
-    @Column(name = "training_level")
+    @Column(name = "training_level",nullable = false)
     public TrainingLevel getTrainingLevel() {
         return trainingLevel;
     }
 
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "gender_target")
+    @Column(name = "gender_target",nullable = false)
     public GenderTarget getGenderTarget() {
         return genderTarget;
     }
 
-    @Column(name = "workout_description", columnDefinition = "TEXT")
+    @Column(name = "workout_description", columnDefinition = "TEXT",nullable = false)
     public String getWorkoutDescription() {
         return workoutDescription;
     }
