@@ -12,4 +12,6 @@ public interface TrainingProgramService {
     TrainingProgramServiceModel findLastTrainingProgram();
     List<TrainingProgramServiceModel> getAllTrainingPrograms();
     Long editTrainingProgram(TrainingProgramServiceModel trainingProgramServiceModel, Long id, MultipartFile image) throws IOException, NoSuchFieldException, IllegalAccessException;
+
+    void deleteTrainingProgram(Long id);
 }

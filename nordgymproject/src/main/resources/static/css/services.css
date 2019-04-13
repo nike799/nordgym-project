@@ -53,3 +53,28 @@ tbody, td {
     text-decoration: underline;
     transform: rotate(-90deg);
 }
+
+footer {
+    background-color: #001a1a;
+    height: 70px;
+    color: white;
+    position: absolute;
+    bottom: -3%;
+    width: 100%;
+}
+
+.fa {
+    font-size: 30px;
+    color: white;
+    margin-top: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+#footer-right {
+    float: right;
+}
+#footer-right h4{
+    color: white;
+    text-align: center;
+}

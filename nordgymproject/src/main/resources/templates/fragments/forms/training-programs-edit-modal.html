@@ -16,7 +16,7 @@
                                 <div class="col-lg-6">
                                     <label for="programImage">Избери снимка</label>
                                     <span class="red-star">★</span>
-                                    <input type='file' id="programImage" name="programImage" accept=".png, .jpg, .jpeg" />
+                                    <input type='file' id="programImage" name="programImage" accept=".png, .jpg, .jpeg">
                                 </div>
                                 <div class="col-lg-6">
                                 </div>
@@ -27,34 +27,38 @@
                                     <div class="form-group">
                                         <label for="header"><b>Заглавие</b></label>
                                         <span class="red-star">★</span>
-                                        <input type="text" id="header" name="header" th:field="*{header}" required>
+                                        <input type="text" id="header" name="header" th:value="*{header}">
+                                        <p th:classappend="${#fields.hasErrors('header')} ? 'text-danger'"
+                                           th:each="error : ${#fields.errors('header')}" th:text="${error}"></p>
                                     </div>
                                     <div class="form-group">
                                         <label for="mainGoal"><b>Основна цел</b></label>
                                         <span class="red-star">★</span>
-                                        <input type="text" id="mainGoal" name="mainGoal" th:field="*{mainGoal}" required>
+                                        <input type="text" id="mainGoal" name="mainGoal" th:value="*{mainGoal}" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="workoutType"><b>Тип на тренировката</b></label>
                                         <span class="red-star">★</span>
-                                        <input type="text" id="workoutType" name="workoutType" th:field="*{workoutType}" required>
+                                        <input type="text" id="workoutType" name="workoutType" th:value="*{workoutType}" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="programDuration"><b>Продължителност на програмата</b></label>
                                         <span class="red-star">★</span>
-                                        <input type="number" id="programDuration" name="programDuration" th:field="*{programDuration}" required>
+                                        <input type="number" id="programDuration" name="programDuration" th:value="*{programDuration}">
+                                        <p th:classappend="${#fields.hasErrors('programDuration')} ? 'text-danger'"
+                                           th:each="error : ${#fields.errors('programDuration')}" th:text="${error}"></p>
                                     </div>
                                     <div class="form-group">
                                         <label for="daysPerWeek"><b>Брой дни седмично</b></label>
                                         <span class="red-star">★</span>
-                                        <input type="number" id="daysPerWeek" name="daysPerWeek" th:field="*{daysPerWeek}" required>
+                                        <input type="number" id="daysPerWeek" name="daysPerWeek" th:value="*{daysPerWeek}" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="trainingLevel"><b>Ниво на трудност</b></label>
                                         <span class="red-star">★</span>
-                                        <select class="form-control" id="trainingLevel" name="trainingLevel" required>
+                                        <select class="form-control" id="trainingLevel" name="trainingLevel">
                                             <option selected disabled>Избери ниво на трудност на програмата</option>
                                             <option value="BEGINNER">Начинаещи</option>
                                             <option value="INTERMEDIATE">Средно напреднали</option>
@@ -63,8 +67,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="genderTarget"><b>Целеви пол</b></label>
-                                        <span class="red-star">★</span>
-                                        <select class="form-control" id="genderTarget" name="genderTarget" required>
+                                         <select class="form-control" id="genderTarget" name="genderTarget">
                                             <option selected disabled>Избери целеви пол</option>
                                             <option value="MALE">МЪЖЕ</option>
                                             <option value="FEMALE">ЖЕНИ</option>
@@ -84,10 +87,10 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-danger">Изтрий</button>
+                        <button type="submit" class="btn btn-danger" name="delete">Изтрий</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Затвори</button>
                         <button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Възстанови данните</button>
-                        <button type="submit" class="btn btn-primary">Запази промените</button>
+                        <button type="submit" class="btn btn-primary" name="update">Запази промените</button>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 <th:block th:fragment="register" xmlns:th="http://www.w3.org/1999/xhtml">
-    <form th:action="@{/register/training-program-new}" th:object="${trainingProgramBindingModel}" enctype="multipart/form-data" method="post">
+    <form th:action="@{/register/training-program-new}" th:object="${trainingProgramBindingModel}"
+          enctype="multipart/form-data" method="post">
         <div class="container">
             <h1 align="center">Форма за регистрация на тренировъчни програми</h1>
             <hr>
@@ -7,7 +8,10 @@
                 <div class="col-lg-4">
                     <label for="programImage">Избери снимка</label>
                     <span class="red-star">★</span>
-                    <input type='file' id="programImage" name="programImage" accept=".png, .jpg, .jpeg" required/>
+                    <input type='file' id="programImage" name="programImage" accept=".png, .jpg, .jpeg" required
+                           th:value="*{programImagePath}">
+                    <p th:classappend="${#fields.hasErrors('programImagePath')} ? 'text-danger'"
+                       th:each="error : ${#fields.errors('programImagePath')}" th:text="${error}"></p>
                 </div>
                 <div class="col-lg-4">
                 </div>
@@ -20,53 +24,72 @@
                     <div class="form-group">
                         <label for="header"><b>Заглавие</b></label>
                         <span class="red-star">★</span>
-                        <input type="text" placeholder="Въведи заглавие на програмата" id="header" name="header" required>
+                        <input type="text" placeholder="Въведи заглавие на програмата" id="header" name="header"
+                               th:value="*{header}">
+                        <p th:classappend="${#fields.hasErrors('header')} ? 'text-danger'"
+                           th:each="error : ${#fields.errors('header')}" th:text="${error}"></p>
                     </div>
                     <div class="form-group">
                         <label for="mainGoal"><b>Основна цел</b></label>
                         <span class="red-star">★</span>
-                        <input type="text" placeholder="Въведи цел на програмата" id="mainGoal" name="mainGoal" required>
+                        <input type="text" placeholder="Въведи цел на програмата" id="mainGoal" name="mainGoal"
+                               th:value="*{mainGoal}">
+                        <p th:classappend="${#fields.hasErrors('mainGoal')} ? 'text-danger'"
+                           th:each="error : ${#fields.errors('mainGoal')}" th:text="${error}"></p>
                     </div>
 
                     <div class="form-group">
                         <label for="workoutType"><b>Тип на тренировката</b></label>
                         <span class="red-star">★</span>
-                        <input type="text" placeholder="Въведи тип на тренировката" id="workoutType" name="workoutType" required>
+                        <input type="text" placeholder="Въведи тип на тренировката" id="workoutType" name="workoutType"
+                               th:value="*{workoutType}">
+                        <p th:classappend="${#fields.hasErrors('workoutType')} ? 'text-danger'"
+                           th:each="error : ${#fields.errors('workoutType')}" th:text="${error}"></p>
                     </div>
 
                     <div class="form-group">
                         <label for="programDuration"><b>Продължителност на програмата</b></label>
                         <span class="red-star">★</span>
-                        <input type="number" placeholder="Въведи продължителност на програмата" id="programDuration" name="programDuration" required>
+                        <input type="number" placeholder="Въведи продължителност на програмата" id="programDuration" name="programDuration"
+                               th:value="*{programDuration}">
+                        <p th:classappend="${#fields.hasErrors('programDuration')} ? 'text-danger'"
+                           th:each="error : ${#fields.errors('programDuration')}" th:text="${error}"></p>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label for="daysPerWeek"><b>Брой дни седмично</b></label>
                         <span class="red-star">★</span>
-                        <input type="number" placeholder="Въведи брой дни седмично" id="daysPerWeek" name="daysPerWeek" required>
+                        <input type="number" placeholder="Въведи брой дни седмично" id="daysPerWeek" name="daysPerWeek"
+                               th:value="*{daysPerWeek}">
+                        <p th:classappend="${#fields.hasErrors('daysPerWeek')} ? 'text-danger'"
+                           th:each="error : ${#fields.errors('daysPerWeek')}" th:text="${error}"></p>
                     </div>
 
                     <div class="form-group">
                         <label for="trainingLevel"><b>Ниво на трудност</b></label>
                         <span class="red-star">★</span>
-                        <select class="form-control" id="trainingLevel" name="trainingLevel" required>
+                        <select class="form-control" id="trainingLevel" name="trainingLevel">
                             <option selected disabled>Избери ниво на трудност на програмата</option>
                             <option value="BEGINNER">Начинаещи</option>
                             <option value="INTERMEDIATE">Средно напреднали</option>
                             <option value="ADVANCED">Напреднали</option>
                         </select>
+                        <p th:classappend="${#fields.hasErrors('trainingLevel')} ? 'text-danger'"
+                           th:each="error : ${#fields.errors('trainingLevel')}" th:text="${error}"></p>
                     </div>
 
                     <div class="form-group">
                         <label for="genderTarget"><b>Целеви пол</b></label>
                         <span class="red-star">★</span>
-                        <select class="form-control" id="genderTarget" name="genderTarget" required>
+                        <select class="form-control" id="genderTarget" name="genderTarget">
                             <option selected disabled>Избери целеви пол</option>
                             <option value="MALE">МЪЖЕ</option>
                             <option value="FEMALE">ЖЕНИ</option>
                             <option value="BOTH">МЪЖЕ & ЖЕНИ</option>
                         </select>
+                        <p th:classappend="${#fields.hasErrors('genderTarget')} ? 'text-danger'"
+                           th:each="error : ${#fields.errors('genderTarget')}" th:text="${error}"></p>
                     </div>
 
                 </div>
@@ -75,7 +98,10 @@
                         <label for="workoutDescription">Описание на програмата</label>
                         <span class="red-star">★</span>
                         <textarea class="form-control" id="workoutDescription" name="workoutDescription"
-                                  placeholder="Напишете описание на програмата" rows="10" required></textarea>
+                                  placeholder="Напишете описание на програмата" rows="10"
+                                  th:value="*{workoutDescription}"></textarea>
+                        <p th:classappend="${#fields.hasErrors('workoutDescription')} ? 'text-danger'"
+                           th:each="error : ${#fields.errors('workoutDescription')}" th:text="${error}"></p>
                     </div>
                 </div>
             </div>

@@ -63,13 +63,13 @@ public class RegisterController extends BaseController {
     }
 
     @GetMapping("/training-program-new")
-    public ModelAndView trainingProgramRegister(@ModelAttribute UserRegisterBindingModel userRegisterBindingModel, ModelAndView modelAndView, Authentication authentication) {
+    public ModelAndView trainingProgramRegister(@ModelAttribute TrainingProgramBindingModel trainingProgramBindingModel, ModelAndView modelAndView, Authentication authentication) {
         modelAndView.addObject("username", authentication.getName());
         return this.view("training-program-register", modelAndView);
     }
 
     @PostMapping("/training-program-new")
-    public ModelAndView trainingProgramRegisterConfirm(@ModelAttribute TrainingProgramBindingModel trainingProgramBindingModel,BindingResult bindingResult,@RequestParam("programImage") MultipartFile image) throws IOException {
+    public ModelAndView trainingProgramRegisterConfirm(@Valid @ModelAttribute TrainingProgramBindingModel trainingProgramBindingModel,BindingResult bindingResult,@RequestParam("programImage") MultipartFile image) throws IOException {
         if (bindingResult.hasErrors()) {
             return this.view("training-program-register");
         }

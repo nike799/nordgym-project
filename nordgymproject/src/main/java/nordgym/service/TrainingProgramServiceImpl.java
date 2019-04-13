@@ -83,6 +83,14 @@ public class TrainingProgramServiceImpl implements TrainingProgramService {
         return this.trainingProgramRepository.save(trainingProgram).getId();
     }
 
+    @Override
+    public void deleteTrainingProgram(Long id) {
+      if(this.trainingProgramRepository.findById(id).isEmpty()){
+          throw new ResourceNotFoundException(String.format(GlobalConstants.SUCH_TRAINING_PROGRAM_DOESNT_EXISTS,id));
+      }
+      this.trainingProgramRepository.deleteById(id);
+    }
+
     private void updateTrainingProgram(TrainingProgramServiceModel model, TrainingProgram origin) throws IllegalAccessException, NoSuchFieldException {
         for (Field f : model.getClass().getDeclaredFields()) {
             f.setAccessible(true);

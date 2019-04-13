@@ -15,5 +15,10 @@ public class GlobalConstants {
     public static final String FIRST_NAME_MUST_BEGIN_WITH_CAPITAL_LETTER_AND_CONTAINS_ONLY_LETTERS = "Името трябва да започва с главна и да съдържа само букви";
     public static final String LAST_NAME_MUST_BEGIN_WITH_CAPITAL_LETTER_AND_CONTAINS_ONLY_LETTERS = "Фамилията трябва да започва с главна и да съдържа само букви";
     public static final String PASSWORDS_NOT_EQUALS = "Паролите не съвпадат";
-    public static final String YOU_HAVE_ENTERED_INVALID_EMAIL = "Въвели сте невалиден имейл!" ;
+    public static final String YOU_HAVE_ENTERED_INVALID_EMAIL = "Въвели сте невалиден имейл!";
+    public static final String WRONG_FORMAT = "Грешен формат!";
+    public static final String CANT_BE_LESS_THEN_ONE = "Не може да бъде по-малко от 2";
+    public static final String CANT_BE_MORE_THEN_SEVEN = "Не може да бъде повече от 7";
+    public static final String CANT_BE_LESS_THEN_FOUR = "Не може да бъде по-малко от 4";
+    public static final String CANT_BE_MORE_THEN_TWENTY_FOUR = "Не може да бъде повече от 24";
 }

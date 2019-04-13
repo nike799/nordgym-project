@@ -6,10 +6,12 @@ import nordgym.domain.models.view.TrainingProgramSidebarModel;
 import nordgym.service.TrainingProgramService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -34,11 +36,18 @@ public class TrainingProgramsController extends BaseController {
         modelAndView.addObject("trainingProgramModel", this.trainingProgramService.findById(id));
         return this.view("training-programs", modelAndView);
     }
-    @PostMapping("/training-programs/{id}")
-    public ModelAndView editTrainingProgram(@ModelAttribute TrainingProgramBindingModel trainingProgramBindingModel,@PathVariable Long id, @RequestParam("programImage") MultipartFile image) throws IOException, NoSuchFieldException, IllegalAccessException {
-        TrainingProgramServiceModel trainingProgramServiceModel = this.modelMapper.map(trainingProgramBindingModel,TrainingProgramServiceModel.class);
-        this.trainingProgramService.editTrainingProgram(trainingProgramServiceModel,id,image);
-        return this.redirect("/training-programs/"+id);
+
+    @PostMapping(value = "/training-programs/{id}", params = "update")
+    public ModelAndView editTrainingProgram(@ModelAttribute TrainingProgramBindingModel trainingProgramBindingModel, @PathVariable Long id, @RequestParam("programImage") MultipartFile image) throws IllegalAccessException, NoSuchFieldException, IOException {
+        TrainingProgramServiceModel trainingProgramServiceModel = this.modelMapper.map(trainingProgramBindingModel, TrainingProgramServiceModel.class);
+        this.trainingProgramService.editTrainingProgram(trainingProgramServiceModel, id, image);
+        return this.redirect("/training-programs/" + id);
+    }
+
+    @PostMapping(value = "/training-programs/{id}", params = "delete")
+    public ModelAndView deleteTrainingProgram(@PathVariable Long id) {
+        this.trainingProgramService.deleteTrainingProgram(id);
+        return this.redirect("/training-programs");
     }
 
     @GetMapping(value = "/fetch/training-programs-all", produces = "application/json")

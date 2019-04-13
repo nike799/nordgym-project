@@ -4,11 +4,10 @@ import nordgym.GlobalConstants;
 import nordgym.domain.enums.GenderTarget;
 import nordgym.domain.enums.TrainingLevel;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
 public class TrainingProgramBindingModel {
+    private Long id;
     private String header;
     private String programImagePath;
     private String mainGoal;
@@ -22,66 +21,66 @@ public class TrainingProgramBindingModel {
     public TrainingProgramBindingModel() {
     }
 
+    public Long getId() {
+        return id;
+    }
+
     @NotNull(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
-    @NotEmpty(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
-    @NotBlank(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
+    @NotBlank(message = GlobalConstants.WRONG_FORMAT)
     public String getHeader() {
         return header;
     }
 
     @NotNull(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
-    @NotEmpty(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
-    @NotBlank(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
+    @NotBlank(message = GlobalConstants.WRONG_FORMAT)
     public String getProgramImagePath() {
         return programImagePath;
     }
 
     @NotNull(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
-    @NotEmpty(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
-    @NotBlank(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
+    @NotBlank(message = GlobalConstants.WRONG_FORMAT)
     public String getMainGoal() {
         return mainGoal;
     }
 
     @NotNull(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
-    @NotEmpty(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
-    @NotBlank(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
+    @NotBlank(message = GlobalConstants.WRONG_FORMAT)
     public String getWorkoutType() {
         return workoutType;
     }
 
     @NotNull(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
-    @NotEmpty(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
-    @NotBlank(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
+    @Min(value = 4,message = GlobalConstants.CANT_BE_LESS_THEN_FOUR)
+    @Max(value = 24,message = GlobalConstants.CANT_BE_MORE_THEN_TWENTY_FOUR)
     public Integer getProgramDuration() {
         return programDuration;
     }
 
     @NotNull(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
-    @NotEmpty(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
-    @NotBlank(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
+    @Min(value = 1,message = GlobalConstants.CANT_BE_LESS_THEN_ONE)
+    @Max(value = 7, message = GlobalConstants.CANT_BE_MORE_THEN_SEVEN)
     public Integer getDaysPerWeek() {
         return daysPerWeek;
     }
 
     @NotNull(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
-    @NotEmpty(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
     public TrainingLevel getTrainingLevel() {
         return trainingLevel;
     }
 
     @NotNull(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
-    @NotEmpty(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
-    @NotBlank(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
     public GenderTarget getGenderTarget() {
         return genderTarget;
     }
 
     @NotNull(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
-    @NotEmpty(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
-    @NotBlank(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
+    @NotBlank(message = GlobalConstants.WRONG_FORMAT)
     public String getWorkoutDescription() {
         return workoutDescription;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setHeader(String header) {

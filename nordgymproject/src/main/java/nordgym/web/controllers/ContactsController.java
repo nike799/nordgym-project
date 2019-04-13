@@ -28,7 +28,6 @@ public class ContactsController extends BaseController {
 
     @PostMapping("/contacts")
     public ModelAndView processContactForm(@Valid @ModelAttribute ContactFormBindingModel contactFormBindingModel, BindingResult bindingResult,ModelAndView modelAndView) {
-        System.out.println();
         if (bindingResult.hasErrors()) {
             return this.view("contacts");
         }
