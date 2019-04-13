@@ -51,7 +51,7 @@
                         <td th:text="${userViewModel.subscription}"></td>
                         <td th:text="${#temporals.format(userViewModel.subscriptionFrom, 'dd MMM yyyy')}"></td>
                         <td th:text="${#temporals.format(userViewModel.subscriptionTo, 'dd MMM yyyy')}"></td>
-                        <td th:text="${userViewModel.isActive()} ? 'Активен' : 'Изтекъл'"></td>
+                        <td th:if="${userViewModel.subscription != null}" th:text="${userViewModel.isActive()} ? 'Активен' : 'Изтекъл'"></td>
                     </tr>
                     </tbody>
                 </table>

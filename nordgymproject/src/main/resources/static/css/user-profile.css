@@ -43,7 +43,12 @@ input[type="checkbox"] {
     height: 200px;
     width: 250px;
 }
-
+#deleteUser {
+    float: left;
+}
+button[type=reset],button[id=editUser]{
+    float: right;
+}
 #helloUser {
     color: white;
     margin-top: 8px;

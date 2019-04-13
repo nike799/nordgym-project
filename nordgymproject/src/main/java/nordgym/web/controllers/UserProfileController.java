@@ -1,5 +1,6 @@
 package nordgym.web.controllers;
 
+import nordgym.GlobalConstants;
 import nordgym.domain.models.binding.UserUpdateBindingModel;
 import nordgym.domain.models.view.UserViewModel;
 import nordgym.error.ResourceNotFoundException;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping({"/user-profile", "/user-profile/{userId}"})
+@RequestMapping({"/user-profile", "/user-profile/{id}"})
 public class UserProfileController extends BaseController {
     private final UserService userService;
     private final UserEntryService userEntryService;
@@ -26,11 +27,11 @@ public class UserProfileController extends BaseController {
     }
 
     @PreAuthorize(value = "hasAnyAuthority('ADMIN','USER')")
-    @GetMapping("/{userId}")
-    public ModelAndView getUserProfile(@PathVariable String userId, ModelAndView modelAndView, Authentication authentication) {
+    @GetMapping("/{id}")
+    public ModelAndView getUserProfile(@PathVariable String id, ModelAndView modelAndView, Authentication authentication) {
 
-        UserViewModel userViewModel = this.userService.createUserViewModel(this.userService.getUserById(userId));
-        UserUpdateBindingModel userUpdateBindingModel = this.userService.getUserUpdateBindingModelByUserId(userId);
+        UserViewModel userViewModel = this.userService.createUserViewModel(this.userService.getUserById(id));
+        UserUpdateBindingModel userUpdateBindingModel = this.userService.getUserUpdateBindingModelByUserId(id);
         modelAndView.addObject("username", authentication.getName());
         modelAndView.addObject("userViewModel", userViewModel);
         modelAndView.addObject("userId", userViewModel.getId());
@@ -39,58 +40,58 @@ public class UserProfileController extends BaseController {
     }
 
     @PreAuthorize(value = "hasAnyAuthority('ADMIN','USER')")
-    @PostMapping("/{userId}")
-    public ModelAndView editUser(@ModelAttribute UserUpdateBindingModel userUpdateBindingModel, @PathVariable String userId, BindingResult bindingResult) {
+    @PostMapping(value = "/{id}",params = "edit")
+    public ModelAndView editUser(@ModelAttribute UserUpdateBindingModel userUpdateBindingModel, @PathVariable String id, BindingResult bindingResult) {
         if (!userUpdateBindingModel.getPassword().equals(userUpdateBindingModel.getConfirmPassword())) {
-            bindingResult.rejectValue("confirmPassword", userUpdateBindingModel.getConfirmPassword(), "Confirmed password is not equal to password!");
+            bindingResult.rejectValue("confirmPassword", userUpdateBindingModel.getConfirmPassword(), GlobalConstants.PASSWORDS_NOT_EQUALS);
         }
         if (bindingResult.hasErrors()) {
             return this.redirect("/user-profile/" + userUpdateBindingModel.getUserId());
         }
         this.userService.updateUser(userUpdateBindingModel);
-        return this.redirect("/user-profile/" + userId);
+        return this.redirect("/user-profile/" + id);
     }
 
     @PreAuthorize(value = "hasAuthority('ADMIN')")
-    @PostMapping("{userId}/check-in")
-    public ModelAndView checkInUser(@PathVariable String userId) {
-        this.userEntryService.checkInUser(Long.parseLong(userId));
-        return this.redirect("/user-profile/" + userId);
+    @PostMapping("{id}/check-in")
+    public ModelAndView checkInUser(@PathVariable String id) {
+        this.userEntryService.checkInUser(Long.parseLong(id));
+        return this.redirect("/user-profile/" + id);
     }
 
     @PreAuthorize(value = "hasAuthority('ADMIN')")
-    @PostMapping("{entryId}/{userId}/remove-entry")
-    public ModelAndView removeEntry(@PathVariable String entryId, @PathVariable String userId) {
-        this.userEntryService.removeLastEntry(Long.parseLong(entryId), Long.parseLong(userId));
-        return this.redirect("/user-profile/" + userId);
+    @PostMapping("{entryId}/{id}/remove-entry")
+    public ModelAndView removeEntry(@PathVariable String entryId, @PathVariable String id) {
+        this.userEntryService.removeLastEntry(Long.parseLong(entryId), Long.parseLong(id));
+        return this.redirect("/user-profile/" + id);
     }
 
     @PreAuthorize(value = "hasAuthority('ADMIN')")
-    @PostMapping("{userId}/renew-subscription")
-    public ModelAndView renewSubscription(@PathVariable String userId, @RequestParam String subscriptionType) {
-        this.userService.renewSubscription(userId, subscriptionType);
-        return this.redirect("/user-profile/" + userId);
+    @PostMapping("{id}/renew-subscription")
+    public ModelAndView renewSubscription(@PathVariable String id, @RequestParam String subscriptionType) {
+        this.userService.renewSubscription(id, subscriptionType);
+        return this.redirect("/user-profile/" + id);
     }
 
     @PreAuthorize(value = "hasAuthority('ADMIN')")
-    @PostMapping("{userId}/add-minutes")
-    public ModelAndView addSolariumMinutes(@PathVariable String userId, @RequestParam String minutes) {
-        this.userService.addSolariumMinutes(userId, Integer.parseInt(minutes));
-        return this.redirect("/user-profile/" + userId);
+    @PostMapping("{id}/add-minutes")
+    public ModelAndView addSolariumMinutes(@PathVariable String id, @RequestParam String minutes) {
+        this.userService.addSolariumMinutes(id, Integer.parseInt(minutes));
+        return this.redirect("/user-profile/" + id);
     }
 
     @PreAuthorize(value = "hasAuthority('ADMIN')")
-    @PostMapping("{userId}/use-minutes")
-    public ModelAndView reduceSolariumMinutes(@PathVariable String userId, @RequestParam String minutes) {
-        this.userService.useSolariumMinutes(userId, Integer.parseInt(minutes));
-        return this.redirect("/user-profile/" + userId);
+    @PostMapping("{id}/use-minutes")
+    public ModelAndView reduceSolariumMinutes(@PathVariable String id, @RequestParam String minutes) {
+        this.userService.useSolariumMinutes(id, Integer.parseInt(minutes));
+        return this.redirect("/user-profile/" + id);
     }
 
     @PreAuthorize(value = "hasAuthority('ADMIN')")
-    @PostMapping("{userId}/user-delete")
-    public ModelAndView deleteUser(@PathVariable String userId) throws ResourceNotFoundException {
-        this.userService.deleteUser(userId);
-        return this.redirect("/home");
+    @PostMapping(value = "/{id}",params = "delete")
+    public ModelAndView deleteUser(@PathVariable String id) throws ResourceNotFoundException {
+        this.userService.deleteUser(id);
+        return this.redirect("/admin/home");
     }
 
 }
