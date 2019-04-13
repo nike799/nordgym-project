@@ -50,7 +50,7 @@ public class Subscription extends BaseEntity {
         return this.endDate.isAfter(LocalDateTime.now()) && this.countEntries > 0;
     }
 
-    @OneToMany(targetEntity = User.class, mappedBy = "subscription")
+    @OneToMany(targetEntity = User.class, mappedBy = "subscription",fetch = FetchType.EAGER)
     public Set<User> getUsers() {
         return users;
     }

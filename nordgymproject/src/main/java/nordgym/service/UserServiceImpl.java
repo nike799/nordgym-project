@@ -223,7 +223,8 @@ public class UserServiceImpl implements UserService {
         }
         userViewModel.setSolariumSubscription(userServiceModel.getSolariumSubscription() != null ? userServiceModel.getSolariumSubscription() : new SolariumSubscription());
         userViewModel.setEmail(userServiceModel.getEmail() != null ? userServiceModel.getEmail() : "No Info");
-        if (userServiceModel.getEntries() != null && userServiceModel.getEntries().size() > 0) {
+        if (userServiceModel.getEntries() != null
+                && userServiceModel.getEntries().size() > 0 && userServiceModel.getSubscription() != null) {
             userViewModel.setEntries(userServiceModel.getEntries().
                     stream()
                     .filter(e -> e.getDateAndTimeOfUserEntry().isAfter(userServiceModel.getSubscription().getStartDate()))
