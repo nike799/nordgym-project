@@ -144,6 +144,11 @@ public class TrainingProgramServiceImplTest {
 
     @Test
     public void deleteTrainingProgram() {
+        TrainingProgram trainingProgram = this.modelMapper.map(getTrainingProgramServiceModel(), TrainingProgram.class);
+        this.trainingProgramRepository.save(trainingProgram);
+        Assert.assertEquals(1, this.trainingProgramRepository.count());
+        this.trainingProgramService.deleteTrainingProgram(trainingProgram.getId());
+        Assert.assertEquals(0, this.trainingProgramRepository.count());
     }
 
     private TrainingProgramServiceModel getTrainingProgramServiceModel() {

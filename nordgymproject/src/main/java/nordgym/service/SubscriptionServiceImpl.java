@@ -13,13 +13,15 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class SubscriptionServiceImpl implements SubscriptionService {
+class SubscriptionServiceImpl implements SubscriptionService {
     private final SubscriptionRepository subscriptionRepository;
     private final ExpiredSubscriptionRepository expiredSubscriptionRepository;
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
 
-    public SubscriptionServiceImpl(SubscriptionRepository subscriptionRepository, ExpiredSubscriptionRepository expiredSubscriptionRepository, UserRepository userRepository, ModelMapper modelMapper) {
+    public SubscriptionServiceImpl(SubscriptionRepository subscriptionRepository,
+                                   ExpiredSubscriptionRepository expiredSubscriptionRepository,
+                                   UserRepository userRepository, ModelMapper modelMapper) {
         this.subscriptionRepository = subscriptionRepository;
         this.expiredSubscriptionRepository = expiredSubscriptionRepository;
         this.userRepository = userRepository;
@@ -27,8 +29,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Scheduled(cron = "0 32 20 * * *")
-    private void removeExpiredSubscriptions() {
-        System.out.println("test scheduled");
+    void removeExpiredSubscriptions() {
         List<Subscription> subscriptions = this.subscriptionRepository.findAllByEndDateIsBefore(LocalDateTime.now()).orElse(null);
         if (subscriptions != null) {
             List<ExpiredSubscription> expiredSubscriptions = List.of(this.modelMapper.map(subscriptions.toArray(), ExpiredSubscription[].class));

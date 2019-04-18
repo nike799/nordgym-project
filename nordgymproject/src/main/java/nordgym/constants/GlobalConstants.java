@@ -36,4 +36,5 @@ public class GlobalConstants {
     public static final String ONE_YEAR = "ONE_YEAR";
     public static final String USER = "USER";
     public static final String NO_INFO = "No info";
+    public static final String USER_ENTRY_WITH_SUCH_ID_DOESNT_EXISTS = "Посещение с ID: %s не съществува!";
 }
