@@ -1,6 +1,6 @@
 package nordgym.domain.models.binding;
 
-import nordgym.GlobalConstants;
+import nordgym.constants.GlobalConstants;
 import nordgym.annotation.UniqueSubscriptionNumber;
 
 import javax.validation.constraints.NotEmpty;
@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 public class UserUpdateBindingModel {
-    private String userId;
+    private String id;
     private String subscriptionNumber;
     private String firstName;
     private String lastName;
@@ -21,8 +21,8 @@ public class UserUpdateBindingModel {
     public UserUpdateBindingModel() {
     }
 
-    public String getUserId() {
-        return userId;
+    public String getId() {
+        return id;
     }
 
 
@@ -69,8 +69,8 @@ public class UserUpdateBindingModel {
     public Boolean getAdmin() {
         return isAdmin;
     }
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setId(String id) {
+        this.id = id;
     }
     public void setSubscriptionNumber(String subscriptionNumber) {
         this.subscriptionNumber = subscriptionNumber;

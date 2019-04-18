@@ -1,9 +1,0 @@
-<th:block th:fragment="user-delete" xmlns:th="http://www.w3.org/1999/xhtml">
-    <form th:method="post" th:action="@{/user-profile/__${userUpdateBindingModel.userId}__/user-delete}">
-        <div class="form-group">
-            <div class="col-lg-12">
-                <button class="btn btn-lg btn-danger" th:type="submit">Изтрий</button>
-            </div>
-        </div>
-    </form>
-</th:block>

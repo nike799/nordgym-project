@@ -1,4 +1,4 @@
-package nordgym;
+package nordgym.constants;
 
 public class GlobalConstants {
     public final static String USER_WITH_SUCH_ID_DOESNT_EXISTS = "Потребител с ID: %s не съществува!";
@@ -21,4 +21,19 @@ public class GlobalConstants {
     public static final String CANT_BE_MORE_THEN_SEVEN = "Не може да бъде повече от 7";
     public static final String CANT_BE_LESS_THEN_FOUR = "Не може да бъде по-малко от 4";
     public static final String CANT_BE_MORE_THEN_TWENTY_FOUR = "Не може да бъде повече от 24";
+    public static final String ROOT_ADMIN = "ROOT_ADMIN";
+    public static final String USER_NOT_FOUND = "User not found";
+    public static final String ADMIN = "ADMIN";
+    public static final String SIX_ENTRIES = "SIX_ENTRIES";
+    public static final String EIGHT_ENTRIES = "EIGHT_ENTRIES";
+    public static final String TWELVE_ENTRIES = "TWELVE_ENTRIES";
+    public static final String SIXTEEN_ENTRIES = "SIXTEEN_ENTRIES";
+    public static final String TWENTY_FOUR_ENTRIES = "TWENTY_FOUR_ENTRIES";
+    public static final String THIRTY_ENTRIES = "THIRTY_ENTRIES";
+    public static final String ONE_MONTH = "ONE_MONTH";
+    public static final String THREE_MONTHS = "THREE_MONTHS";
+    public static final String SIX_MONTHS = "SIX_MONTHS";
+    public static final String ONE_YEAR = "ONE_YEAR";
+    public static final String USER = "USER";
+    public static final String NO_INFO = "No info";
 }

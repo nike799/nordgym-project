@@ -1,6 +1,6 @@
 package nordgym.domain.models.binding;
 
-import nordgym.GlobalConstants;
+import nordgym.constants.GlobalConstants;
 import nordgym.annotation.UniqueSubscriptionNumber;
 import nordgym.annotation.UniqueUsername;
 import nordgym.domain.entities.SolariumSubscription;

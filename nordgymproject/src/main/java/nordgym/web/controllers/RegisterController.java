@@ -1,6 +1,6 @@
 package nordgym.web.controllers;
 
-import nordgym.GlobalConstants;
+import nordgym.constants.GlobalConstants;
 import nordgym.domain.models.binding.TrainingProgramBindingModel;
 import nordgym.domain.models.binding.UserRegisterBindingModel;
 import nordgym.domain.models.service.TrainingProgramServiceModel;
@@ -15,7 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
@@ -38,12 +37,12 @@ public class RegisterController extends BaseController {
     @GetMapping("/user-new")
     public ModelAndView userRegister(@ModelAttribute UserRegisterBindingModel userRegisterBindingModel, ModelAndView modelAndView, Authentication authentication) {
         modelAndView.addObject("username", authentication.getName());
-        return this.view("/register-user", modelAndView);
+        return this.view("register-user", modelAndView);
     }
 
     @PostMapping("/user-new")
     public ModelAndView userRegisterConfirm(@Valid @ModelAttribute UserRegisterBindingModel userRegisterBindingModel,
-                                     BindingResult bindingResult, @RequestParam("profileImage") MultipartFile image) throws IOException {
+                                            BindingResult bindingResult, @RequestParam("profileImage") MultipartFile image) throws IOException {
         if (!userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
             bindingResult.rejectValue("confirmPassword", userRegisterBindingModel.getConfirmPassword(), GlobalConstants.PASSWORDS_NOT_EQUALS);
             return this.view("register-user");
@@ -69,14 +68,14 @@ public class RegisterController extends BaseController {
     }
 
     @PostMapping("/training-program-new")
-    public ModelAndView trainingProgramRegisterConfirm(@Valid @ModelAttribute TrainingProgramBindingModel trainingProgramBindingModel,BindingResult bindingResult,@RequestParam("programImage") MultipartFile image) throws IOException {
+    public ModelAndView trainingProgramRegisterConfirm(@Valid @ModelAttribute TrainingProgramBindingModel trainingProgramBindingModel, BindingResult bindingResult, @RequestParam("programImage") MultipartFile image) throws IOException {
         if (bindingResult.hasErrors()) {
             return this.view("training-program-register");
         }
-        TrainingProgramServiceModel trainingProgramServiceModel = this.modelMapper.map(trainingProgramBindingModel,TrainingProgramServiceModel.class);
-        Long id = this.trainingProgramService.registerTrainingProgram(trainingProgramServiceModel,"/images/" + image.getOriginalFilename());
+        TrainingProgramServiceModel trainingProgramServiceModel = this.modelMapper.map(trainingProgramBindingModel, TrainingProgramServiceModel.class);
+        Long id = this.trainingProgramService.registerTrainingProgram(trainingProgramServiceModel, "/images/" + image.getOriginalFilename());
         File dest = new File(GlobalConstants.IMAGES_PATH + image.getOriginalFilename());
         image.transferTo(dest);
-        return this.redirect("/training-programs/"+id);
+        return this.redirect("/training-programs/" + id);
     }
 }

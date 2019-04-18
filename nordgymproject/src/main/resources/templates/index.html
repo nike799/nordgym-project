@@ -11,12 +11,11 @@
 <div class="container-fluid">
     <header class="main-header">
         <th:block sec:authorize="isAnonymous()" th:replace="fragments/navbar-guest"></th:block>
-        <th:block sec:authorize="hasAuthority('USER') && !hasAuthority('ADMIN')"  th:replace="fragments/navbar-user"></th:block>
+        <th:block sec:authorize="hasAuthority('USER') && !hasAuthority('ADMIN')"
+                  th:replace="fragments/navbar-user"></th:block>
         <th:block sec:authorize="hasAuthority('ADMIN')" th:replace="fragments/navbar-admin"></th:block>
     </header>
-    <div class="main-container">
-
-    </div>
+    <img th:src="@{/images/index_23.jpg}" style="width: 100%" height="700px">
     <th:block th:replace="fragments/footer::footer"></th:block>
 </div>
 <script src="/js/jquery.min.js"></script>

@@ -1,8 +1,7 @@
 package nordgym.service;
 
-
-import com.sun.mail.imap.IMAPBodyPart;
-import nordgym.GlobalConstants;
+import nordgym.constants.GlobalConstants;
+import nordgym.constants.GlobalUpdateEntity;
 import nordgym.domain.entities.TrainingProgram;
 import nordgym.domain.models.service.TrainingProgramServiceModel;
 import nordgym.error.EmptyDataBaseException;
@@ -12,10 +11,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.List;
 
 @Service
@@ -79,7 +76,7 @@ public class TrainingProgramServiceImpl implements TrainingProgramService {
             image.transferTo(dest);
             trainingProgramServiceModel.setProgramImagePath(IMAGES.concat(image.getOriginalFilename()));
         }
-        this.updateTrainingProgram(trainingProgramServiceModel,trainingProgram);
+        GlobalUpdateEntity.updateEntity(trainingProgramServiceModel,trainingProgram);
         return this.trainingProgramRepository.save(trainingProgram).getId();
     }
 
@@ -91,15 +88,4 @@ public class TrainingProgramServiceImpl implements TrainingProgramService {
       this.trainingProgramRepository.deleteById(id);
     }
 
-    private void updateTrainingProgram(TrainingProgramServiceModel model, TrainingProgram origin) throws IllegalAccessException, NoSuchFieldException {
-        for (Field f : model.getClass().getDeclaredFields()) {
-            f.setAccessible(true);
-            if (f.get(model) != null && !f.getName().equals("id")) {
-                String fieldName = f.getName();
-                Field f1 = origin.getClass().getDeclaredField(fieldName);
-                f1.setAccessible(true);
-                f1.set(origin, f.get(model));
-            }
-        }
-    }
 }

@@ -8,10 +8,7 @@
                 <div class="col-lg-4">
                     <label for="programImage">Избери снимка</label>
                     <span class="red-star">★</span>
-                    <input type='file' id="programImage" name="programImage" accept=".png, .jpg, .jpeg" required
-                           th:value="*{programImagePath}">
-                    <p th:classappend="${#fields.hasErrors('programImagePath')} ? 'text-danger'"
-                       th:each="error : ${#fields.errors('programImagePath')}" th:text="${error}"></p>
+                    <input type='file' id="programImage" name="programImage" accept=".png, .jpg, .jpeg" required>
                 </div>
                 <div class="col-lg-4">
                 </div>
@@ -99,7 +96,7 @@
                         <span class="red-star">★</span>
                         <textarea class="form-control" id="workoutDescription" name="workoutDescription"
                                   placeholder="Напишете описание на програмата" rows="10"
-                                  th:value="*{workoutDescription}"></textarea>
+                                  th:field="*{workoutDescription}"></textarea>
                         <p th:classappend="${#fields.hasErrors('workoutDescription')} ? 'text-danger'"
                            th:each="error : ${#fields.errors('workoutDescription')}" th:text="${error}"></p>
                     </div>

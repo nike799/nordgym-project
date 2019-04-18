@@ -9,7 +9,7 @@ public class UserLoginController extends BaseController {
 
     @GetMapping("/login")
     public ModelAndView login(Principal principal) {
-        return principal == null ? this.view("/login") : this.redirect("/home");
+        return principal == null ? this.view("login") : this.redirect("/home");
     }
 
 }

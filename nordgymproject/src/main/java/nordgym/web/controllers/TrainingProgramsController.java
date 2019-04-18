@@ -6,12 +6,9 @@ import nordgym.domain.models.view.TrainingProgramSidebarModel;
 import nordgym.service.TrainingProgramService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 

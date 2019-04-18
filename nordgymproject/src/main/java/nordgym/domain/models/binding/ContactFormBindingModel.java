@@ -1,6 +1,6 @@
 package nordgym.domain.models.binding;
 
-import nordgym.GlobalConstants;
+import nordgym.constants.GlobalConstants;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;

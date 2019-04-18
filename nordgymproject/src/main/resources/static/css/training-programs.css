@@ -43,7 +43,10 @@ img {
 .leftContent {
     color: midnightblue;
 }
-
+#helloUser {
+    color: white;
+    margin-top: 8px;
+}
 #programImage {
     width: 50%;
 }
@@ -80,7 +83,7 @@ footer {
 }
 
 .modal-body {
-    background-color: #00b3b3;
+    background-color: #009999;
 }
 
 #closeModalX {

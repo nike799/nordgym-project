@@ -1,6 +1,6 @@
 package nordgym.web.controllers;
 
-import nordgym.GlobalConstants;
+import nordgym.constants.GlobalConstants;
 import nordgym.error.EmptyDataBaseException;
 import nordgym.error.ResourceNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -9,12 +9,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 @ControllerAdvice
 public class GlobalExceptionHandler extends BaseController {
-    @ExceptionHandler(Throwable.class)
-    public ModelAndView handleGlobalErrors(Throwable e) {
-        ModelAndView modelAndView = new ModelAndView("error");
-        modelAndView.addObject("message", GlobalConstants.SORRY_SOMETHING_WENT_WRONG);
-        return modelAndView;
-    }
+//    @ExceptionHandler(Throwable.class)
+//    public ModelAndView handleGlobalErrors(Throwable e) {
+//        ModelAndView modelAndView = new ModelAndView("error");
+//        modelAndView.addObject("message", GlobalConstants.SORRY_SOMETHING_WENT_WRONG);
+//        return modelAndView;
+//    }
     @ExceptionHandler({ResourceNotFoundException.class})
     public ModelAndView handleDBException(ResourceNotFoundException ex){
         return getModelAndView(ex.getMessage(), ex.getStatusCode());

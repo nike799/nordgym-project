@@ -7,6 +7,9 @@ body {
     background-image: url("/images/service.jpg");
     /*background-color: #609f9f;*/
 }
+table th,.search {
+    color: whitesmoke;
+}
 
 #helloUser {
     color: white;

@@ -1,15 +1,12 @@
 package nordgym.domain.models.binding;
-
-import nordgym.GlobalConstants;
+import nordgym.constants.GlobalConstants;
 import nordgym.domain.enums.GenderTarget;
 import nordgym.domain.enums.TrainingLevel;
-
 import javax.validation.constraints.*;
 
 public class TrainingProgramBindingModel {
     private Long id;
     private String header;
-    private String programImagePath;
     private String mainGoal;
     private String workoutType;
     private Integer programDuration;
@@ -29,12 +26,6 @@ public class TrainingProgramBindingModel {
     @NotBlank(message = GlobalConstants.WRONG_FORMAT)
     public String getHeader() {
         return header;
-    }
-
-    @NotNull(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
-    @NotBlank(message = GlobalConstants.WRONG_FORMAT)
-    public String getProgramImagePath() {
-        return programImagePath;
     }
 
     @NotNull(message = GlobalConstants.THIS_FIELD_IS_OBLIGATORY)
@@ -85,10 +76,6 @@ public class TrainingProgramBindingModel {
 
     public void setHeader(String header) {
         this.header = header;
-    }
-
-    public void setProgramImagePath(String programImagePath) {
-        this.programImagePath = programImagePath;
     }
 
     public void setMainGoal(String mainGoal) {

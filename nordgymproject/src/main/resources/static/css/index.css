@@ -11,7 +11,7 @@ a:hover{
 }
 
 body {
-    background-image: url("/images/logo-23.jpg");
+    background-color: #e0ebc2;
 }
 
 #helloUser {
@@ -36,12 +36,12 @@ body {
     transform: rotate(-90deg);
 }
 footer {
-    margin-top: 40%;
     background-color: #001a1a;
     height: 70px;
     color: white;
     bottom: 0;
     width: 100%;
+    margin-top: 1%;
     margin-bottom: 1%;
 }
 .fa {

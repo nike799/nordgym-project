@@ -6,7 +6,7 @@ function getAllTrainingPrograms() {
     //Clear result div
     let resultArea = $(".sidebar");
     //Get JSON data by calling action method in controller
-    fetch('http://localhost:8000/fetch/training-programs-all')
+    fetch('http://localhost:8080/fetch/training-programs-all')
         .then(response => response.json())
         .then(data => {
             $.each(data, function (i, value) {

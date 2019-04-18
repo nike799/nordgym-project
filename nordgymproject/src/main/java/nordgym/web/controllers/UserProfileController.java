@@ -1,6 +1,6 @@
 package nordgym.web.controllers;
 
-import nordgym.GlobalConstants;
+import nordgym.constants.GlobalConstants;
 import nordgym.domain.models.binding.UserUpdateBindingModel;
 import nordgym.domain.models.view.UserViewModel;
 import nordgym.error.ResourceNotFoundException;
@@ -36,17 +36,20 @@ public class UserProfileController extends BaseController {
         modelAndView.addObject("userViewModel", userViewModel);
         modelAndView.addObject("userId", userViewModel.getId());
         modelAndView.addObject("userUpdateBindingModel", userUpdateBindingModel);
-        return this.view("/user-profile", modelAndView);
+        return this.view("user-profile", modelAndView);
     }
 
     @PreAuthorize(value = "hasAnyAuthority('ADMIN','USER')")
     @PostMapping(value = "/{id}",params = "edit")
-    public ModelAndView editUser(@ModelAttribute UserUpdateBindingModel userUpdateBindingModel, @PathVariable String id, BindingResult bindingResult) {
+    public ModelAndView editUser(@ModelAttribute UserUpdateBindingModel userUpdateBindingModel, @PathVariable String id, BindingResult bindingResult) throws NoSuchFieldException, IllegalAccessException {
         if (!userUpdateBindingModel.getPassword().equals(userUpdateBindingModel.getConfirmPassword())) {
             bindingResult.rejectValue("confirmPassword", userUpdateBindingModel.getConfirmPassword(), GlobalConstants.PASSWORDS_NOT_EQUALS);
         }
         if (bindingResult.hasErrors()) {
-            return this.redirect("/user-profile/" + userUpdateBindingModel.getUserId());
+            return this.redirect("/user-profile/" + userUpdateBindingModel.getId());
+        }
+        if (userUpdateBindingModel.getId() == null){
+            userUpdateBindingModel.setId(id);
         }
         this.userService.updateUser(userUpdateBindingModel);
         return this.redirect("/user-profile/" + id);

@@ -11,9 +11,9 @@ import java.util.List;
 public interface UserService extends UserDetailsService {
     UserViewModel createUserViewModel(UserServiceModel userServiceModel);
 
-    boolean createUser(UserServiceModel userServiceModel, String subscriptionType);
+    UserServiceModel createUser(UserServiceModel userServiceModel, String subscriptionType);
 
-    boolean updateUser(UserUpdateBindingModel userUpdateBindingModel);
+    UserServiceModel updateUser(UserUpdateBindingModel userUpdateBindingModel) throws NoSuchFieldException, IllegalAccessException;
 
     List<UserViewModel> getAllUserViewModels();
 
