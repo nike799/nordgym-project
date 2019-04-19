@@ -17,7 +17,9 @@ body {
     overflow-y: scroll;
     width: 100%;
 }
-
+.choose-image {
+    margin-top: 3%;
+}
 input[type="submit"] {
     width: 100%;
     float: bottom;

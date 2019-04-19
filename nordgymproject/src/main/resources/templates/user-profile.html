@@ -11,7 +11,8 @@
 <body>
 <div class="container-fluid">
     <header>
-        <th:block sec:authorize="hasAuthority('USER') && !hasAuthority('ADMIN')"  th:replace="fragments/navbar-user"></th:block>
+        <th:block sec:authorize="hasAuthority('USER') && !hasAuthority('ADMIN')"
+                  th:replace="fragments/navbar-user"></th:block>
         <th:block sec:authorize="hasAuthority('ADMIN')" th:replace="fragments/navbar-admin"></th:block>
     </header>
     <hr>
@@ -20,8 +21,14 @@
             <div class="col-lg-4">
                 <div th:object="${userViewModel}">
                     <img class="img-rounded" th:id="profileImage"
-                         th:src="@{/images/__${userViewModel.profileImagePath}__}">
+                         th:src="@{/images/__${userViewModel.profileImagePath}__}" alt="/images/avatar.jpg">
                 </div>
+                <form class="form" method="post" th:action="@{/user-profile/__${userViewModel.id}__}" enctype="multipart/form-data">
+                    <div class="choose-image">
+                        <input style="height: 25px; width: 100%" type='file' id="profileImage" name="profileImage" accept=".png, .jpg, .jpeg">
+                        <input class="btn-primary" style="width:50%; margin-top: 1%" type="submit" th:value="Смени +' '+снимката" name="editProfileImage">
+                    </div>
+                </form>
             </div>
             <div class="col-lg-5 full-name"><h1 th:text="${userViewModel.fullName}"></h1>
             </div>
@@ -52,7 +59,7 @@
                     <li class="list-group-item text-left"
                         th:text="|Оставащи посещения: ${userViewModel.entriesLeft}|">
                 </ul>
-                <div class="panel panel-default" >
+                <div class="panel panel-default">
                     <div class="panel-heading">СОЛАРИУМ</div>
                     <div class="panel-body">
                         <h5 th:text="'Оставащи минути: ' + ${userViewModel.solariumSubscription.minutes}"></h5>
@@ -67,8 +74,10 @@
                 <ul class="nav nav-tabs" id="myTab">
                     <li class="active"><a href="#entriesInfo" data-toggle="tab"
                                           th:if="${userViewModel.subscription != null}">Регистрирани посещения</a></li>
-                    <li sec:authorize="hasAuthority('ADMIN')"><a href="#solarium-minutes" data-toggle="tab">Солариум</a></li>
-                    <li sec:authorize="hasAuthority('ADMIN')"><a href="#renew-subscription" data-toggle="tab">Поднови абонамент</a></li>
+                    <li sec:authorize="hasAuthority('ADMIN')"><a href="#solarium-minutes" data-toggle="tab">Солариум</a>
+                    </li>
+                    <li sec:authorize="hasAuthority('ADMIN')"><a href="#renew-subscription" data-toggle="tab">Поднови
+                        абонамент</a></li>
                     <li><a href="#edit-user" data-toggle="tab">Редактирай профил</a></li>
                 </ul>
 
@@ -106,13 +115,14 @@
                         </div><!--/table-resp-->
                         <hr>
                     </div><!--/tab-pane-->
-                    <div sec:authorize="hasAuthority('ADMIN')" class="tab-pane fade" id="solarium-minutes" th:classappend="*{userViewModel} ? 'active'">
+                    <div sec:authorize="hasAuthority('ADMIN')" class="tab-pane fade" id="solarium-minutes"
+                         th:classappend="*{userViewModel} ? 'active'">
                         <th:block th:replace="fragments/forms/solarium-minutes::solarium-minutes"></th:block>
                     </div><!--/tab-pane-->
                     <div sec:authorize="hasAuthority('ADMIN')" class="tab-pane fade" id="renew-subscription">
                         <th:block th:replace="fragments/forms/renew-subscription::renew-subscription"></th:block>
                     </div>
-                    <div  class="tab-pane fade" id="edit-user" th:classappend="*{userUpdateBindingModel} ? 'active'">
+                    <div class="tab-pane fade" id="edit-user" th:classappend="*{userUpdateBindingModel} ? 'active'">
                         <hr>
                         <th:block th:replace="fragments/forms/user-edit::user-edit"></th:block>
                     </div>

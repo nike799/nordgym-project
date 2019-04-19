@@ -46,12 +46,12 @@
                             <div class="col-sm-6 text-left">
                                 <th:block th:switch="*{trainingLevel}">
                                     <h4 class="rightContent"
-                                        th:case="${T(nordgym.domain.enums.TrainingLevel).BEGINNER}"
+                                        th:case="${T(com.nordgym.domain.enums.TrainingLevel).BEGINNER}"
                                         th:text="Начинаещи"></h4>
                                     <h4 class="rightContent"
-                                        th:case="${T(nordgym.domain.enums.TrainingLevel).INTERMEDIATE}"
+                                        th:case="${T(com.nordgym.domain.enums.TrainingLevel).INTERMEDIATE}"
                                         th:text="Средно+' '+напреднали"></h4>
-                                    <h4 class="rightContent" th:case="${T(nordgym.domain.enums.TrainingLevel).ADVANCED}"
+                                    <h4 class="rightContent" th:case="${T(com.nordgym.domain.enums.TrainingLevel).ADVANCED}"
                                         th:text="Напреднали"></h4>
                                 </th:block>
                             </div>
@@ -94,11 +94,11 @@
                             </div>
                             <div class="col-sm-6 text-left">
                                 <th:block th:switch="*{genderTarget}">
-                                    <h4 class="rightContent" th:case="${T(nordgym.domain.enums.GenderTarget).MALE}"
+                                    <h4 class="rightContent" th:case="${T(com.nordgym.domain.enums.GenderTarget).MALE}"
                                         th:utext="Мъже"></h4>
-                                    <h4 class="rightContent" th:case="${T(nordgym.domain.enums.GenderTarget).FEMALE}"
+                                    <h4 class="rightContent" th:case="${T(com.nordgym.domain.enums.GenderTarget).FEMALE}"
                                         th:utext="Жени"></h4>
-                                    <h4 class="rightContent" th:case="${T(nordgym.domain.enums.GenderTarget).BOTH}"
+                                    <h4 class="rightContent" th:case="${T(com.nordgym.domain.enums.GenderTarget).BOTH}"
                                         th:utext="Мъже + ' & ' + Жени"></h4>
                                 </th:block>
                             </div>
