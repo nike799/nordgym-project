@@ -23,13 +23,11 @@ public class HomeController extends BaseController {
 
     @GetMapping("/")
     public ModelAndView index(){
-        logger.info("Hello Kolqo");
         return this.view("index");
     }
 
     @GetMapping("/home")
     public ModelAndView home(ModelAndView modelAndView, Authentication authentication) {
-        logger.info("Hello Kolqo");
         if (authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ADMIN"))) {
             return this.redirect("/admin/home");
         }

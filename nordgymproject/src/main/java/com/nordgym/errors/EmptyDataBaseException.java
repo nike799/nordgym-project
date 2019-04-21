@@ -1,4 +1,4 @@
-package com.nordgym.error;
+package com.nordgym.errors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

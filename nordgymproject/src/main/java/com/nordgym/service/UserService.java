@@ -1,6 +1,6 @@
 package com.nordgym.service;
 
-import com.nordgym.error.ResourceNotFoundException;
+import com.nordgym.errors.ResourceNotFoundException;
 import com.nordgym.domain.models.binding.UserUpdateBindingModel;
 import com.nordgym.domain.models.service.UserServiceModel;
 import com.nordgym.domain.models.view.UserViewModel;
@@ -15,7 +15,7 @@ public interface UserService extends UserDetailsService {
 
     UserServiceModel createUser(UserServiceModel userServiceModel, String subscriptionType);
 
-    UserServiceModel updateUser(UserUpdateBindingModel userUpdateBindingModel) throws NoSuchFieldException, IllegalAccessException;
+    UserServiceModel userEdit(UserUpdateBindingModel userUpdateBindingModel) throws NoSuchFieldException, IllegalAccessException;
 
     List<UserViewModel> getAllUserViewModels();
 

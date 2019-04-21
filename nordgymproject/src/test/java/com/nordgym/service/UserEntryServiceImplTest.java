@@ -4,7 +4,7 @@ import com.nordgym.domain.entities.Subscription;
 import com.nordgym.domain.entities.User;
 import com.nordgym.domain.entities.UserEntry;
 import com.nordgym.domain.enums.SubscriptionType;
-import com.nordgym.error.ResourceNotFoundException;
+import com.nordgym.errors.ResourceNotFoundException;
 import com.nordgym.repository.ExpiredSubscriptionRepository;
 import com.nordgym.repository.SubscriptionRepository;
 import com.nordgym.repository.UserEntryRepository;

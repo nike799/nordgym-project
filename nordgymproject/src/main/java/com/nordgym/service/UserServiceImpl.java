@@ -7,7 +7,7 @@ import com.nordgym.domain.enums.SubscriptionType;
 import com.nordgym.domain.models.binding.UserUpdateBindingModel;
 import com.nordgym.domain.models.service.UserServiceModel;
 import com.nordgym.domain.models.view.UserViewModel;
-import com.nordgym.error.ResourceNotFoundException;
+import com.nordgym.errors.ResourceNotFoundException;
 import com.nordgym.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserServiceModel updateUser(UserUpdateBindingModel userUpdateBindingModel) throws NoSuchFieldException, IllegalAccessException {
+    public UserServiceModel userEdit(UserUpdateBindingModel userUpdateBindingModel) throws NoSuchFieldException, IllegalAccessException {
         User user = getUser(userUpdateBindingModel.getId());
         if (!userUpdateBindingModel.getPassword().isEmpty() && !userUpdateBindingModel.getPassword().isBlank()) {
             user.setPassword(this.bCryptPasswordEncoder.encode(userUpdateBindingModel.getPassword()));

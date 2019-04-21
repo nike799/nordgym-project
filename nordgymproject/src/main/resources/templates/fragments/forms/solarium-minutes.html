@@ -2,19 +2,19 @@
     <div class="form-group">
         <div class="row">
             <div class="col-lg-6">
-                <form method="post" th:action="@{/user-profile/__${userViewModel.id}__/add-minutes}">
+                <form method="post" th:action="@{/user-profile/__${userViewModel.id}__}">
                     <br/>
                     <label for="insert-minutes"><b>Въведи минути:</b></label>
                     <input type="number" id="insert-minutes" name="minutes" required>
                     <br/>
                     <br/>
                     <div>
-                        <input type="submit" class="btn btn-primary btn-sm btn-block" th:value="|Добави|">
+                        <input type="submit" class="btn btn-primary btn-sm btn-block" th:value="|Добави|"  name="add-minutes">
                     </div>
                 </form>
             </div>
             <div class="col-lg-6">
-                <form method="post" th:action="@{/user-profile/__${userViewModel.id}__/use-minutes}">
+                <form method="post" th:action="@{/user-profile/__${userViewModel.id}__}">
                     <div class="form-group">
                         <div class="row">
                             <br/>
@@ -23,7 +23,7 @@
                             <br/>
                             <br/>
                             <div>
-                                <input type="submit" class="btn btn-danger btn-sm btn-block" th:value="|Намали|">
+                                <input type="submit" class="btn btn-danger btn-sm btn-block" th:value="|Намали|" name="use-minutes">
                             </div>
                         </div>
                     </div>

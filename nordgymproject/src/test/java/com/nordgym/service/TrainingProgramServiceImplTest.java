@@ -1,11 +1,11 @@
 package com.nordgym.service;
 
-import com.nordgym.error.ResourceNotFoundException;
+import com.nordgym.errors.ResourceNotFoundException;
 import com.nordgym.domain.entities.TrainingProgram;
 import com.nordgym.domain.enums.GenderTarget;
 import com.nordgym.domain.enums.TrainingLevel;
 import com.nordgym.domain.models.service.TrainingProgramServiceModel;
-import com.nordgym.error.EmptyDataBaseException;
+import com.nordgym.errors.EmptyDataBaseException;
 import com.nordgym.repository.TrainingProgramRepository;
 import org.junit.Assert;
 import org.junit.Before;

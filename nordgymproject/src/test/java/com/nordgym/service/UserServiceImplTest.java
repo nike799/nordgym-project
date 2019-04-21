@@ -8,7 +8,7 @@ import com.nordgym.domain.enums.SubscriptionType;
 import com.nordgym.domain.models.binding.UserUpdateBindingModel;
 import com.nordgym.domain.models.service.UserServiceModel;
 import com.nordgym.domain.models.view.UserViewModel;
-import com.nordgym.error.ResourceNotFoundException;
+import com.nordgym.errors.ResourceNotFoundException;
 import com.nordgym.repository.*;
 import org.junit.Assert;
 import org.junit.Before;
@@ -86,7 +86,7 @@ public class UserServiceImplTest {
         UserUpdateBindingModel userUpdateBindingModel = this.userUpdateBindingModel();
         userUpdateBindingModel.setId(user.getId());
 
-        UserServiceModel expected = this.userService.updateUser(userUpdateBindingModel);
+        UserServiceModel expected = this.userService.userEdit(userUpdateBindingModel);
         UserServiceModel actual = this.modelMapper.map(this.userRepository.findAll().get(0), UserServiceModel.class);
 
         Assert.assertEquals(expected.getSubscriptionNumber(), actual.getSubscriptionNumber());
@@ -101,7 +101,7 @@ public class UserServiceImplTest {
     public void updateUser_ifNotSuccess_throws_ResourceNotFoundException() throws NoSuchFieldException, IllegalAccessException {
         UserUpdateBindingModel userUpdateBindingModel = this.userUpdateBindingModel();
         userUpdateBindingModel.setId(100L);
-        this.userService.updateUser(userUpdateBindingModel);
+        this.userService.userEdit(userUpdateBindingModel);
     }
 
     @Test

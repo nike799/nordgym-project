@@ -1,7 +1,7 @@
 package com.nordgym.service;
 
 import com.nordgym.constants.GlobalConstants;
-import com.nordgym.error.ResourceNotFoundException;
+import com.nordgym.errors.ResourceNotFoundException;
 import com.nordgym.repository.ExpiredSubscriptionRepository;
 import com.nordgym.repository.UserEntryRepository;
 import com.nordgym.repository.UserRepository;
