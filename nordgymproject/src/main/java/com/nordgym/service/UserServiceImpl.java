@@ -204,7 +204,9 @@ public class UserServiceImpl implements UserService {
         user.getEntries().forEach(this.userEntryRepository::delete);
         user.getExpiredSubscriptions().forEach(this.expiredSubscriptionRepository::delete);
         this.userRepository.delete(user);
-        this.subscriptionRepository.deleteById(user.getSubscription().getId());
+        if(user.getSubscription() != null){
+            this.subscriptionRepository.deleteById(user.getSubscription().getId());
+        }
         if (user.getSolariumSubscription() != null) {
             this.solariumSubscriptionRepository.deleteById(user.getSolariumSubscription().getId());
         }

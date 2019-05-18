@@ -9,7 +9,7 @@
                     <br/>
                     <br/>
                     <div>
-                        <input type="submit" class="btn btn-primary btn-sm btn-block" th:value="|Добави|"  name="add-minutes">
+                        <input type="submit" class="btn btn-primary btn-sm btn-block" th:value="|Добави|"  name="add-minutes" min="5" max="60">
                     </div>
                 </form>
             </div>
@@ -23,7 +23,7 @@
                             <br/>
                             <br/>
                             <div>
-                                <input type="submit" class="btn btn-danger btn-sm btn-block" th:value="|Намали|" name="use-minutes">
+                                <input type="submit" class="btn btn-danger btn-sm btn-block" th:value="|Намали|" name="use-minutes" min="3" max="60">
                             </div>
                         </div>
                     </div>

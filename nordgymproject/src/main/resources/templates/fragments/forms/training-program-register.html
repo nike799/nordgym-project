@@ -48,7 +48,7 @@
                         <label for="programDuration"><b>Продължителност на програмата</b></label>
                         <span class="red-star">★</span>
                         <input type="number" placeholder="Въведи продължителност на програмата" id="programDuration" name="programDuration"
-                               th:value="*{programDuration}">
+                               th:value="*{programDuration}" min="4">
                         <p th:classappend="${#fields.hasErrors('programDuration')} ? 'text-danger'"
                            th:each="error : ${#fields.errors('programDuration')}" th:text="${error}"></p>
                     </div>
@@ -58,7 +58,7 @@
                         <label for="daysPerWeek"><b>Брой дни седмично</b></label>
                         <span class="red-star">★</span>
                         <input type="number" placeholder="Въведи брой дни седмично" id="daysPerWeek" name="daysPerWeek"
-                               th:value="*{daysPerWeek}">
+                               th:value="*{daysPerWeek}" min="2" max="7">
                         <p th:classappend="${#fields.hasErrors('daysPerWeek')} ? 'text-danger'"
                            th:each="error : ${#fields.errors('daysPerWeek')}" th:text="${error}"></p>
                     </div>
