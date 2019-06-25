@@ -1,5 +1,7 @@
 package com.nordgym.configuration;
 
+import com.nordgym.filters.JWTAuthenticationFilter;
+import com.nordgym.filters.JWTAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
@@ -7,6 +9,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
@@ -30,42 +33,62 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().csrfTokenRepository(csrfTokenRepository())
+                .cors()
                 .and()
+                .csrf()
+                .disable()
                 .authorizeRequests()
-                .antMatchers(PERMITTED_ROUTES_CSS_JS).permitAll()
-                .antMatchers(PERMITTED_ROUTES_ANONYMOUS).permitAll()
-                .antMatchers(PERMITTED_ROUTES_USER).hasAnyAuthority("ADMIN", "USER")
-                .antMatchers(PERMITTED_ROUTES_ADMIN).hasAuthority("ADMIN")
+                .antMatchers("/**").permitAll()
+                .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/home")
-                .permitAll()
-                .usernameParameter("username")
-                .passwordParameter("password")
+                .formLogin().loginPage("/login")
+                .usernameParameter("username").passwordParameter("password")
+                .defaultSuccessUrl("/", true)
                 .and()
-                .rememberMe()
-                .rememberMeParameter("remember")
-                .rememberMeCookieName("rememberMeCookie")
-                .key("hardaway")
-                .userDetailsService(this.userDetailsService)
-                .tokenValiditySeconds(10000)
+                .logout().logoutSuccessUrl("/login?logout")
                 .and()
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login?logout")
-                .invalidateHttpSession(true)
-                .and()
-                .exceptionHandling()
-                .accessDeniedPage("/unauthorized")
-                .and();
+                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+                .addFilter(new JWTAuthorizationFilter(authenticationManager()))
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//        http
+//                .csrf().csrfTokenRepository(csrfTokenRepository()).disable()
+//                .authorizeRequests()
+//                .antMatchers(PERMITTED_ROUTES_CSS_JS).permitAll()
+//                .antMatchers(PERMITTED_ROUTES_ANONYMOUS).permitAll()
+//                .antMatchers(PERMITTED_ROUTES_USER).hasAnyAuthority("ADMIN", "USER")
+//                .antMatchers(PERMITTED_ROUTES_ADMIN).hasAuthority("ADMIN")
+//                .and()
+//                .formLogin()
+//                .loginPage("/login")
+//                .defaultSuccessUrl("/home")
+//                .permitAll()
+////                .usernameParameter("username")
+////                .passwordParameter("password")
+//                .and()
+//                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+//                .addFilter(new JWTAuthorizationFilter(authenticationManager()))
+//                .rememberMe()
+//                .rememberMeParameter("remember")
+//                .rememberMeCookieName("rememberMeCookie")
+//                .key("hardaway")
+//                .userDetailsService(this.userDetailsService)
+//                .tokenValiditySeconds(10000)
+//                .and()
+//                .logout()
+//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//                .logoutSuccessUrl("/login?logout")
+//                .invalidateHttpSession(true)
+//                .and()
+//                .exceptionHandling()
+//                .accessDeniedPage("/unauthorized")
+//                .and();
     }
-    private CsrfTokenRepository csrfTokenRepository() {
-        HttpSessionCsrfTokenRepository repository =
-                new HttpSessionCsrfTokenRepository();
-        repository.setSessionAttributeName("_csrf");
-        return repository;
-    }
+//    private CsrfTokenRepository csrfTokenRepository() {
+//        HttpSessionCsrfTokenRepository repository =
+//                new HttpSessionCsrfTokenRepository();
+//        repository.setSessionAttributeName("_csrf");
+//        return repository;
+//    }
 }
 
